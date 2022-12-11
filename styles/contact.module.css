@@ -1,0 +1,23 @@
+#button{
+    width: 17rem;
+    font-size: 20px;
+}
+
+#img{
+    width: 30px;
+    height: 30px;
+}
+
+#link{
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.877);
+}
+
+#img2{
+    width: 25px;
+    height: 25px;
+}
+
+#margin{
+    margin-top: 7rem;
+}
