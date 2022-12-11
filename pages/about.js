@@ -63,7 +63,8 @@ const about = (props) => {
                     <div class="container text-center">
                         <div class="row">
                             <div class="col">
-                                1 of 3
+                                <img src="/images/teacher.png" alt="..." className={`img-thumbnail bg-${props.mode}`} />
+                                <p className={`text-${props.mode === 'light' ? 'dark' : 'light'} mt-4`}>Teachers can connect with thier students by registering or login and try hard for getting the number 1 rank to unlock the donation system. If teacher is new to this website you have to first register youself and then you can teach your students</p>
                             </div>
                             <div class="col">
                                 2 of 3
