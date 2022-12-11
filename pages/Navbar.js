@@ -8,8 +8,8 @@ const Navbar = (props) => {
       <nav className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}>
         <div className="container-fluid">
           <Link className="navbar-brand" href={'/'}>
-            <img src="/images/logo.png" alt="Bootstrap" width="50" height="34" />
-            Educative
+            <img src="/images/logo.png" alt="Bootstrap" width="50" height="50" />
+            MEET-IN
           </Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
