@@ -1,0 +1,13 @@
+#bg1{
+    background-color: greenyellow;
+}
+
+#bg2{
+    background-color: lightblue;
+}
+
+#button{
+    height: 4rem;
+    font-size: 20px;
+    width: 14rem;
+}
