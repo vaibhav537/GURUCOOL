@@ -102,14 +102,14 @@ const contact = (props) => {
                         <div className="fw-bold fs-5 ms-2 mt-1">
                             Phone:
                         </div>
-                        <div className="ms-2 fs-5 mt-1 fw-light">6350330324</div>
+                        <div className="ms-2 fs-5 mt-1 fw-light">6546549870</div>
                     </div>
                     <div className="d-flex ms-3" id={styles.margin}>
                         <img src="/images/tele.png" alt="..." id={styles.img2} className="img-fluid" />
                         <div className="fw-bold fs-5 ms-2 mt-1">
                             Email:
                         </div>
-                        <div className="ms-2 fs-5 mt-1 fw-light">vaibhavmali537@gmail.com </div>
+                        <div className="ms-2 fs-5 mt-1 fw-light">vbpc1956@gmail.com </div>
                     </div>
                 </div>
             </div>
