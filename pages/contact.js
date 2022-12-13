@@ -75,7 +75,7 @@ const contact = (props) => {
                             <input type="number" className="form-control" id="floatingPassword" placeholder="Phone Number" name='phone' value={user.phone} onChange={handleChange} autoComplete='off' />
                             <label htmlFor="floatingPassword"> Phone</label>
                         </div>
-                        <div className="form-floating mb-3">
+                        <div className={`form-floating mb-3 bg-${props.mode} text-${props.mode ==='light' ?'dark':'light'}`}>
                             <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" name='email' value={user.email} onChange={handleChange} autoComplete='off' />
                             <label htmlFor="floatingInput">Email </label>
                         </div>
