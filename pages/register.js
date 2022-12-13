@@ -26,7 +26,7 @@ const Register = (props) => {
       <div className="container d-flex justify-content-center align-items-center p-5">
         <div className={`p-5 text-${props.mode === 'light' ? 'dark' : 'success'} rounded`} id={styles.bg1}>
         <p className="fs-4 fw-semibold text-sm-start text-md-start text-lg-start text-xl-start">Register as Teacher</p>
-        <article className='fs-5'> This is button for those who wants to teach others and can teach by the register below</article>
+        <article className='fs-5'> This is button for those who wants to teach others and can teach by the register below and below</article>
         <button className={"btn btn-outline-success d-block m-auto mt-5"} onClick={handleTeacher} id={styles.button}>Register as Teacher </button>
         </div>
         <div className={` p-5 text-${props.mode === 'light' ? 'dark' : 'primary'} rounded`} id={styles.bg2}>

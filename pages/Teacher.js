@@ -2,7 +2,7 @@ import React from 'react'
 
 const Teacher = () => {
   return (
-    <div>Teacher</div>
+    <div>Thisi is the teacher page to be pull</div>
   )
 }
 
