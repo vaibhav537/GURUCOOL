@@ -68,25 +68,25 @@ const contact = (props) => {
                     <p className={`fs-2 fw-bold text-${props.mode ==='light' ?'dark':'light'}`}>Get In Touch</p>
                     <form method='POST'>
                         <div className="form-floating mb-3">
-                            <input type="text" className="form-control" id="floatingInput" placeholder="Name Here" name='name' value={user.name} onChange={handleChange} autoComplete='off' />
-                            <label htmlFor="floatingInput">Name</label>
+                            <input type="text" className="form-control"  style={{backgroundColor: props.mode ==='light' ?'white':'black', color: props.mode ==='light' ?'black':'white'}} id="floatingInput" placeholder="Name Here" name='name' value={user.name} onChange={handleChange} autoComplete='off' />
+                            <label htmlFor="floatingInput" style={{color: props.mode ==='light' ?'black':'white'}}>Name</label>
                         </div>
                         <div className="form-floating mb-3">
-                            <input type="number" className="form-control" id="floatingPassword" placeholder="Phone Number" name='phone' value={user.phone} onChange={handleChange} autoComplete='off' />
-                            <label htmlFor="floatingPassword"> Phone</label>
+                            <input type="number" className="form-control" style={{backgroundColor: props.mode ==='light' ?'white':'black', color: props.mode ==='light' ?'black':'white'}} id="floatingPassword" placeholder="Phone Number" name='phone' value={user.phone} onChange={handleChange} autoComplete='off' />
+                            <label htmlFor="floatingPassword" style={{color: props.mode ==='light' ?'black':'white'}}> Phone</label>
                         </div>
                         <div className={`form-floating mb-3`}>
-                            <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" name='email' value={user.email} onChange={handleChange} autoComplete='off' />
-                            <label htmlFor="floatingInput">Email </label>
+                            <input type="email" className="form-control" style={{backgroundColor: props.mode ==='light' ?'white':'black', color: props.mode ==='light' ?'black':'white'}} id="floatingInput" placeholder="name@example.com" name='email' value={user.email} onChange={handleChange} autoComplete='off' />
+                            <label htmlFor="floatingInput" style={{color: props.mode ==='light' ?'black':'white'}}>Email </label>
                         </div>
                         <div className="form-floating">
-                            <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name='desc' value={user.desc} onChange={handleChange} autoComplete='off' />
-                            <label htmlFor="floatingTextarea2">Write Your Concern here</label>
+                            <textarea className="form-control" style={{backgroundColor: props.mode ==='light' ?'white':'black', color: props.mode ==='light' ?'black':'white'}} placeholder="Leave a comment here" id="floatingTextarea2" name='desc' value={user.desc} onChange={handleChange} autoComplete='off' />
+                            <label htmlFor="floatingTextarea2" style={{color: props.mode ==='light' ?'black':'white'}}>Write Your Concern here</label>
                         </div>
                         <input className="btn btn-success mt-5 d-block m-auto" id={styles.button} type='submit' name='send' value='Send' onClick={PostData} />
                     </form>
                 </div>
-                <div className="text-bg-primary p-3 fs-1 fw-bold container text-center ">
+                <div className="text-light p-3 fs-1 fw-bold container text-center " style={{backgroundColor: props.mode ==='light' ?'#4d79ff':'#002699'}}>
                     <p>Contact Us </p>
                     <div className="d-flex mt-5 ms-2">
                         <img src="/images/address.png" alt="..." id={styles.img} className="img-fluid" />
@@ -94,7 +94,7 @@ const contact = (props) => {
                             Address:
                         </div>
                         <Link href={'https://goo.gl/maps/NM75qDEK4yR4xz5h9'} id={styles.link}>
-                            <div className="ms-1 fs-5 mt-1 fw-light"> 185, Vidya Bhawan Polythecnic College, Udaipur, Raj. </div>
+                            <div className=" fs-5 mt-1 fw-light"> 185, Vidya Bhawan Polythecnic College, Udaipur, Raj. </div>
                         </Link>
                     </div>
                     <div className="d-flex ms-3" id={styles.margin}>
