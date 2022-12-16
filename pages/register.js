@@ -3,26 +3,37 @@ import Head from 'next/head'
 import styles from '../styles/Register.module.css'
 
 const Register = (props) => {
+  const [photo123, setphoto123] = useState('/images/Blank.png');
 
-  const [name, setName] = useState('/images/Blank.png');
+  const handleInputChange = (event) => {
+    setphoto123(URL.createObjectURL(event.target.files[0]));
+    document.getElementById('imgContainer').style.width = '100%'
+    document.getElementById('imgContainer').style.height = '100%'
+    document.getElementById('imgContainer').style.margin = '0'
+  }
 
-  const [setSelectedImage] = useState();
+  const imageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedImage(e.target.files[0]);
+    }
+  };
   const [visible1, setVisible1] = useState(false)
   const [visible2, setVisible2] = useState(true)
 
   const showDiv1 = () => {
+    setphoto123('/images/Blank.png')
     setVisible1(false);
     setVisible2(true);
   }
   const showDiv2 = () => {
+    setphoto123('/images/Blank.png')
     setVisible1(true);
     setVisible2(false);
   }
 
-  const imageChange = (e) => {
-    if (e.target.files && e.target.files.lenght > 0) {
-      console.log("Hello");
-    }
+  const handleSubmitStudent = (event) => {
+    event.preventDefault();
+    alert("Form");
   }
   return (
     <>
@@ -43,33 +54,53 @@ const Register = (props) => {
           {visible2 &&
             <div className={`container-fluid bg-${props.mode} `}>
               <p className={`text-${props.mode === 'light' ? 'dark' : 'light'} text-center mt-5 fs-3 text-uppercase fw-semibold`}> Register as teacher</p>
-              <form method="post" className='d-flex'>
-                <div className={styles.box}>
-                  <div className="form-floating mb-3">
-                    <input type="text" className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" />
-                    <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }}>Email address 1</label>
+              <form method="post" onSubmit={(event) => handleSubmitStudent(event)}>
+                <div className="container d-flex">
+
+
+                  <div className={styles.box}>
+                    <div className="form-floating mb-3">
+                      <input type="text" name='name' className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" autoComplete='off' />
+                      <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }} onChange={e => handleInputChange(e)}>Name</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                      <input type="email" name='email' className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" autoComplete='off' />
+                      <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }}>Email</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                      <input type="password" name='password' className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" autoComplete='off' />
+                      <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }}> Create Password</label>
+                    </div>
+                    <div className="mb-3">
+                      <select className="form-select form-select-lg mb-3 fs-6" aria-label="Default select example">
+                        <option selected>Select the Category in which you will Teach</option>
+                        <option value="1">Sixth</option>
+                        <option value="2">Seventh</option>
+                        <option value="3">Eighth</option>
+                        <option value="3">Ninth</option>
+                        <option value="3">Tenth</option>
+                        <option value="3">Eleventh</option>
+                        <option value="3">Twelfth</option>
+                        <option value="3">C</option>
+                      </select>
+                    </div>
+                    <div className="form-floating mb-3">
+                      <input type="password" name='confirmPassword' className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" autoComplete='off' />
+                      <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }}>Confirm Your Password</label>
+                    </div>
                   </div>
-                  <div className="form-floating mb-3">
-                    <input type="email" className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" />
-                    <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }}>Email address 1</label>
-                  </div>
-                  <div className="form-floating mb-3">
-                    <input type="password" className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" />
-                    <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }}>Email address 1</label>
-                  </div>
-                  <div className="form-floating mb-3">
-                    <input type="password" className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" />
-                    <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }}>Email address 1</label>
+                  <div className={`boxProfile text-${props.mode === 'light' ? 'dark' : 'light'} d-flex flex-column`}>
+                    <div className="container-fluid ms-4" id={styles.imageBox} style={{ border: `5px solid ${props.mode === 'light' ? 'black' : 'white'}` }}>
+                      <img src={photo123} id="imgContainer" alt="..." className={styles.image} />
+                    </div>
+                    <div className="input-group mb-3 mt-3 ms-5">
+                      <input type="file" id="img" style={{ display: 'none' }} accept='image/*' onChange={handleInputChange} />
+                      <label htmlFor="img" className={`btn btn-outline-${props.mode === 'light' ? 'dark' : 'light'} rounded ms-4 mt-2`}>Set Profile Picture </label>
+                    </div>
                   </div>
                 </div>
-                <div className={`boxProfile text-${props.mode === 'light' ? 'dark' : 'light'} d-flex flex-column`}>
-                  <div className="container-fluid ms-4" id={styles.imageBox} style={{ border: `5px solid ${props.mode === 'light' ? 'black' : 'white'}` }}>
-                    <img src="/images/Blank.png" alt="..." id={styles.image} />
-                  </div>
-                  <div className="input-group mb-3 mt-3 ms-5">
-                    <input type="file" id="img" style={{display:'none'}} />
-                    <label for="img" className={`btn btn-outline-${props.mode === 'light' ? 'dark' : 'light'} rounded ms-4 mt-2`}>Set Profile Picture </label>
-                  </div>
+                <div className="container ">
+                  <button className='btn btn-primary' id={styles.registerButton} type='submit'>Register</button>
                 </div>
               </form>
             </div>
@@ -77,7 +108,7 @@ const Register = (props) => {
           {visible1 &&
             <div className={`container-fluid bg-${props.mode} `}>
               <p className={`text-${props.mode === 'light' ? 'dark' : 'light'} text-center mt-5 fs-3 text-uppercase fw-semibold`}> Register as Student</p>
-              <form method="post" className='d-flex'>
+              <form method="post" className='d-flex' >
                 <div className={styles.box}>
                   <div className="form-floating mb-3">
                     <input type="text" className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" />
@@ -98,11 +129,11 @@ const Register = (props) => {
                 </div>
                 <div className={`boxProfile text-${props.mode === 'light' ? 'dark' : 'light'} d-flex flex-column`}>
                   <div className="container-fluid ms-4" id={styles.imageBox} style={{ border: `5px solid ${props.mode === 'light' ? 'black' : 'white'}` }}>
-                    <img src="/images/Blank.png" alt="..." id={styles.image} />
+                    <img src={photo123} id="imgContainer" alt="..." className={styles.image} />
                   </div>
                   <div className="input-group mb-3 mt-3 ms-5">
-                    <input type="file" id="img" style={{display:'none'}} />
-                    <label for="img" className={`btn btn-outline-${props.mode === 'light' ? 'dark' : 'light'} rounded ms-4 mt-2`}>Set Profile Picture </label>
+                    <input type="file" id="img" style={{ display: 'none' }} accept='image/*' onChange={handleInputChange} />
+                    <label htmlFor="img" className={`btn btn-outline-${props.mode === 'light' ? 'dark' : 'light'} rounded ms-4 mt-2`}>Set Profile Picture </label>
                   </div>
                 </div>
               </form>

@@ -20,15 +20,17 @@
 #imageBox{
     width: 267px;
     height: 221px;
-    border-radius: 50%;
+    padding: 0;
+    border-radius: 5px;
 }
 
 
-#image{
+.image{
     position: relative;
     margin-top: 17px;
     width: 232px;
     height: 143px;
+    margin-left: 11px;
 }
 
 #file{
@@ -37,4 +39,9 @@
 
 #file::file-selector-button{
      display:none;
+}
+
+#registerButton{
+    margin-left: 17rem;
+    margin-top: 2rem;   
 }
