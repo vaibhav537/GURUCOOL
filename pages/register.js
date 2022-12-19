@@ -1,8 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Register.module.css'
 
 const Register = (props) => {
+
+  const [field, setField] = useState([]);
+
+  useEffect(() => {
+    const getField = async() =>{
+      const res = await fetch('')
+    }
+
+    getField
+  }, [])
+  
+  
+
+
+
   const [photo123, setphoto123] = useState('/images/Blank.png');
 
   const handleInputChange = (event) => {
@@ -54,43 +69,61 @@ const Register = (props) => {
           {visible2 &&
             <div className={`container-fluid bg-${props.mode} `}>
               <p className={`text-${props.mode === 'light' ? 'dark' : 'light'} text-center mt-5 fs-3 text-uppercase fw-semibold`}> Register as teacher</p>
-              <form method="post" onSubmit={(event) => handleSubmitStudent(event)}>
+              <form method="post" id="myForms">
                 <div className="container d-flex">
 
 
                   <div className={styles.box}>
                     <div className="form-floating mb-3">
-                      <input type="text" name='name' className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" autoComplete='off' />
+                      <input type="text" name='name' className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput1" placeholder="name@example.com" autoComplete='off' required/>
                       <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }} onChange={e => handleInputChange(e)}>Name</label>
                     </div>
                     <div className="form-floating mb-3">
-                      <input type="email" name='email' className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" autoComplete='off' />
+                      <input type="email" name='email' className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput2" placeholder="name@example.com" autoComplete='off' required/>
                       <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }}>Email</label>
                     </div>
                     <div className="form-floating mb-3">
-                      <input type="password" name='password' className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" autoComplete='off' />
+                      <input type="password" name='password' className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput3" placeholder="name@example.com" autoComplete='off'  required/>
                       <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }}> Create Password</label>
                     </div>
-                    <div className="mb-3">
-                      <select className="form-select form-select-lg mb-3 fs-6" aria-label="Default select example">
-                        <option selected>Select the Category in which you will Teach</option>
-                        <option value="1">Sixth</option>
-                        <option value="2">Seventh</option>
-                        <option value="3">Eighth</option>
-                        <option value="3">Ninth</option>
-                        <option value="3">Tenth</option>
-                        <option value="3">Eleventh</option>
-                        <option value="3">Twelfth</option>
-                        <option value="3">C</option>
-                      </select>
-                    </div>
+
                     <div className="form-floating mb-3">
-                      <input type="password" name='confirmPassword' className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput" placeholder="name@example.com" autoComplete='off' />
-                      <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }}>Confirm Your Password</label>
+                      <input type="password" name='confirmPassword' className="form-control" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} id="floatingInput4" placeholder="name@example.com" autoComplete='off' />
+                      <label htmlFor="floatingInput" style={{ color: props.mode === 'light' ? 'black' : 'white' }} required>Confirm Your Password</label>
+                    </div>
+                    <p className='fs-5 mt-1' style={{color: props.mode === 'light' ? 'black' : 'white' }}> Choose the category in which you will teach :</p>
+                    <div className="grid text-center">
+                      <div className="g-col-6 g-col-md-4">
+                        <label htmlFor="category" className='form-label' style={{ color: props.mode === 'light' ? 'black' : 'white' }}> Category</label>
+                        <select style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} className="form-select" aria-label="Default select example" required>
+                          <option selected  disabled value="" className='text-center'>-- Select --</option>
+                          <option value="1" className='text-center'>One</option>
+                          <option value="2" className='text-center'>Two</option>
+                          <option value="3" className='text-center'>Three</option>
+                        </select>
+                      </div>
+                      <div className="g-col-6 g-col-md-4">
+                      <label htmlFor="category" className='form-label'style={{ color: props.mode === 'light' ? 'black' : 'white' }}> Branch / Sub Category</label>
+                        <select className="form-select" aria-label="Default select example" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} required>
+                          <option selected disabled value="" className='text-center'>--Select--</option>
+                          <option value="1" className='text-center'>One</option>
+                          <option value="2" className='text-center'>Two</option>
+                          <option value="3" className='text-center'>Three</option>
+                        </select>
+                      </div>
+                      <div className="g-col-6 g-col-md-4">
+                      <label htmlFor="category" className='form-label' style={{ color: props.mode === 'light' ? 'black' : 'white' }}> Class / Year </label>
+                        <select className="form-select" aria-label="Default select example" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }} required>
+                          <option selected disabled value="" className='text-center'>--Select--</option>
+                          <option value="1" className='text-center'>One</option>
+                          <option value="2" className='text-center'>Two</option>
+                          <option value="3" className='text-center'>Three</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                   <div className={`boxProfile text-${props.mode === 'light' ? 'dark' : 'light'} d-flex flex-column`}>
-                    <div className="container-fluid ms-4" id={styles.imageBox} style={{ border: `5px solid ${props.mode === 'light' ? 'black' : 'white'}` }}>
+                    <div className="container-fluid ms-4" id={styles.imageBox} style={{ border: `5px solid ${props.mode === 'light' ? 'black' : 'grey'}` }}>
                       <img src={photo123} id="imgContainer" alt="..." className={styles.image} />
                     </div>
                     <div className="input-group mb-3 mt-3 ms-5">
@@ -100,7 +133,7 @@ const Register = (props) => {
                   </div>
                 </div>
                 <div className="container ">
-                  <button className='btn btn-primary' id={styles.registerButton} type='submit'>Register</button>
+                  <input className='btn btn-primary btn-lg' id={styles.registerButton} type='submit' value="Register" onSubmit={(event) => handleSubmitStudent(event)}/>
                 </div>
               </form>
             </div>
@@ -128,7 +161,7 @@ const Register = (props) => {
                   </div>
                 </div>
                 <div className={`boxProfile text-${props.mode === 'light' ? 'dark' : 'light'} d-flex flex-column`}>
-                  <div className="container-fluid ms-4" id={styles.imageBox} style={{ border: `5px solid ${props.mode === 'light' ? 'black' : 'white'}` }}>
+                  <div className="container-fluid ms-4" id={styles.imageBox} style={{ border: `5px solid ${props.mode === 'light' ? 'black' : 'grey'}` }}>
                     <img src={photo123} id="imgContainer" alt="..." className={styles.image} />
                   </div>
                   <div className="input-group mb-3 mt-3 ms-5">

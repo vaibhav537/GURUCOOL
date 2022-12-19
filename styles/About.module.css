@@ -1,0 +1,18 @@
+#imgTeacher {
+    width: 10rem;
+    margin: auto;
+    display: block;
+}
+
+#imgStudent {
+    height: 10.5rem;
+    width: 10rem;
+    margin: auto;
+    display: block;
+}
+
+#imgAdmin{
+    width: 10rem;
+    margin: 8px auto;
+    display: block; 
+}

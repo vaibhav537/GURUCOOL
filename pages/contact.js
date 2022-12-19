@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/contact.module.css'
-import Alert from './Alert'
+import Alert from './components/Alert'
 const contact = (props) => {
     const [alert, setAlert] = useState(null)
     const showAlert = (message, type) =>{

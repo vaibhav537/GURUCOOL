@@ -1,5 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
+import styles from '../styles/About.module.css'
+import Team from './components/Team'
 
 const about = (props) => {
     return (
@@ -18,64 +20,36 @@ const about = (props) => {
                     <p className={`text-center text-uppercase fs-2 fw-bold text-${props.mode === 'light' ? 'dark' : 'light'}`}>
                         Developer's team
                     </p>
-
-                    <div className="row row-cols-1 row-cols-md-4 g-4 mt-5">
-                        <div className="col">
-                            <div className={`card bg-${props.mode}`} style={{ width: "249px" }} >
-                                <img src="/images/profile.png" className="card-img-top" alt="..." style={{ width: "245px" }} />
-                                <div className={`card-body text-${props.mode === 'light' ? 'dark' : 'light'}`}>
-                                    <h5 className="card-title">Group Member Name 1</h5>
-                                    <p className="card-text">Some text about member 1</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className={`card bg-${props.mode}`} style={{ width: "249px" }}>
-                                <img src="/images/profile.png" className="card-img-top" alt="..." style={{ width: "245px" }} />
-                                <div className={`card-body text-${props.mode === 'light' ? 'dark' : 'light'}`}>
-                                    <h5 className="card-title">Group Member Name 2</h5>
-                                    <p className="card-text">Some text about member 2</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className={`card bg-${props.mode}`} style={{ width: "249px" }}>
-                                <img src="/images/profile.png" className="card-img-top" alt="..." style={{ width: "245px" }} />
-                                <div className={`card-body text-${props.mode === 'light' ? 'dark' : 'light'}`}>
-                                    <h5 className="card-title">Group Member Name 3</h5>
-                                    <p className="card-text">Some text about member 3</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className={`card bg-${props.mode}`} style={{ width: "249px" }}>
-                                <img src="/images/profile.png" className="card-img-top" alt="..." />
-                                <div className={`card-body text-${props.mode === 'light' ? 'dark' : 'light'}`}>
-                                    <h5 className="card-title">Group Member Name 4</h5>
-                                    <p className="card-text">Some text about member 4</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Team/>
                 </div>
                 <div className="container mt-5">
                     <p className={`fs-2 fw-semibold text-center text-${props.mode === 'light' ? 'dark' : 'light'}`}>FACALITIES</p>
-                    <div className="container text-center">
-                        <div className="row">
-                            <div className="col">
-                                <img src="/images/teacher.png" alt="..." className={`img-thumbnail bg-${props.mode}`} />
-                                <h2 className={`fs-4 mt-4 text-${props.mode === 'light' ? 'dark' : 'light'}`}> Teachers</h2>
-                                <p className={`text-${props.mode === 'light' ? 'dark' : 'light'} mt-2`}>Teachers can connect with thier students by registering or login and try hard for getting the number 1 rank to unlock the donation system. If teacher is new to this website you have to first register youself and then you can teach your students.</p>
+                    <div className="row" >
+                        <div className="col-sm-6" >
+                            <div className="card">
+                                <div className="card-body" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }}>
+                                    <img src="/images/teacher.png" className="img-fluid" id={styles.imgTeacher} alt="..." />
+                                    <h5 className="card-title text-center mt-3">Teacher</h5>
+                                    <p className="card-text">Teachers can connect with thier students by registering or login and try hard for getting the number 1 rank to unlock the donation system. If teacher is new to this website you have to first register youself and then you can teach your students.</p>
+                                </div>
                             </div>
-                            <div className="col">
-                            <img src="/images/student.png" alt="..." className={`img-thumbnail bg-${props.mode}`} style={{width: '343px', height:"333px"}}/>
-                            <h2 className={`fs-4 mt-4 text-${props.mode === 'light' ? 'dark' : 'light'}`}> Students</h2>
-                                <p className={`text-${props.mode === 'light' ? 'dark' : 'light'} mt-2`}>Students can connect and gain the valuable knowledge according to their chosen category and can donate to thier favorite teacher. the students also have to register to tthis website if they are new to this site otherwise they simply can login.</p>
+                        </div>
+                        <div className="col-sm-6 mb-4" >
+                            <div className="card">
+                                <div className="card-body" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }}>
+                                    <img src="/images/student.png" className="img-fluid" id={styles.imgStudent} alt="..." />
+                                    <h5 className="card-title text-center mt-3">Student</h5>
+                                    <p className="card-text">Students can connect and gain the valuable knowledge according to their chosen category and can donate to thier favorite teacher. the students also have to register to tthis website if they are new to this site otherwise they simply can login.</p>
+                                </div>
                             </div>
-                            <div className="col">
-                            <img src="/images/admin.png" alt="..." className={`img-thumbnail bg-${props.mode}`} style={{width: '343px', height:"333px"}}/>
-                            <h2 className={`fs-4 mt-4 text-${props.mode === 'light' ? 'dark' : 'light'}`}> Admin</h2>
-                                <p className={`text-${props.mode === 'light' ? 'dark' : 'light'} mt-2`}>Admin account can be access by the special id and password and can manage the teachers and students by removing them when necessary and can also manage and disturb the rating system by improving someone`s rating.</p>
+                        </div>
+                        <div className="col-sm-6">
+                            <div className="card">
+                                <div className="card-body" style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }}>
+                                <img src="/images/admin.png" className="img-fluid" id={styles.imgAdmin} alt="..." />
+                                    <h5 className="card-title text-center mt-3">Admin</h5>
+                                    <p className="card-text">Admin account can be access by the special id and password and can manage the teachers and students by removing them when necessary and can also manage and disturb the rating system by improving someone`s rating.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
