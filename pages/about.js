@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import styles from '../styles/About.module.css'
-import Team from './components/Team'
+import Team from './components/Team.jsx'
 
 const about = (props) => {
     return (
