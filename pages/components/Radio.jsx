@@ -1,55 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
+import StudentRegister from "./StudentRegister";
+import TeacherRegister from "./TeacherRegister";
 const Radio = () => {
-  return (
-    <div className="flex flex-col bg-slate-100 w-screen h-screen">
-      <div className="flex ml-1 mt-3 w-full md:w-6/12 md:ml-60 md:mt-7 lg:mt-12 lg:ml-[30rem] lg:w-5/12 space-x-2">
-        <div className="relative">
-          <input
-            type="radio"
-            name="user"
-            id="user1"
-            className="hidden peer"
-            checked
-          />
-          <label
-            htmlFor="user1"
-            className="flex gap-4 p-4 rounded-xl text-base peer-checked:text-xl bg-white bg-opacity-90 backdrop-blur-2xl shadow-xl hover:bg-opacity-75 peer-checked:bg-green-300 peer-checked:text-white cursor-pointer peer-checked:p-6  transition-all duration-100 ease-linear"
-          >
-            <h6 className="uppercase select-none">Register as Teacher</h6>
-          </label>
-        </div>
-        <div className="relative">
-          <input type="radio" name="user" id="user2" className="hidden peer" />
-          <label
-            htmlFor="user2"
-            className="flex gap-4 p-4 rounded-xl text-base peer-checked:text-xl bg-white bg-opacity-90 backdrop-blur-2xl shadow-xl hover:bg-opacity-75 peer-checked:bg-blue-300 peer-checked:text-white cursor-pointer peer-checked:p-6 transition-all duration-100 ease-linear"
-          >
-            <h6 className="uppercase select-none">Register as Student</h6>
-          </label>
-        </div>
-      </div>
-      <div className="flex justify-center items-center">
-        <div className="rounded-md p-10  shadow-lg mt-4">
-          <form method="post" className="flex">
-            <div className="">
-              <div className="flex space-y-2">
-                <label htmlFor="">Name:</label>
-                <input type="text" className="" />
-              </div>
-              <div className="flex space-y-2">
-                <label htmlFor="">Name:</label>
-                <input type="text" className="" />
-              </div>
-              <div className="flex space-y-2">
-                <label htmlFor="">Name:</label>
-                <input type="text" className="" />
-              </div>
-            </div>
+  const [visible1, setVisible1] = useState(true);
+  const [visible2, setVisible2] = useState(false);
 
-            <div className=""></div>
-          </form>
-        </div>
+  const handleChange = (e) =>{
+    setVisible2(e.target.checked);
+    if (visible2===true) {
+      setVisible1(true);
+    }else{
+      setVisible1(false)
+    }
+  }
+
+  return (
+    <div className="flex flex-col bg-slate-100 h-screen">
+      <div className="flex mt-20">
+        <span className="text-2xl font-bold ml-[350px] mt-[20px] text-gray-700">
+          Register As Teacher
+        </span>
+        <label
+          htmlFor="check"
+          className="bg-slate-300 shadow-inner cursor-pointer ml-16 mt-4 w-20 relative h-10 rounded-full"
+        >
+          <input
+            type="checkbox"
+            id="check"
+            className="sr-only peer"
+            checked={visible2}
+            onChange={handleChange}
+          />
+          <span className="w-12 h-12 border-green-300  bg-green-300 rounded-full -top-1 peer-checked:left-11 transition-all duration-200 -left-2 peer-checked:bg-blue-300    absolute"></span>
+        </label>
+        <span className="text-2xl font-bold  mt-[20px] ml-20 text-gray-700">
+          Register As Student
+        </span>
       </div>
+
+      {visible1 && <TeacherRegister />}
+      {visible2 && <StudentRegister />}
     </div>
   );
 };

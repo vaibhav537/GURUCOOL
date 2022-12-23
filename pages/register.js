@@ -2,7 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import Radio from './components/Radio.jsx'
 
-const Register = (props) => {
+const Register = () => {
 
   return (
     <>
