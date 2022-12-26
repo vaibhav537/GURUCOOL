@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Alert from "./components/Alert";
-const contact = (props) => {
+const contact = () => {
   const [alert, setAlert] = useState(null);
-  const showAlert = (message, type) => {
+  const showAlert = (message, type, color) => {
     setAlert({
       msg: message,
       type: type,
+      color:color
     });
+
     setTimeout(() => {
       setAlert(null);
     }, 2000);
   };
-
   const [user, setUser] = useState({
     name: "",
     phone: "",
@@ -35,7 +36,8 @@ const contact = (props) => {
     const { name, phone, email, desc } = user;
 
     if (!name || !phone || !email || !desc) {
-      -showAlert("Not Send, Please Fill all the fields", "danger");
+      window.scrollTo(0, 0)
+      showAlert("Not Send, Please Fill all the fields", "Error", "red");
     } else {
       const res = await fetch("/api/app", {
         method: "POST",
@@ -52,11 +54,13 @@ const contact = (props) => {
 
       const data = await res.json();
       if (data.status === 422 || !data) {
-        showAlert("Not Send, Please try Again Later", "danger");
-        window.alert("Sent")
+        showAlert("Not Send, Please try Again Later", "Error","red");
+          window.scrollTo(0, 0)
+        // window.alert("Sent")
       } else {
-        showAlert("Sent, Thank You for Contacting Us", "success");
-        window.alert(" NO Sent")
+        window.scrollTo(0, 0)
+        showAlert("Sent, Thank You for Contacting Us", "Success","green");
+        // window.alert(" NO Sent")
       }
     }
   };
@@ -71,7 +75,7 @@ const contact = (props) => {
         <link rel="icon" href="/images/logo.png" />
       </Head>
       <Alert alert={alert} />
-      <div className={"antialiased bg-gray-100 h-full"}>
+      <div className={"antialiased dark:bg-slate-600 bg-gray-100 h-full"}>
         <div className="flex w-full min-h-screen justify-center items-center ">
           <div
             className={
@@ -123,15 +127,15 @@ const contact = (props) => {
             <div className="relative">
               <div className="absolute z-10 w-40 h-40 bg-teal-400 rounded-full -right-28 -top-28"></div>
               <div className="absolute z-10 w-40 h-40 bg-teal-400 rounded-full -left-28 -bottom-16"></div>
-              <div className="relative z-10 bg-white rounded-xl shadow-lg p-8 text-gray-700 md:w-96">
+              <div className="relative z-10 bg-white dark:bg-slate-600 rounded-xl shadow-lg p-8 text-gray-700 md:w-96">
                 <form method="POST" className="flex flex-col space-y-4">
                   <div>
-                    <label htmlFor="" className="text-sm">
+                    <label htmlFor="" className="dark:text-white text-sm">
                       Your Name
                     </label>
                     <input
                       type="text"
-                      className="ring-1 ring-gray-300 w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-teal-300"
+                      className="ring-1 ring-gray-300 w-full dark:text-white rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-teal-300"
                       placeholder="Name Here"
                       name="name"
                       value={user.name}
@@ -141,12 +145,12 @@ const contact = (props) => {
                   </div>
 
                   <div>
-                    <label htmlFor="" className="text-sm">
+                    <label htmlFor="" className="dark:text-white text-sm">
                       Your Phone
                     </label>
                     <input
                       type="number"
-                      className="ring-1 ring-gray-300 w-full rounded-md px-4 mt-2 py-2 outline-none focus:ring-2 focus:ring-teal-300"
+                      className="ring-1 ring-gray-300 w-full dark:text-white dark:bg-dark-800 rounded-md px-4 mt-2 py-2 outline-none focus:ring-2 focus:ring-teal-300"
                       placeholder="Phone Number"
                       name="phone"
                       value={user.phone}
@@ -155,12 +159,12 @@ const contact = (props) => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="" className="text-sm">
+                    <label htmlFor="" className="dark:text-white text-sm">
                       Your Email
                     </label>
                     <input
                       type="email"
-                      className="ring-1 ring-gray-300 w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-teal-300"
+                      className="ring-1 ring-gray-300 dark:text-white w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-teal-300"
                       placeholder="name@example.com"
                       name="email"
                       value={user.email}
@@ -169,11 +173,11 @@ const contact = (props) => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="" className="text-sm">
+                    <label htmlFor="" className="dark:text-white text-sm">
                       Write Your Concern here
                     </label>
                     <textarea
-                      className="ring-1 ring-gray-300 w-full rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-teal-300"
+                      className="ring-1 ring-gray-300 w-full dark:text-white rounded-md px-4 py-2 mt-2 outline-none focus:ring-2 focus:ring-teal-300"
                       placeholder="Leave a comment here"
                       name="desc"
                       value={user.desc}
@@ -183,7 +187,7 @@ const contact = (props) => {
                     />
                   </div>
                   <input
-                    className="inline-block cursor-pointer self-end bg-cyan-700   pt-3  text-white font-bold rounded-lg px-6 py-2 uppercase text-sm"
+                    className="inline-block dark:text-white cursor-pointer self-end bg-cyan-700   pt-3  text-white font-bold rounded-lg px-6 py-2 uppercase text-sm"
                     type="submit"
                     name="send"
                     value="Send Message"

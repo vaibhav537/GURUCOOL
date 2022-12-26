@@ -1,49 +1,67 @@
-import React from 'react';
-import styles from '../../styles/Team.module.css';
+import React, { useState } from "react";
+
 const Team = () => {
+  const slides = [
+    {
+      url: "/images/slide_1.jpg",
+      title: "Developer 1",
+    },
+    {
+      url: "/images/slide_2.jpg",
+      title: "Developer 2",
+    },
+    {
+      url: "/images/slide_3.jpg",
+      title: "Developer 3",
+    },    
+    {
+      url: "/images/slide_4.jpg",
+      title: "Developer 4",
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  
+
+  const prevSlide = () => {
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+
+  const nextSlide = () => {
+    const isLastSlide = currentIndex === slides.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex)
+    console.log(newIndex);
+  };
 
   return (
     <>
-      <div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <div className="bg-slate-100 dark:bg-slate-600">
+      <div className="max-w-[840px] h-[380px] md:h-[480px] lg:h-[580px] xl:h-[580px] w-full xl:-pt-10 m-auto py-16 px-4 dark:bg-slate-600 relative group ">
+        <div
+          style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
+          className="w-full h-full opacity-80 rounded-2xl bg-center bg-cover duration-500"
+        >
+          <p className="absolute mt-[12rem] opacity-100 font-bold text-white ml-[6.5rem] md:mt-[16.5rem] select-none md:ml-[16.5rem] md:text-[46px] lg:mt-[23rem] text-2xl">
+            {slides[currentIndex].title}
+          </p>
         </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active" data-bs-interval="10000">
-            <img src="/images/slide1.webp" class="d-block w-100" alt="..." />
-            <div class="carousel-caption d-none d-md-block">
-              <h5>First slide label</h5>
-              <p>Some representative placeholder content for the first slide.</p>
-            </div>
-          </div>
-          <div class="carousel-item" data-bs-interval="2000">
-            <img src="/images/slide2.jpeg" class="d-block w-100" alt="..." />
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
-              <p>Some representative placeholder content for the second slide.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="/images/silde3.png" class="d-block w-100" alt="..."  style={{height: "42.5rem"}}/>
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Third slide label</h5>
-              <p>Some representative placeholder content for the third slide.</p>
-            </div>
-          </div>
+        {/* Left Arrow */}
+        <div className="hidden group-hover:flex font-bold  justify-center items-center w-9 h-9 absolute top-[50%] -translate-x-0 translate-y-[-50%] left-6 text-2xl rounded-full  cursor-pointer bg-black/20 text-white ">
+          <i className="fa-solid fa-chevron-left" onClick={prevSlide}></i>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+        {/* right Arrow */}
+        <div className="hidden group-hover:flex justify-center items-center w-9 h-9 absolute top-[50%] -translate-x-0 translate-y-[-50%] right-6 text-2xl rounded-full bg-black/20 text-white cursor-pointer ">
+          <i className="fa-solid fa-chevron-right" onClick={nextSlide}></i>
+        </div>
+      </div>
+
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Team
+export default Team;

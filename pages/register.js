@@ -12,6 +12,7 @@ const Register = () => {
         <link rel="icon" href="/images/logo.png" />
       </Head>
       <Radio/>
+
     </>
   )
 }
