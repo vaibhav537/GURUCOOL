@@ -8,7 +8,7 @@ const contact = () => {
     setAlert({
       msg: message,
       type: type,
-      color:color
+      color: color,
     });
 
     setTimeout(() => {
@@ -36,7 +36,7 @@ const contact = () => {
     const { name, phone, email, desc } = user;
 
     if (!name || !phone || !email || !desc) {
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
       showAlert("Not Send, Please Fill all the fields", "Error", "red");
     } else {
       const res = await fetch("/api/app", {
@@ -54,13 +54,13 @@ const contact = () => {
 
       const data = await res.json();
       if (data.status === 422 || !data) {
-        showAlert("Not Send, Please try Again Later", "Error","red");
-          window.scrollTo(0, 0)
-        // window.alert("Sent")
+        showAlert("Not Send, Please try Again Later", "Error", "red");
+        setUser({ name: "", phone: "", email: "", desc: "" });
+        window.scrollTo(0, 0);
       } else {
-        window.scrollTo(0, 0)
-        showAlert("Sent, Thank You for Contacting Us", "Success","green");
-        // window.alert(" NO Sent")
+        window.scrollTo(0, 0);
+        showAlert("Sent, Thank You for Contacting Us", "Success", "green");
+        setUser({ name: "", phone: "", email: "", desc: "" });
       }
     }
   };
@@ -75,7 +75,7 @@ const contact = () => {
         <link rel="icon" href="/images/logo.png" />
       </Head>
       <Alert alert={alert} />
-      <div className={"antialiased dark:bg-slate-600 bg-gray-100 h-full"}>
+      <div className={"antialiased dark:bg-slate-600 bg-gray-100 h-full transition-all duration-1000"}>
         <div className="flex w-full min-h-screen justify-center items-center ">
           <div
             className={

@@ -21,7 +21,7 @@ const Radio = () => {
   }
 
   return (
-    <div className="flex flex-col bg-slate-100 dark:bg-slate-600 h-screen">
+    <div className="flex flex-col bg-slate-100 dark:bg-slate-600 h-screen mb-[50px] transition-all duration-1000">
       <div className="flex mt-20">
         <span className={`transition-all w-[20rem] duration-300 font-bold ml-[250px] mr-[5s0px] mt-[20px] ${isActive?"text-slate-700 dark:text-slate-300 text-2xl": "text-green-500  text-3xl"}`}>
           Register As Teacher
@@ -37,7 +37,7 @@ const Radio = () => {
             checked={visible2}
             onChange={handleChange}
           />
-          <span className="flex justify-center items-center w-12 h-12 border-green-300  bg-green-300 rounded-full -top-1 peer-checked:left-11 transition-all duration-200 -left-2 peer-checked:bg-blue-300    absolute peer-checked:text-blue-700 text-green-700 peer-checked:rotate-[540deg]"><i className="fa-solid fa-arrow-left text-2xl"></i></span>
+          <span className="flex justify-center items-center w-12 h-12 border-green-300 shadow-3xl  bg-green-300 rounded-full -top-1 peer-checked:left-11 transition-all duration-200 -left-2 peer-checked:bg-blue-300    absolute peer-checked:text-blue-700 text-green-700 peer-checked:rotate-[540deg]"><i className="fa-solid fa-arrow-left text-2xl"></i></span>
         </label>
         <span className={`font-bold  mt-[20px] w-[20rem] ml-[110px]  transition-all duration-300 ${!isActive?'text-slate-700 dark:text-slate-300 text-2xl':'text-blue-500 text-3xl'}`}>
           Register As Student

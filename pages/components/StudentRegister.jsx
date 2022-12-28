@@ -12,7 +12,7 @@ const StudentRegister = () => {
                 <input
                   id="studentName"
                   type="text"
-                  className="bg-blue-100 dark:bg-blue-900 border-blue-300 border-b-2 py-1 focus:outline-none  focus:border-blue-300  focus:border-b-4 peer transition-colors" 
+                  className=" bg-blue-100 dark:bg-blue-900 border-blue-300 border-b-2 py-1 focus:outline-none  focus:border-blue-300  focus:border-b-4 peer" 
                   autoComplete="off"
                 />
                 <label htmlFor="studentName" className="dark:text-blue-100 absolute cursor-text peer-focus:text-xs left-0 top-1 peer-focus:-top-4 transition-all peer-focus:text-blue-400 text-gray-600 duration-300" > Your Name</label>
