@@ -70,7 +70,7 @@ const TeacherRegister = () => {
                       <input
                         id="male"
                         type="radio"
-                        defaultValue
+                        value="male"
                         name="gender"
                         className="w-4 h-4 dark:accent-green-300 text-blue-600 accent-green-700 bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                         required
@@ -86,7 +86,7 @@ const TeacherRegister = () => {
                       <input
                         id="female"
                         type="radio"
-                        defaultValue
+                        value="female"
                         name="gender"
                         className=" dark:accent-green-300 w-4 h-4 accent-green-700 text-blue-600 bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                         required
@@ -102,7 +102,7 @@ const TeacherRegister = () => {
                       <input
                         id="other"
                         type="radio"
-                        defaultValue
+                        value="other"
                         name="gender"
                         className="w-4 h-4 rounded-full dark:accent-green-300 accent-green-700 text-blue-600 bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                         required
