@@ -1,5 +1,6 @@
 const colors  = require('tailwindcss/colors')
 
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
@@ -7,11 +8,20 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
 ],
+
   theme: {
     fontFamily:{
-      Garamond:['EB Garamond', 'serif']
+      Garamond:['EB Garamond', 'serif'],
+      Josefin : ['Josefin Sans', 'serif']
     },
     extend: {
+      keyframes:{
+        fadeIN:{
+          '0%':{ opacity: '1'},
+          '100%':{opacity:'0'}
+        }
+      },
+      animation:{ fadeIN: 'fadeIN 5s alternate infinite'},
       colors:{
         'cyan': colors.cyan,
         'teal': colors.teal
