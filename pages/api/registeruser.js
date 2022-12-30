@@ -33,7 +33,6 @@ export default function handler(req, res) {
   // register user
     if(req.method === 'POST'){
       upload.single("file")
-      const {filename} = req.file.
 
     }
     else{

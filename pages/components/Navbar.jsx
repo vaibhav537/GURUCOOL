@@ -4,15 +4,10 @@ import { useRouter } from "next/router";
 import Checkbox from "./Checkbox";
 const Navbar = () => {
 
-  const toggleDarkMode = () =>{
-
-
-  }
-
   const router = useRouter();
   return (
     <>
-      <div className="bg-slate-200 dark:bg-slate-800 transition-all duration-300">
+      <div className="bg-slate-200 dark:bg-slate-800 nav transition-all duration-300">
         <div className="flex justify-between items-center p-1 px-6 lg:px-0 container mx-auto">
           <Link href={"/"}>
             <div className=" flex text-lg font-bold uppercase">

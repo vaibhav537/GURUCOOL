@@ -1,12 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-const mongoose = require('mongoose');
 const User = require('./models/userSchema')
+require('./db/conn')
 
-const DB = "mongodb+srv://vaibhavMali:sciencemaths10@cluster0.z2kuugj.mongodb.net/contact?retryWrites=true&w=majority"
 
-mongoose.connect(DB).then(()=>{
-    console.log("Connection Successful");
-}).catch((err)=>console.log("No Connection"))
 
 export default function handler(req, res) {
   if(req.method === 'POST'){
