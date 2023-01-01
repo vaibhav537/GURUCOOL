@@ -98,11 +98,11 @@ const contact = () => {
                   <span>(+91) 635330324</span>
                 </div>
                 <div className="inline-flex space-x-2 items-center">
-                  <i class="fa-solid fa-envelope text-teal-300 text-xl"></i>
+                  <i className="fa-solid fa-envelope text-teal-300 text-xl"></i>
                   <span> vbpc1956@gmail.com</span>
                 </div>
                 <div className="inline-flex space-x-2 items-center">
-                  <i class="fa-solid fa-location-dot text-teal-300 text-xl"></i>
+                  <i className="fa-solid fa-location-dot text-teal-300 text-xl"></i>
                   <span>vidya bhawan polythecnic college Udaipur</span>
                 </div>
               </div>

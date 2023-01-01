@@ -1,57 +1,212 @@
-import React from 'react'
+import React, { useState } from "react";
 
 const StudentRegister = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [gender, setGender] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmpassword] = useState("");
+  const [pic, setPic] = useState("");
+
+  const [src, setSrc] = useState("/images/Blank.png")
+  const onImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setSrc(URL.createObjectURL(e.target.files[0]));
+    }
+   }
+
+  const postDetails = (pics) =>{} 
+
+  const submitHandler = () => {}
   return (
     <>
-    
-    <div className="flex justify-center items-center">
-        <div className="rounded-md p-10  shadow-lg dark:bg-blue-900 bg-blue-100 mt-4 ">
-          <form method="POST" className="flex">
-            <div className="">
-              <div className="relative">
-                <input
-                  id="studentName"
-                  type="text"
-                  className=" bg-blue-100 dark:bg-blue-900 border-blue-300 border-b-2 py-1 focus:outline-none  focus:border-blue-300  focus:border-b-4 peer" 
-                  autoComplete="off"
-                />
-                <label htmlFor="studentName" className="dark:text-blue-100 absolute cursor-text peer-focus:text-xs left-0 top-1 peer-focus:-top-4 transition-all peer-focus:text-blue-400 text-gray-600 duration-300" > Your Name</label>
+      <div className="flex justify-center items-center transition-all duration-1000 ">
+        <div className="rounded-md p-10  shadow-lg dark:bg-blue-900 mt-4 bg-blue-100">
+          <form
+            method="post"
+            className="flex flex-col"
+            encType="multipart/form-data"
+          >
+            <div className="flex">
+              <div className="mt-[23px]">
+                <div className="relative">
+                  <div className="relative mb-6 ">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <i className="fa-solid fa-user  text-blue-400"></i>
+                    </div>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      className="text-blue-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-blue-300 bg-blue-100 block w-full pl-10 p-2.5  dark:placeholder:text-blue-300 dark:bg-blue-900 dark:text-blue-200 outline-none"
+                      placeholder="Your Name"
+                      autoComplete="off"
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="relative">
+                  <div className="relative mb-6 ">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <i className="fa-solid fa-envelope  text-blue-400"></i>
+                    </div>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      className="text-blue-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-blue-300 bg-blue-100 block w-full pl-10 p-2.5  dark:placeholder:text-blue-300 dark:bg-blue-900 dark:text-blue-200 outline-none"
+                      placeholder="Your Email"
+                      autoComplete="off"
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="relative">
+                  <div className="relative mb-6 ">
+                    <div className="text-xl absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <i className="fa-solid fa-phone  text-blue-400"></i>
+                    </div>
+                    <input
+                      type="number"
+                      id="phone"
+                      name="phone"
+                      className="text-blue-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-blue-300 bg-blue-100 block w-full pl-10 p-2.5  dark:placeholder:text-blue-300 dark:bg-blue-900 dark:text-blue-200 outline-none"
+                      placeholder="Your Number"
+                      autoComplete="off"
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="relative mt-6 flex flex-col">
+                  <label
+                    htmlFor="gender"
+                    className="text-gray-600 dark:text-blue-100"
+                  >
+                    Your Gender
+                  </label>
+                  <div className="flex">
+                    <div className="flex items-center mr-4 mt-2">
+                      <input
+                        id="male"
+                        type="radio"
+                        value="male"
+                        name="gender"
+                        className="w-4 h-4 dark:accent-blue-300 text-blue-600 accent-blue-700 bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
+                        required
+                      />
+                      <label
+                        htmlFor="male"
+                        className="ml-2 mt-1 text-sm font-medium text-gray-600 select-none  dark:text-blue-100"
+                      >
+                        Male
+                      </label>
+                    </div>
+                    <div className="flex items-center mr-4 mt-2">
+                      <input
+                        id="female"
+                        type="radio"
+                        name="gender"
+                        value="female"
+                        className=" dark:accent-blue-300 w-4 h-4 accent-blue-700 text-blue-600 bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
+                        required
+                      />
+                      <label
+                        htmlFor="female"
+                        className="ml-2 mt-1 text-sm font-medium text-gray-600 select-none dark:text-blue-100"
+                      >
+                        Female
+                      </label>
+                    </div>
+                    <div className="flex items-center mr-4 mt-2">
+                      <input
+                        id="other"
+                        type="radio"
+                        value="other"
+                        name="gender"
+                        className="w-4 h-4 rounded-full dark:accent-blue-300 accent-blue-700 text-blue-600 bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
+                        required
+                      />
+                      <label
+                        htmlFor="other"
+                        className="ml-2 mt-1 text-sm font-medium text-gray-600 select-none dark:text-blue-100"
+                      >
+                        Other
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="relative mt-4">
+                  <div className="relative mb-6">
+                    <div className="text-xl absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <i className="fa-solid fa-lock text-blue-400"></i>
+                    </div>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      className="text-blue-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-blue-300 bg-blue-100 block w-full pl-10 p-2.5  dark:placeholder:text-blue-300 dark:bg-blue-900 dark:text-blue-200 outline-none"
+                      placeholder="Create Your Password"
+                      autoComplete="off"
+                    />
+                  </div>
+                </div>
+                <div className="relative">
+                  <div className="relative mb-6 ">
+                    <div className="text-xl absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <i className="fa-solid fa-key text-blue-400"></i>
+                    </div>
+                    <input
+                      type="password"
+                      id="cpassword"
+                      name="cpassword"
+                      className="text-blue-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-blue-300 bg-blue-100 block w-full pl-10 p-2.5   dark:placeholder:text-blue-300 dark:bg-blue-900 dark:text-blue-200 outline-none"
+                      placeholder="Confirm Your Password"
+                      autoComplete="off"
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="relative mt-6">
+              <div className="rounded-2xl flex items-center   justify-center flex-col ml-12 shadow-md bg-white dark:bg-slate-600 p-5 w-[250px] h-[350px] mt-[40px]">
+                <div className="border-4 overflow-hidden w-[10rem] h-[10rem] rounded-full  shadow-3xl border-blue-300">
+                  <img src={src} alt="..." className="h-full w-full" />
+                </div>
+                <label
+                  htmlFor="pic"
+                  className="mt-5 border-2 cursor-pointer dark:border-white dark:hover:text-black dark:hover:bg-white border-black p-2 hover:bg-black transition-all rounded-lg hover:text-white"
+                >
+                  SET PROFILE
+                </label>
                 <input
-                  id="studentEmail"
-                  type="email"
-                  className=" border-blue-300 dark:bg-blue-900 border-b-2 py-1 focus:outline-none  focus:border-blue-300 bg-blue-100 focus:border-b-4 peer transition-colors" 
-                  autoComplete="off"
+                  type="file"
+                  id="pic"
+                  className="hidden"
+                  accept="image/*"
+                  name="file"
+                  onChange={(e) => {
+                    onImageChange(e);
+                    postDetails(e.target.files[0]);
+                  }}
                 />
-                <label htmlFor="studentEmail" className="dark:text-blue-100 absolute cursor-text peer-focus:text-xs left-0 top-1 peer-focus:-top-4 transition-all peer-focus:text-blue-400 text-gray-600 duration-300" >Your Email</label>
               </div>
-              <div className="relative mt-6">
-                <input
-                  id="studentPassword"
-                  type="password"
-                  className=" border-blue-300 dark:bg-blue-900 border-b-2 py-1 focus:outline-none  focus:border-blue-300 bg-blue-100 focus:border-b-4 peer transition-colors" 
-                  autoComplete="off"
-                />
-                <label htmlFor="studentPassword" className="dark:text-blue-100 absolute cursor-text peer-focus:text-xs left-0 top-1 peer-focus:-top-4 transition-all peer-focus:text-blue-400 text-gray-600 duration-300" >Create Your Password</label>
-              </div>
-              <div className="relative mt-6">
-                <input
-                  id="studentCPass"
-                  type="password"
-                  className=" border-blue-300 dark:bg-blue-900 border-b-2 py-1 focus:outline-none  focus:border-blue-300 bg-blue-100 focus:border-b-4 peer transition-colors" 
-                  autoComplete="off"
-                />
-                <label htmlFor="studentCPass" className="dark:text-blue-100 absolute cursor-text peer-focus:text-xs left-0 top-1 peer-focus:-top-4 transition-all peer-focus:text-blue-400 text-gray-600 duration-300" >Confirm Your Password student</label>
-              </div>
+            </div>
+            <div className="mt-12 flex justify-evenly items-center">
+              <button
+                type="submit"
+                onClick={submitHandler}
+                className="font-bold font-Garamond text-lg text-black border-2 border-blue-700 uppercase rounded cursor-pointer hover:bg-blue-300 hover:text-blue-500 transition-all duration-300 dark:text-white bg-transparent p-2 px-5"
+              >
+                REGISTER
+              </button>
             </div>
           </form>
         </div>
-        
       </div>
-   
     </>
-  )
-}
+  );
+};
 
-export default StudentRegister
+export default StudentRegister;
