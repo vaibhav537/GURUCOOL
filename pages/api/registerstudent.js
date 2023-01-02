@@ -1,7 +1,7 @@
 import generateTeacherToken from './tokens/generateTeacherToken';
 
 require('./db/regg')
-const TeacherSchema = require('./models/teacherSchema')
+const StudentSchema = require('./models/studentSchema')
 
 const handler =  async(req, res)  => {
     if(req.method === 'POST'){
@@ -9,13 +9,13 @@ const handler =  async(req, res)  => {
       if (!name || !email || !phone || !gender || !password || !confirmpassword) {
         throw new Error('Please Fill all fields');
       }
-      const userExists = await TeacherSchema.findOne({ email });
+      const userExists = await StudentSchema.findOne({ email });
       if (userExists) {
         res.status(400)
         throw new Error('User already exists');
       }
 
-      const teacher = await TeacherSchema.create({
+      const student = await StudentSchema.create({
         name,
         email,
         phone,
@@ -25,15 +25,15 @@ const handler =  async(req, res)  => {
         pic,
     });
 
-    if (teacher) {
+    if (student) {
         res.status(201).json({
-            _id : teacher._id,
-            name : teacher.name,
-            email : teacher.email,
-            phone : teacher.phone,
-            gender : teacher.gender,
-            pic : teacher.pic,
-            token : generateTeacherToken(teacher._id),
+            _id : student._id,
+            name : student.name,
+            email : student.email,
+            phone : student.phone,
+            gender : student.gender,
+            pic : student.pic,
+            token : generateTeacherToken(student._id),
         });
     }else{
         res.status(400);

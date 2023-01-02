@@ -1,21 +1,88 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 const TeacherLogin = () => {
-  const [show, setShow] = useState('password') 
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState("password");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const router = useRouter();
+
   const handleShow = (e) => {
     e.preventDefault();
-    if(show === 'password'){
+    if (show === "password") {
       setShow("text");
-    }
-    else{
+    } else {
       setShow("password");
     }
-  }
+  };
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      toast.warning("Please Fill all the fields", {
+        position: "bottom-center",
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "light",
+      });
+      console.log("Sorry");
+      return;
+    }
+    try {
+
+      const res = await fetch("/api/loginteacher", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      toast.success("Login Succesfull", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      localStorage.setItem("teacherInfo", JSON.stringify(res));
+      setLoading(false);
+
+      router.push("/teacherprofile");
+    } catch (error) {
+      toast.error("Login Failed, Try Again Later", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setLoading(false);
+
+    }
+  };
   return (
+    <>
+    <ToastContainer
+    position="bottom-center"
+    autoClose={3000}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    theme="light"
+  />
     <div className="flex justify-center items-center transition-all duration-1000 ">
       <div className="rounded-md p-10  shadow-lg dark:bg-green-900 mt-4 bg-green-100">
         <form
@@ -51,12 +118,22 @@ const TeacherLogin = () => {
                     type={show}
                     id="password"
                     name="password"
+                    onChange={(e) => setPassword(e.target.value)}
                     className="text-green-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-green-300 bg-green-100 block w-full pl-10 p-2.5  dark:placeholder:text-green-300 dark:bg-green-900 dark:text-green-200 outline-none"
                     placeholder="Your Password"
                     autoComplete="off"
                   />
-                  <div className="text-base absolute cursor-pointer inset-y-0 right-0 flex items-center pl-3" onClick={handleShow}>
-                  <i className={`text-green-400 transition-all duration-300 ${show==='password' ? 'fa-solid fa-eye':'fa-solid fa-eye-slash'} `}></i>
+                  <div
+                    className="text-base absolute cursor-pointer inset-y-0 right-0 flex items-center pl-3"
+                    onClick={handleShow}
+                  >
+                    <i
+                      className={`text-green-400 transition-all duration-300 ${
+                        show === "password"
+                          ? "fa-solid fa-eye"
+                          : "fa-solid fa-eye-slash"
+                      } `}
+                    ></i>
                   </div>
                 </div>
               </div>
@@ -67,6 +144,7 @@ const TeacherLogin = () => {
           </div>
           <div className="mt-12 flex justify-evenly items-center">
             <button
+              onClick={submitHandler}
               type="submit"
               className="font-bold font-Garamond text-lg text-black border-2 border-green-700 uppercase rounded cursor-pointer hover:bg-green-300 hover:text-green-500 transition-all duration-300 dark:text-white bg-transparent p-2 px-5"
             >
@@ -76,6 +154,7 @@ const TeacherLogin = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

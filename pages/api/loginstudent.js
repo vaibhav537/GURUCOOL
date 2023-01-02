@@ -1,21 +1,21 @@
 import generateTeacherToken from "./tokens/generateTeacherToken";
 
-const TeacherSchema = require("./models/teacherSchema");
+const StudentSchema = require("./models/studentSchema");
 require("./db/regg");
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
     const { email, password } = req.body;
 
-    const teacher = await TeacherSchema.findOne({ email });
+    const student = await StudentSchema.findOne({ email });
      
-    if(teacher && (await teacher.matchPassword(password))){
+    if(student && (await student.matchPassword(password))){
         res.json({
-            _id: teacher._id,
-            name: teacher.name,
-            email: teacher.email,
-            pic: teacher.pic,
-            token: generateTeacherToken(teacher._id)
+            _id: student._id,
+            name: student.name,
+            email: student.email,
+            pic: student.pic,
+            token: generateTeacherToken(student._id)
         });
     }else{
         res.status(401)

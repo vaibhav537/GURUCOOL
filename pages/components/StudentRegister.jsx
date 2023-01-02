@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 const StudentRegister = () => {
   const [name, setName] = useState("");
@@ -8,19 +11,147 @@ const StudentRegister = () => {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
   const [pic, setPic] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [src, setSrc] = useState("/images/Blank.png");
 
-  const [src, setSrc] = useState("/images/Blank.png")
+  const router = useRouter();
+
   const onImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setSrc(URL.createObjectURL(e.target.files[0]));
     }
-   }
+  };
 
-  const postDetails = (pics) =>{} 
+  const postDetails = (pics) => {
+    setLoading(true);
+    if (pics === undefined) {
+      toast.warning("Please select an Image", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      setLoading(false);
+      return;
+    }
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "meetin");
+      data.append("cloud_name", "dkut1is4d");
+      fetch("https://api.cloudinary.com/v1_1/dkut1is4d/image/upload", {
+        method: "POST",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPic(data.url.toString());
+          console.log(data.url.toString());
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    } else {
+      toast.warning("Please select an Image", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  };
 
-  const submitHandler = () => {}
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if (!name || !email || !phone || !gender || !password || !confirmpassword) {
+      toast.warning("Please Fill all the Fields", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "light",
+        bodyClassName: "font-bold",
+      });
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+      return;
+    }
+    if (password !== confirmpassword) {
+      toast.warning("Passwords not Matched", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+      return;
+    }
+    try {
+      const res = await fetch("/api/registerstudent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          phone,
+          email,
+          gender,
+          password,
+          confirmpassword,
+          pic,
+        }),
+      });
+      toast.success("Registration Succesfull", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+      });
+
+      localStorage.setItem("studentinfo", JSON.stringify(res));
+      setLoading(false);
+
+      router.push("/student/studentprofile");
+    } catch (error) {
+      toast.error("Error Occured, Try Again Later", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+        className: "rounded-full",
+      });
+      setLoading(true);
+    }
+  };
   return (
     <>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        theme="dark"
+      />
       <div className="flex justify-center items-center transition-all duration-1000 ">
         <div className="rounded-md p-10  shadow-lg dark:bg-blue-900 mt-4 bg-blue-100">
           <form
@@ -95,6 +226,9 @@ const StudentRegister = () => {
                         type="radio"
                         value="male"
                         name="gender"
+                        onChange={(e) => {
+                          setGender(e.target.value);
+                        }}
                         className="w-4 h-4 dark:accent-blue-300 text-blue-600 accent-blue-700 bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                         required
                       />
@@ -111,6 +245,9 @@ const StudentRegister = () => {
                         type="radio"
                         name="gender"
                         value="female"
+                        onChange={(e) => {
+                          setGender(e.target.value);
+                        }}
                         className=" dark:accent-blue-300 w-4 h-4 accent-blue-700 text-blue-600 bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                         required
                       />
@@ -127,6 +264,9 @@ const StudentRegister = () => {
                         type="radio"
                         value="other"
                         name="gender"
+                        onChange={(e) => {
+                          setGender(e.target.value);
+                        }}
                         className="w-4 h-4 rounded-full dark:accent-blue-300 accent-blue-700 text-blue-600 bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                         required
                       />
@@ -150,6 +290,9 @@ const StudentRegister = () => {
                       name="password"
                       className="text-blue-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-blue-300 bg-blue-100 block w-full pl-10 p-2.5  dark:placeholder:text-blue-300 dark:bg-blue-900 dark:text-blue-200 outline-none"
                       placeholder="Create Your Password"
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
                       autoComplete="off"
                     />
                   </div>
@@ -166,6 +309,9 @@ const StudentRegister = () => {
                       className="text-blue-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-blue-300 bg-blue-100 block w-full pl-10 p-2.5   dark:placeholder:text-blue-300 dark:bg-blue-900 dark:text-blue-200 outline-none"
                       placeholder="Confirm Your Password"
                       autoComplete="off"
+                      onChange={(e) => {
+                        setConfirmpassword(e.target.value);
+                      }}
                     />
                   </div>
                 </div>

@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 const TeacherRegister = () => {
   const [name, setName] = useState("");
@@ -8,26 +11,153 @@ const TeacherRegister = () => {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
   const [pic, setPic] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [src, setSrc] = useState("/images/Blank.png");
+  const router = useRouter();
 
-  const [src, setSrc] = useState("/images/Blank.png")
   const onImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setSrc(URL.createObjectURL(e.target.files[0]));
     }
-   }
+  };
 
-  const postDetails = (pics) =>{} 
+  const postDetails = (pics) => {
+    setLoading(true);
+    if (pics === undefined) {
+      toast.warning("Please select an Image", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      setLoading(false)
+      return;
+    }
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "meetin");
+      data.append("cloud_name", "dkut1is4d");
+      fetch("https://api.cloudinary.com/v1_1/dkut1is4d/image/upload", {
+        method: "POST",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPic(data.url.toString());
+          console.log(data.url.toString());
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    } else {
+      toast.warning("Please select an Image", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  };
 
-  const submitHandler = () => {}
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if (!name || !email || !phone || !gender || !password || !confirmpassword) {
+      toast.warning("Please Fill all the Fields", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "light",
+        bodyClassName: 'font-bold'
+      });
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000);
+      return;
+    }
+    if (password !== confirmpassword) {
+      toast.warning("Passwords not Matched", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000);
+      return;
+    }
+    try {
+      const res = await fetch("/api/registerteacher", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          phone,
+          email,
+          gender,
+          password,
+          confirmpassword,
+          pic,
+        }),
+      });
+      toast.success("Registration Succesfull", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+      });
+
+      localStorage.setItem("teacherinfo", JSON.stringify(res));
+      setLoading(false);
+
+      router.replace("/teacher/selectcategory");
+    } catch (error) {
+      toast.error("Error Occured, Try Again Later", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+        className:"rounded-full"
+      });
+      setLoading(true);
+    }
+  };
   return (
     <>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        theme="dark"
+      />
       <div className="flex justify-center items-center transition-all duration-1000 ">
         <div className="rounded-md p-10  shadow-lg dark:bg-green-900 mt-4 bg-green-100">
           <form
             method="post"
             className="flex flex-col"
             encType="multipart/form-data"
-            >
+          >
             <div className="flex">
               <div className="mt-[23px]">
                 <div className="relative">
@@ -42,7 +172,7 @@ const TeacherRegister = () => {
                       className="text-green-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-green-300 bg-green-100 block w-full pl-10 p-2.5  dark:placeholder:text-green-300 dark:bg-green-900 dark:text-green-200 outline-none"
                       placeholder="Your Name"
                       autoComplete="off"
-                      onChange={(e)=>setName(e.target.value)}
+                      onChange={(e) => setName(e.target.value)}
                       required
                     />
                   </div>
@@ -59,7 +189,7 @@ const TeacherRegister = () => {
                       className="text-green-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-green-300 bg-green-100 block w-full pl-10 p-2.5  dark:placeholder:text-green-300 dark:bg-green-900 dark:text-green-200 outline-none"
                       placeholder="Your Email"
                       autoComplete="off"
-                      onChange={(e)=>setEmail(e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)}
                       required
                     />
                   </div>
@@ -76,7 +206,7 @@ const TeacherRegister = () => {
                       className="text-green-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-green-300 bg-green-100 block w-full pl-10 p-2.5  dark:placeholder:text-green-300 dark:bg-green-900 dark:text-green-200 outline-none"
                       placeholder="Your Number"
                       autoComplete="off"
-                      onChange={(e)=>setPhone(e.target.value)}
+                      onChange={(e) => setPhone(e.target.value)}
                       required
                     />
                   </div>
@@ -95,6 +225,9 @@ const TeacherRegister = () => {
                         type="radio"
                         value="male"
                         name="gender"
+                        onChange={(e) => {
+                          setGender(e.target.value);
+                        }}
                         className="w-4 h-4 dark:accent-green-300 text-blue-600 accent-green-700 bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                         required
                       />
@@ -111,6 +244,9 @@ const TeacherRegister = () => {
                         type="radio"
                         name="gender"
                         value="female"
+                        onChange={(e) => {
+                          setGender(e.target.value);
+                        }}
                         className=" dark:accent-green-300 w-4 h-4 accent-green-700 text-blue-600 bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                         required
                       />
@@ -126,6 +262,9 @@ const TeacherRegister = () => {
                         id="other"
                         type="radio"
                         value="other"
+                        onChange={(e) => {
+                          setGender(e.target.value);
+                        }}
                         name="gender"
                         className="w-4 h-4 rounded-full dark:accent-green-300 accent-green-700 text-blue-600 bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600"
                         required
@@ -148,11 +287,12 @@ const TeacherRegister = () => {
                       type="password"
                       id="password"
                       name="password"
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
                       className="text-green-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-green-300 bg-green-100 block w-full pl-10 p-2.5  dark:placeholder:text-green-300 dark:bg-green-900 dark:text-green-200 outline-none"
                       placeholder="Create Your Password"
                       autoComplete="off"
-
-
                     />
                   </div>
                 </div>
@@ -163,8 +303,11 @@ const TeacherRegister = () => {
                     </div>
                     <input
                       type="password"
-                      id="cpassword"
-                      name="cpassword"
+                      id="confirmpassword"
+                      name="confirmpassword"
+                      onChange={(e) => {
+                        setConfirmpassword(e.target.value);
+                      }}
                       className="text-green-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-green-300 bg-green-100 block w-full pl-10 p-2.5   dark:placeholder:text-green-300 dark:bg-green-900 dark:text-green-200 outline-none"
                       placeholder="Confirm Your Password"
                       autoComplete="off"
@@ -188,7 +331,10 @@ const TeacherRegister = () => {
                   className="hidden"
                   accept="image/*"
                   name="file"
-                  onChange={(e)=>{onImageChange(e); postDetails(e.target.files[0])}}
+                  onChange={(e) => {
+                    onImageChange(e);
+                    postDetails(e.target.files[0]);
+                  }}
                 />
               </div>
             </div>
@@ -198,7 +344,7 @@ const TeacherRegister = () => {
                 onClick={submitHandler}
                 className="font-bold font-Garamond text-lg text-black border-2 border-green-700 uppercase rounded cursor-pointer hover:bg-green-300 hover:text-green-500 transition-all duration-300 dark:text-white bg-transparent p-2 px-5"
               >
-                REGISTER
+                {loading ? <img src="/loader.gif" className="w-[20px] h-[20px]"/> : "ReGister" }
               </button>
             </div>
           </form>

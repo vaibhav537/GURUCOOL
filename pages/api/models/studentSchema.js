@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
 
-const teacherSchema = mongoose.Schema(
+const studentSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -35,11 +35,11 @@ const teacherSchema = mongoose.Schema(
   }
 );
 
-teacherSchema.methods.matchPassword = async function (enteredPassword) {
+studentSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 }
 
-teacherSchema.pre("save", async function(next) {
+studentSchema.pre("save", async function(next) {
   if(!this.isModified){
     next()
   }else{
@@ -47,7 +47,7 @@ teacherSchema.pre("save", async function(next) {
     this.password = await bcrypt.hash(this.password, salt);
   }
 } )
-const TeacherRegister =
-  mongoose.models.TEACHER || mongoose.model("TEACHER", teacherSchema);
+const StudentRegister =
+  mongoose.models.STUDENT || mongoose.model("STUDENT", studentSchema);
 
-module.exports = TeacherRegister;
+module.exports = StudentRegister;
