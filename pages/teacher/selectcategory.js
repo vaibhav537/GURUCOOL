@@ -14,7 +14,7 @@ const selectcategory = () => {
         />
         <link rel="icon" href="/images/logo.png" />
       </Head>
-      <div className="w-full h-screen bg-slate-100 dark:bg-slate-600">
+      <div className="w-full h-screen bg-slate-100 dark:bg-slate-600 ">
         <div className="text-4xl text-center pt-20 text-green-500 select-none dark:text-green-200">
           Select Category
         </div>
