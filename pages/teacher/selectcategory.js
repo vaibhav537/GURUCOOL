@@ -15,11 +15,11 @@ const selectcategory = () => {
         <link rel="icon" href="/images/logo.png" />
       </Head>
       <div className="w-full h-screen bg-slate-100 dark:bg-slate-600 ">
-        <div className="text-4xl text-center pt-20 text-green-500 select-none dark:text-green-200">
+        <div className="text-4xl text-center pt-20 text-green-700 font-bold select-none dark:text-green-200">
           Select Category
         </div>
 
-        <p className=" text-lg text-center pt-2 text-green-400 select-none dark:text-green-300">
+        <p className=" text-lg text-center pt-2 text-green-600 select-none dark:text-green-300">
           Select the category from the given categories from below which you
           will teach by this account.<br/>You can choose only one category from one account.
         </p>
