@@ -29,6 +29,9 @@ const teacherSchema = mongoose.Schema(
       type: String,
       default:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
     },
+    category: {
+      type: String
+    }
   },
   {
     timestamps: true,

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image"
 
 const Faclities = () => {
   return (
@@ -11,10 +12,12 @@ const Faclities = () => {
         <div className="lg:flex-row flex flex-col ">
           <div className="mt-12 flex flex-col lg:mt-12 select-none justify-center items-center mb-32 lg:mb-9 ">
             <div className="border-gray-600 md:w-[40rem] md:h-[20rem] lg:w-[20rem] lg:h-[20rem] border-2 shadow-inner bg-transparent justify-center items-center shadow-slate-800 flex w-[20rem] py-2">
-              <img
+              <Image
                 src="/images/teacher.png"
                 className="w-52 h-56 md:h-[18rem] md:w-[16rem] lg:h-[18rem] lg:w-[18rem]"
                 alt="..."
+                height={224}
+                width={208}
               />
             </div>
             <h5 className="text-xl mt-5 md:text-2xl lg:text-[28px]">Teachers</h5>
@@ -28,10 +31,12 @@ const Faclities = () => {
 
           <div className="mt-12 flex flex-col select-none justify-center items-center mb-32 lg:mb-9 ">
             <div className="border-gray-600 md:w-[40rem] md:h-[20rem] lg:w-[20rem] lg:h-[20rem] border-2 shadow-inner bg-transparent justify-center items-center shadow-slate-800 flex w-[20rem] py-2">
-              <img
+              <Image
                 src="/images/student.png"
-                className="w-52 h-56 md:h-[18rem] md:w-[16rem] lg:h-[18rem] lg:w-[13rem]"
+                className="md:h-[18rem] md:w-[16rem] lg:h-[18rem] lg:w-[13rem]"
                 alt="..."
+                height={224}
+                width={208}
               />
             </div>
             <h5 className="text-xl mt-5 md:text-2xl lg:text-[28px]">Students</h5>
@@ -44,10 +49,12 @@ const Faclities = () => {
           </div>
           <div className="mt-12 flex flex-col select-none justify-center items-center mb-32 lg:mb-9 ">
             <div className="border-gray-600 md:w-[40rem] md:h-[20rem] lg:w-[20rem] lg:h-[20rem] border-2 shadow-inner bg-transparent justify-center items-center shadow-slate-800 flex w-[20rem] py-2">
-              <img
+              <Image
                 src="/images/admin.png"
                 className="w-52 h-56 md:h-[18rem] md:w-[16rem] lg:h-[18rem] lg:w-[18rem]"
                 alt="..."
+                height={224}
+                width={208}
               />
             </div>
             <h5 className="text-xl mt-5 md:text-2xl lg:text-[28px]">Admin</h5>

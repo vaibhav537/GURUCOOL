@@ -1,6 +1,5 @@
 import Head from "next/head";
 import React from "react";
-import SearchCategory from "../components/SearchCategory";
 import SelectCard from "../components/SelectCard";
 
 const selectcategory = () => {
@@ -14,16 +13,18 @@ const selectcategory = () => {
         />
         <link rel="icon" href="/images/logo.png" />
       </Head>
-      <div className="w-full h-screen bg-slate-100 dark:bg-slate-600 ">
-        <div className="text-4xl text-center pt-20 text-green-700 font-bold select-none dark:text-green-200">
+      <div className="w-full h-screen bg-slate-100 dark:bg-slate-600">
+      <div className="bg-teal-100 dark:bg-teal-800 py-8 border-b-2 border-teal-600">
+        <div className="text-4xl text-center pt-5  font-bold select-none dark:text-green-200 font-Crimson
+        rimson text-green-700">
           Select Category
         </div>
 
-        <p className=" text-lg text-center pt-2 text-green-600 select-none dark:text-green-300">
+        <p className=" text-lg text-center pt-2 text-green-600 select-none font-Crimson dark:text-green-300">
           Select the category from the given categories from below which you
           will teach by this account.<br/>You can choose only one category from one account.
         </p>
-        <SearchCategory/>
+      </div>
         <SelectCard />
       </div>
     </>

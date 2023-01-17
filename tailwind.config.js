@@ -11,6 +11,7 @@ module.exports = {
 
   theme: {
     fontFamily:{
+      Crimson:['Crimson Pro', 'serif'],
       Garamond:['EB Garamond', 'serif'],
       Josefin : ['Josefin Sans', 'serif']
     },
