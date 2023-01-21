@@ -8,7 +8,7 @@ import { ThemeProvider } from 'next-themes'
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const { asPath } = router;
-  const noNav = ["/admin", "/teacher/selectcategory", "/admin/Addcategory"];
+  const noNav = ["/admin", "/teacher/selectcategory", "/admin/Addcategory", "/admin/DeleteCategory", "/admin/UpdateCategory"];
   return(
     <>
     <ThemeProvider attribute='class' enableSystem={true}>

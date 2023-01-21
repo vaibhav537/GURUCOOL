@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.DBADDCATE).then(()=>{
-    console.log("Connection Successful");
-}).catch((err)=>console.log("No Connection"))
+const category = mongoose.createConnection(process.env.DBADDCATE)
+
+export default category

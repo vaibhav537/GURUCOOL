@@ -3,45 +3,46 @@ import Head from "next/head";
 import Checkbox from "../components/Checkbox";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminNavbar from "../components/AdminNavbar";
 
 const Addcategory = () => {
   const [categoryTitle, setCategoryTitle] = useState("");
-  const [categoryDescription, setCategoryDescription] = useState("")
-  const [categoryLabel, setCategoryLabel] = useState("")
+  const [categoryDescription, setCategoryDescription] = useState("");
+  const [categoryLabel, setCategoryLabel] = useState("");
 
-    const postAddCategory = async(e) => {
-        e.preventDefault();
-        try {
-          const res = await fetch("/api/addcategory",{
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              categoryTitle,
-              categoryDescription,
-              categoryLabel
-            })
-          });
-          toast.success("Successfully Added", {
-            position: "bottom-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        } catch (error) {
-          toast.error("Not Added, Try Again some later", {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        }
+  const postAddCategory = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/addcategory", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          categoryTitle,
+          categoryDescription,
+          categoryLabel,
+        }),
+      });
+      toast.success("Successfully Added", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } catch (error) {
+      toast.error("Not Added, Try Again some later", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
+  };
   return (
     <>
       <Head>
@@ -61,58 +62,79 @@ const Addcategory = () => {
         rtl={false}
         theme="dark"
       />
-      <div className="bg-slate-200 dark:bg-slate-600 w-[99vw] h-[99vh]">
+
+      <div className="bg-pink-200 dark:bg-slate-600 w-[100vw] h-[100vh] transition-all duration-1000">
         <div className="fixed right-10 bottom-10">
           <Checkbox />
         </div>
-        <p className="text-center text-4xl pt-10 font-bold font-Garamond">ADD THE CATEGORY</p>
-        <form className="flex flex-col justify-center items-center">
-          <div className="flex flex-col pt-20">
-            <label htmlFor="title" className="text-xl">
-              Enter the title of the Category
-            </label>
-            <input
-              type="text"
-              id="title"
-              placeholder="ex: Class 9 RBSE"
-              className="p-2 outline-none rounded border-2 border-slate-700 dark:border-slate-500"
-              onChange={(e)=>{setCategoryTitle(e.target.value)}}
-              name="categoryTitle"
-              autoComplete="off"
-            />
+        <div className="flex">
+          <div className="bg-pink-100 transition-all duration-1000 h-[100vh] shadow-2xl p-10 dark:shadow-4xl dark:bg-slate-800">
+            <AdminNavbar />
           </div>
-          <div className="flex flex-col pt-10">
-            <label htmlFor="title" className="text-xl">
-              Enter some Description of the Category
-            </label>
-            <input
-              type="text"
-              id="title"
-              placeholder="Description of the Category"
-              className="p-2 outline-none rounded border-2 border-slate-700 dark:border-slate-500"
-              onChange={(e)=>{setCategoryDescription(e.target.value)}}
-              name="categoryDescription"
-              autoComplete="off"
-            />
+          <div className="pl-[20rem]">
+            <p className="text-center text-4xl pt-10 font-bold font-Garamond">
+              ADD THE CATEGORY
+            </p>
+            <form className="flex flex-col">
+              <div className="flex flex-col pt-20">
+                <label htmlFor="title" className="text-xl">
+                  Enter the title of the Category
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  placeholder="ex: Class 9 RBSE"
+                  className="p-2 outline-none dark:placeholder:text-pink-300 placeholder:text-pink-900 transition-all w-96 duration-1000 rounded border-2 border-pink-700 dark:border-pink-500"
+                  onChange={(e) => {
+                    setCategoryTitle(e.target.value);
+                  }}
+                  name="categoryTitle"
+                  autoComplete="off"
+                />
+              </div>
+              <div className="flex flex-col pt-10">
+                <label htmlFor="title" className="text-xl">
+                  Enter some Description of the Category
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  placeholder="Description of the Category"
+                  className="p-2 outline-none transition-all dark:placeholder:text-pink-300 placeholder:text-pink-900 w-96 duration-1000 rounded border-2 border-pink-700 dark:border-pink-500"
+                  onChange={(e) => {
+                    setCategoryDescription(e.target.value);
+                  }}
+                  name="categoryDescription"
+                  autoComplete="off"
+                />
+              </div>
+              <div className="flex flex-col pt-10">
+                <label htmlFor="title" className="text-xl">
+                  Enter the Label of the Category
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  placeholder="example: class9CBSE"
+                  className="p-2 outline-none transition-all dark:placeholder:text-pink-300 placeholder:text-pink-900 w-96 duration-1000 rounded border-2 border-pink-700 dark:border-pink-500"
+                  onChange={(e) => {
+                    setCategoryLabel(e.target.value);
+                  }}
+                  name="categoryLabel"
+                  autoComplete="off"
+                />
+              </div>
+              <div className="pt-20">
+                <input
+                  type="submit"
+                  value="ADD"
+                  onClick={postAddCategory}
+                  className="hover:text-white ml-10 dark:placeholder:text-pink-300 w-[10rem] text-lg font-Garamond border-2 transition-all duration-300 rounded hover:rounded-lg border-red-500 p-2 bg-red-300 dark:bg-pink-500 dark:hover:bg-pink-700 cursor-pointer hover:bg-pink-500 hover:border-pink-700"
+                /> 
+              </div>
+            </form>
           </div>
-          <div className="flex flex-col pt-10">
-            <label htmlFor="title" className="text-xl">
-              Enter the Label of the Category
-            </label>
-            <input
-              type="text"
-              id="title"
-              placeholder="example: class9CBSE"
-              className="p-2 outline-none rounded border-2 border-slate-700 dark:border-slate-500"
-              onChange={(e)=>{setCategoryLabel(e.target.value)}}
-              name="categoryLabel"
-              autoComplete="off"
-            />
-          </div>
-          <div className="pt-20">
-            <input type="submit" value="ADD" onClick={postAddCategory} className="w-[10rem] text-lg font-Garamond border-2 transition-all duration-300 rounded hover:rounded-lg border-gray-500 p-2 bg-slate-300 dark:bg-slate-500 dark:hover:bg-slate-700 cursor-pointer hover:bg-gray-500 hover:border-gray-700" />
-          </div>
-        </form>
+        </div>
       </div>
     </>
   );

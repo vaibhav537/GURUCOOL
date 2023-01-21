@@ -1,9 +1,12 @@
-import Head from "next/head";
 import React from "react";
-import AdminNavbar from "./components/AdminNavbar";
-import Checkbox from "./components/Checkbox";
+import Head from "next/head";
+import Checkbox from "../components/Checkbox";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import AdminNavbar from "../components/AdminNavbar";
 
-const admin = () => {
+
+const UpdateCategory = () => {
   return (
     <>
       <Head>
@@ -22,11 +25,11 @@ const admin = () => {
           <div className="bg-pink-100 transition-all duration-1000 h-[100vh] shadow-2xl p-10 dark:shadow-4xl dark:bg-slate-800">
             <AdminNavbar />
           </div>
-          <div>HOME BRO IS HERE</div>
+          <div>UPDATE BRO IS HERE</div>
         </div>
       </div>
     </>
   );
 };
 
-export default admin;
+export default UpdateCategory;

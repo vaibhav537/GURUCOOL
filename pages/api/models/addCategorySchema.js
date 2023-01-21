@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import category from "../db/addCate"
 
 const addCategorySchema = mongoose.Schema({
     categoryTitle : {
@@ -13,7 +14,7 @@ const addCategorySchema = mongoose.Schema({
 });
 
 const AddCategory =
-  mongoose.models.CATEGORYJSON || mongoose.model("CATEGORYJSON", addCategorySchema);
+  category.models.CATEGORYJSON || category.model("CATEGORYJSON", addCategorySchema);
 
 module.exports = AddCategory;
 

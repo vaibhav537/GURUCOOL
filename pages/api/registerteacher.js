@@ -26,15 +26,7 @@ const handler =  async(req, res)  => {
     });
 
     if (teacher) {
-        res.status(201).json({
-            _id : teacher._id,
-            name : teacher.name,
-            email : teacher.email,
-            phone : teacher.phone,
-            gender : teacher.gender,
-            pic : teacher.pic,
-            token : generateTeacherToken(teacher._id),
-        });
+      return res.json({status: true, teacher})
     }else{
         res.status(400);
         throw new Error("Failed to create the teacher")

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
+import register from "../db/regg"
 
 const studentSchema = mongoose.Schema(
   {
@@ -48,6 +49,6 @@ studentSchema.pre("save", async function(next) {
   }
 } )
 const StudentRegister =
-  mongoose.models.STUDENT || mongoose.model("STUDENT", studentSchema);
+  register.models.STUDENT || register.model("STUDENT", studentSchema);
 
 module.exports = StudentRegister;

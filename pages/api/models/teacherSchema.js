@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
+import register from "../db/regg"
 
 const teacherSchema = mongoose.Schema(
   {
@@ -30,7 +31,8 @@ const teacherSchema = mongoose.Schema(
       default:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
     },
     category: {
-      type: String
+      type: String,
+      default:"NOCATEGORY"
     }
   },
   {
@@ -51,6 +53,6 @@ teacherSchema.pre("save", async function(next) {
   }
 } )
 const TeacherRegister =
-  mongoose.models.TEACHER || mongoose.model("TEACHER", teacherSchema);
+  register.models.TEACHER || register.model("TEACHER", teacherSchema);
 
 module.exports = TeacherRegister;

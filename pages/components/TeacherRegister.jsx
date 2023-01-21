@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 const TeacherRegister = () => {
   const [name, setName] = useState("");
@@ -99,12 +100,12 @@ const TeacherRegister = () => {
       return;
     }
     try {
-      const res = await fetch("/api/registerteacher", {
-        method: "POST",
+      const config = {
         headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+          "Content-type":"application/json"
+        }
+      }
+      const { data } = await axios.post("/api/registerteacher", {
           name,
           phone,
           email,
@@ -112,8 +113,7 @@ const TeacherRegister = () => {
           password,
           confirmpassword,
           pic,
-        }),
-      });
+      },config);
       toast.success("Registration Succesfull", {
         position: "bottom-center",
         autoClose: 3000,
@@ -122,11 +122,9 @@ const TeacherRegister = () => {
         progress: undefined,
         theme: "dark",
       });
+      localStorage.setItem("teacher-info", JSON.stringify(data.teacher))
 
-      localStorage.setItem("teacherinfo", JSON.stringify(res));
-      setLoading(false);
-
-      router.replace("/teacher/selectcategory");
+      router.push("/teacher/selectcategory");
     } catch (error) {
       toast.error("Error Occured, Try Again Later", {
         position: "bottom-center",

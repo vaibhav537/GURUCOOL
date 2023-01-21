@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+import contact from "../db/conn"
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -18,6 +19,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.models.USER || mongoose.model("USER", userSchema);
+const User = contact.models.USER || contact.model("USER", userSchema);
 
 module.exports = User;
