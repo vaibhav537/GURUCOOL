@@ -51,7 +51,7 @@ const admin = () => {
                   id="teachers"
                   name="list"
                   className="hidden peer"
-                  checked
+                  defaultChecked
                   onClick={handleRadio1}
                 />
                 <label

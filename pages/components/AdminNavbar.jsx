@@ -12,6 +12,7 @@ const AdminNavbar = () => {
           src="/images/AdminLogo.png"
           width={150}
           height={150}
+          alt="LOGO"
           className="select-none pl-10 ml-[7px] w-[166px] mb-5  transition-all duration-1000 dark:invert-[1]"
         />
         <p className=" text-xl ml-[24px] font-extrabold  dark:text-slate-200 transition-all duration-1000 select-none  text-slate-700 drop-shadow-2xl font-Garamond dark:shadow-white">
