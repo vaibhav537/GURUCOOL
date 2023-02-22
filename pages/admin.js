@@ -6,6 +6,24 @@ import AdminTeacherList from "./components/AdminTeacherList";
 import Checkbox from "./components/Checkbox";
 
 const admin = () => {
+  const [isActive, setIsActive] = useState(false);
+  const [visibleTeacher, setVisibleTeacher] = useState(true);
+  const [visibleStudent, setVisibleStudent] = useState(false);
+  const handleRadio1 = (e) => {
+    e.preventDefault();
+    if (visibleStudent === true) {
+      setVisibleTeacher(true);
+      setVisibleStudent(false);
+      setIsActive((current) => !current);
+    }
+  };
+  const handleRadio2 = (e) => {
+    e.preventDefault();
+    if (visibleTeacher === true) {
+      setVisibleStudent(true);
+      setVisibleTeacher(false);
+    }
+  };
   return (
     <>
       <Head>
@@ -25,11 +43,66 @@ const admin = () => {
           <div className="bg-pink-100 transition-all duration-1000 h-[100vh] shadow-2xl p-10 dark:shadow-4xl dark:bg-slate-800">
             <AdminNavbar />
           </div>
-          <div>
-            
+          <div className="pt-[4rem] pl-[15rem]">
+            <ul className="grid w-full gap-40 md:grid-cols-2">
+              <li>
+                <input
+                  type="radio"
+                  id="teachers"
+                  name="list"
+                  className="hidden peer"
+                  checked
+                  onClick={handleRadio1}
+                />
+                <label
+                  htmlFor="teachers"
+                  className={`inline-flex  w-[10rem]  items-center justify-between  p-5  bg-pink-300 rounded-lg cursor-pointer dark:hover:text-gray-300  transition-all duration-700   dark:hover:bg-gray-700 ${
+                    visibleTeacher
+                      ? "shadow-4xl bg-pink-700 dark:bg-slate-600 dark:text-slate-300 text-black"
+                      : "text-white dark:text-slate-500  dark:bg-slate-300 hover:shadow-3xl hover:text-pink-600 hover:bg-pink-100"
+                  }`}
+                >
+                  <div className="block">
+                    <div className="w-full text-lg font-semibold select-none ">TEACHERS</div>
+                  </div>
+                </label>
+              </li>
+              <li>
+                <input
+                  type="radio"
+                  id="students"
+                  name="list"
+                  className="hidden peer"
+                  onClick={handleRadio2}
+                />
+                <label
+                  htmlFor="students"
+                  className={`inline-flex text-center  w-[10rem]  items-center justify-between  p-5  bg-pink-300 rounded-lg cursor-pointer dark:hover:text-gray-300  transition-all duration-700   dark:hover:bg-gray-700 ${
+                    visibleStudent
+                      ? "shadow-4xl bg-pink-700 dark:bg-slate-600 dark:text-slate-300 text-black"
+                      : "text-white dark:text-slate-500  dark:bg-slate-300 hover:shadow-3xl hover:text-pink-600 hover:bg-pink-100"
+                  }`}
+                >
+                  <div className="block">
+                    <div className="w-full text-lg font-semibold select-none ">STUDENTS</div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+            <div className="mt-[3rem] -ml-28">
+              {visibleTeacher && (
+                <div>
+                  <AdminTeacherList />
+                </div>
+              )}
+              {visibleStudent && (
+                <div>
+                  <AdminStudentList />
+                </div>
+              )}
+            </div>
           </div>
         </div>
-
       </div>
     </>
   );
