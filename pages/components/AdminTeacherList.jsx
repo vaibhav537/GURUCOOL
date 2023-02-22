@@ -1,27 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
 const AdminTeacherList = () => {
+  const [teacher , setTeacher] = useState();
   return (
     <>
-      <div className="mt-[4rem] ml-40 w-[60vw] shadow-5xl shadow-inset p-10  rounded dark:border-red-200 transition-all duration-1000">
-        <h4 className="text-3xl uppercase font-semibold text-center font-Garamond">
+      <div className="w-[60vw] shadow-5xl shadow-inset dark:bg-slate-800 p-10 bg-pink-100  rounded dark:border-red-200 transition-all duration-1000">
+        <h4 className="select-none text-3xl uppercase font-semibold text-center font-Garamond">
           Teachers in MEET IN
         </h4>
         <table className="ml-[50px] mt-[25px]">
           <tbody>
           <tr className="border-y-2  border-slate-500 font-Garamond text-lg">
-            <td className="p-3 w-[10rem] text-center">Sr No.</td>
-            <td className="p-3 w-[10rem] text-center">Name</td>
-            <td className="p-3 w-[10rem] text-center">Email</td>
-            <td className="p-3 w-[10rem] text-center">Category</td>
-            <td className="p-3 w-[10rem] text-center">Delete</td>
+            <td className="p-3 w-[10rem] text-center select-none ">Sr No.</td>
+            <td className="p-3 w-[10rem] text-center select-none ">Name</td>
+            <td className="p-3 w-[10rem] text-center select-none ">Email</td>
+            <td className="p-3 w-[10rem] text-center select-none ">Category</td>
+            <td className="p-3 w-[10rem] text-center select-none ">Delete</td>
           </tr>
           <tr className="h-[54px]">
-            <td className="p-3 w-[10rem] text-center">1.</td>
-            <td className="p-3 w-[10rem] text-center">Vaibhav</td>
-            <td className="p-3 w-[10rem] text-center">Vaibhavmali537@gmail.com</td>
-            <td className="p-3 w-[10rem] text-center">Class 6</td>
-            <td className="p-3 w-[10rem] text-center     hover:text-red-500 transition-all duration-300 hover:text-xl"><i className="fa-solid fa-trash"></i></td>
+            <td className="p-3 w-[10rem] text-center select-none ">1.</td>
+            <td className="p-3 w-[10rem] text-center select-none ">Vaibhav</td>
+            <td className="p-3 w-[10rem] text-center select-none ">Vaibhavmali537@gmail.com</td>
+            <td className="p-3 w-[10rem] text-center select-none ">Class 6</td>
+            <td className="p-3 w-[10rem] text-center cursor-pointer hover:text-red-500 transition-all duration-300 hover:text-xl"><i className="fa-solid fa-trash"></i></td>
           </tr>
           </tbody>
         </table>
