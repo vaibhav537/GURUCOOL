@@ -39,8 +39,8 @@ const Team = () => {
 
   return (
     <>
-    <div className="bg-slate-100 dark:bg-slate-600">
-      <div className="max-w-[840px] h-[380px] md:h-[480px] lg:h-[580px] xl:h-[580px] w-full xl:-pt-10 m-auto py-16 px-4 dark:bg-slate-600 relative group ">
+    <div className="bg-slate-100 dark:bg-slate-600 transition-all duration-700">
+      <div className="max-w-[840px] h-[380px] md:h-[480px] lg:h-[580px] xl:h-[580px] w-full xl:-pt-10 m-auto py-16 px-4 dark:bg-slate-600 relative group transition-all duration-700 ">
         <div
           style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
           className="w-full h-full opacity-80 rounded-2xl bg-center bg-cover duration-500"

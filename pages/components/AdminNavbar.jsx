@@ -19,10 +19,10 @@ const AdminNavbar = () => {
           MEET IN - ADMIN
         </p>
         <ul className="flex flex-col mt-[3rem]">
-        <Link legacyBehavior href={"/admin"}>
+        <Link legacyBehavior href={"/admin/ifqRPHleaQkbEvmwOPEqb"}>
         <a
             className={`select-none  flex uppercase items-center  border-2 justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px] 
-              ${router.pathname == "/admin"
+              ${router.pathname == "/admin/ifqRPHleaQkbEvmwOPEqb"
                 ? " border-black bg-gray-200 rounded hover:border-gray-500 text-black hover:text-gray-500 transition-all "
                 : "text-black border-pink-100 dark:border-slate-800  lg:text-gray-500 hover:text-gray-300 transition-all "}
             `}

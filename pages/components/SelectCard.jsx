@@ -86,8 +86,7 @@ const SelectCard = () => {
       />
       {isLoading ? (
         <div className="flex justify-center items-center mt-[12rem]">
-          {" "}
-          <img src="/loader.gif" className="h-20 w-20" alt="loader" />{" "}
+          <img src="/loader.gif" className="h-20 w-20" alt="loader" />
         </div>
       ) : (
         <div>

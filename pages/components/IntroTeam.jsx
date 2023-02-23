@@ -2,7 +2,7 @@ import React from "react";
 
 const IntroTeam = () => {
   return (
-    <div className="pt-[4rem] text-center dark:bg-slate-600 md:pt-[6rem] select-none cursor-text text font-medium bg-slate-100">
+    <div className="pt-[4rem] text-center transition-all duration-700 dark:bg-slate-600 md:pt-[6rem] select-none cursor-text text font-medium bg-slate-100">
       <p className="text-2xl md:text-4xl ">
         MEET OUR TEAM
       </p>
