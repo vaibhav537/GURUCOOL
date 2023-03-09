@@ -18,8 +18,8 @@ const handler = async (req, res) => {
             token: generateTeacherToken(teacher._id)
         });
     }else{
-        res.status(401)
-        throw new Error("Invalid Email or Password")
+      res.status(401)
+      throw new Error("Invalid Email or Password")
     }
   }
 };
