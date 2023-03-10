@@ -15,8 +15,8 @@ const AdminStudentList = () => {
   }, []);
   return (
     <>
-      <div className="w-[60vw]  shadow-5xl shadow-inset p-10 dark:bg-slate-800 bg-pink-100  rounded dark:border-red-200 transition-all duration-1000">
-        <h4 className="text-3xl select-none uppercase font-semibold text-center font-Garamond">
+      <div className="w-[60vw]  shadow-5xl shadow-inset p-10 dark:bg-slate-800 bg-teal-100  rounded dark:border-red-200 transition-all duration-1000">
+        <h4 className="text-3xl select-none uppercase font-semibold text-center text-black/75">
           Students in MEET IN
         </h4>
         {isLoading ? (

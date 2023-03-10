@@ -75,28 +75,28 @@ const DeleteCategory = () => {
         rtl={false}
         theme="dark"
       />
-      <div className="bg-pink-200 dark:bg-slate-600 w-[100vw] h-[100vh] transition-all duration-1000">
+      <div className="bg-purple-300 dark:bg-slate-600 w-[100vw] h-[100vh] transition-all duration-1000">
         <div className="fixed right-10 bottom-10">
           <Checkbox />
         </div>
         <div className="flex">
-          <div className="bg-pink-100 transition-all duration-1000 h-[100vh] shadow-2xl p-10 dark:shadow-4xl dark:bg-slate-800">
+          <div className="bg-teal-300 transition-all duration-1000 h-[100vh] shadow-2xl p-10 dark:shadow-4xl dark:bg-slate-800">
             <AdminNavbar />
           </div>
           <div className="pl-[20rem] pt-[10rem]">
-            <p className=" text-center text-4xl pt-10 font-bold font-Garamond">
+            <p className=" text-center text-4xl pt-10 font-bold text-white">
               DELETE THE CATEGORY
             </p>
             <form className="flex flex-col ">
               <div className="flex flex-col pt-20">
-                <label htmlFor="title" className="text-xl">
+                <label htmlFor="title" className="text-xl text-white">
                   Enter the title of the Category
                 </label>
                 <input
                   type="text"
                   id="title"
                   placeholder="ex: Class 9 RBSE"
-                  className="p-2 outline-none rounded tansition-all duration-1000 border-2 w-96 dark:bg-slate-700 dark:placeholder:text-pink-300  bg-pink-100 placeholder:text-pink-900 border-pink-700 dark:border-pink-500"
+                  className="p-2 dark:bg-teal-800 outline-none dark:placeholder:text-teal-300 placeholder:text-teal-900 bg-teal-100 transition-all w-96 duration-500 rounded ring-2 ring-teal-100 focus:ring-4 focus:ring-teal-500 mt-4"
                   onChange={(e) => {
                     setCategoryTitle(e.target.value);
                   }}
@@ -109,7 +109,7 @@ const DeleteCategory = () => {
                   type="submit"
                   value="DELETE"
                   onClick={deleteCat}
-                  className="hover:text-white ml-32 w-[10rem] text-lg font-Garamond border-2 transition-all duration-300 rounded hover:rounded-lg border-red-500 p-2 bg-red-300 dark:bg-pink-500 dark:hover:bg-pink-700 cursor-pointer hover:bg-pink-500 hover:border-pink-700"
+                  className="hover:text-white ml-10 dark:placeholder:text-teal-300 w-[10rem] text-lg font-bold transition-all duration-300 rounded hover:shadow-3xl p-2 dark:bg-teal-800 bg-teal-300 dark:bg-teal-500 dark:hover:bg-teal-700 cursor-pointer hover:bg-teal-500"
                 />
               </div>
             </form>

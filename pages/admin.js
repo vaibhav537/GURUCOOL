@@ -1,7 +1,40 @@
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const admin = () => {
+  const [show, setShow] = useState("password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleShow = (e) => {
+    e.preventDefault();
+    if (show === "password") {
+      setShow("text");
+    } else {
+      setShow("password");
+    }
+  };
+
+  const postAdminLogin = (event) => {
+    event.preventDefault();
+    if (!email || !password) {
+      toast.warning("Please Fill all the fields", {
+        position: "top-center",
+        hideProgressBar: true,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "light"
+      });
+      return;
+    }
+    try {
+      
+    } catch (error) {
+      
+    }
+  };
   return (
     <>
       <Head>
@@ -12,9 +45,68 @@ const admin = () => {
         />
         <link rel="icon" href="/images/logo.png" />
       </Head>
-      <div className="bg-pink-200 h-screen w-screen flex items-center justify-center">
-        <div className="bg-pink-400 rounded-md shadow-2xl p-20">
-          heelo
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        theme="light" 
+      />
+      <div className="bg-[#d0c2e4] h-screen w-screen flex items-center justify-center">
+        <div className="bg-[#317773] rounded-md shadow-2xl p-20">
+          <h3 className="font-bold text-white text-2xl text-center select-none">
+            ADMIN LOGIN
+          </h3>
+          <form
+            method="post"
+            className="flex flex-col items-center justify-center"
+            onSubmit={postAdminLogin}
+          >
+            <div className="">
+              <input
+                type="email"
+                name="email"
+                autoComplete="off"
+                placeholder="Admin Email"
+                onChange={(e) => setEmail(e.target.value)}
+                className="outline-none p-2 rounded mt-10 ring-1 ring-gray-50 focus:ring-4 focus:ring-teal-900 transition-all duration-500"
+              />
+            </div>
+            <div className="relative mt-4 mb-6">
+              <input
+                type={show}
+                id="password"
+                name="password"
+                onChange={(e) => setPassword(e.target.value)}
+                className="outline-none p-2 rounded mt-5 ring-1 ring-gray-50 focus:ring-4 focus:ring-teal-900 transition-all duration-500"
+                placeholder="Admin Password"
+                autoComplete="off"
+              />
+              <div
+                className="text-[1.25rem] absolute cursor-pointer bottom-[10px] right-[8px] flex items-center pl-3"
+                onClick={handleShow}
+              >
+                <i
+                  className={`text-teal-600 ${
+                    show === "password"
+                      ? "fa-solid fa-eye"
+                      : "fa-solid fa-eye-slash transition-all duration-1000"
+                  } `}
+                ></i>
+              </div>
+            </div>
+            <div className="">
+              <button
+                type="submit"
+                className="uppercase bg-purple-300 p-2 outline-none select-none rounded cursor-pointer hover:text-white hover:bg-teal-800 hover:shadow-3xl transition-all duration-500 font-semibold mt-10"
+              >
+                login
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </>

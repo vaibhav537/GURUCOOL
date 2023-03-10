@@ -17,12 +17,12 @@ const UpdateCategory = () => {
         />
         <link rel="icon" href="/images/logo.png" />
       </Head>
-      <div className="bg-pink-200 dark:bg-slate-600 w-[100vw] h-[100vh] transition-all duration-1000">
+      <div className="bg-purple-300 dark:bg-slate-600 w-[100vw] h-[100vh] transition-all duration-1000">
         <div className="fixed right-10 bottom-10">
           <Checkbox />
         </div>
         <div className="flex">
-          <div className="bg-pink-100 transition-all duration-1000 h-[100vh] shadow-2xl p-10 dark:shadow-4xl dark:bg-slate-800">
+          <div className="bg-teal-300 transition-all duration-1000 h-[100vh] shadow-2xl p-10 dark:shadow-4xl dark:bg-slate-800">
             <AdminNavbar />
           </div>
           <div>UPDATE BRO IS HERE</div>

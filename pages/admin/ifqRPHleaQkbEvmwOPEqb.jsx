@@ -34,13 +34,13 @@ const ifqRPHleaQkbEvmwOPEqb = () => {
         />
         <link rel="icon" href="/images/logo.png" />
       </Head>
-      <div className="bg-pink-200 dark:bg-slate-600 w-[100vw] h-[100vh] transition-all duration-1000">
+      <div className="bg-purple-300 dark:bg-slate-600 w-[100vw] h-[100vh] transition-all duration-1000">
         <div className="fixed right-10 bottom-10">
           <Checkbox />
         </div>
 
         <div className="flex">
-          <div className="bg-pink-100 transition-all duration-1000 h-[100vh] shadow-2xl p-10 dark:shadow-4xl dark:bg-slate-800">
+          <div className="bg-teal-300 transition-all duration-1000 h-[100vh] shadow-2xl p-10 dark:shadow-4xl dark:bg-slate-800">
             <AdminNavbar />
           </div>
           <div className="pt-[4rem] pl-[15rem]">
@@ -56,10 +56,10 @@ const ifqRPHleaQkbEvmwOPEqb = () => {
                 />
                 <label
                   htmlFor="teachers"
-                  className={`inline-flex  w-[10rem]  items-center justify-between  p-5  bg-pink-300 rounded-lg cursor-pointer dark:hover:text-gray-300  transition-all duration-700   dark:hover:bg-gray-700 ${
+                  className={`inline-flex  w-[10rem]  items-center justify-between  p-5  bg-teal-200 rounded-lg cursor-pointer dark:hover:text-gray-300  transition-all duration-700   dark:hover:bg-gray-700 ${
                     visibleTeacher
-                      ? " shadow-4xl bg-pink-700 dark:bg-slate-600 dark:text-slate-300 text-black"
-                      : "text-white dark:text-slate-500  dark:bg-slate-300 hover:shadow-3xl hover:text-pink-600 hover:bg-pink-100"
+                      ? " shadow-4xl bg-teal-700 dark:bg-slate-600 dark:text-slate-300 text-black"
+                      : "text-white dark:text-slate-500  dark:bg-slate-300 hover:shadow-3xl hover:text-teal-600 hover:bg-teal-100"
                   }`}
                 >
                   <div className="block">
@@ -77,10 +77,10 @@ const ifqRPHleaQkbEvmwOPEqb = () => {
                 />
                 <label
                   htmlFor="students"
-                  className={`inline-flex text-center  w-[10rem]  items-center justify-between  p-5  bg-pink-300 rounded-lg cursor-pointer dark:hover:text-gray-300  transition-all duration-700   dark:hover:bg-gray-700 ${
+                  className={`inline-flex text-center  w-[10rem]  items-center justify-between  p-5  bg-teal-200 rounded-lg cursor-pointer dark:hover:text-gray-300  transition-all duration-700   dark:hover:bg-gray-700 ${
                     visibleStudent
-                      ? "shadow-4xl bg-pink-700 dark:bg-slate-600 dark:text-slate-300 text-black"
-                      : "text-white dark:text-slate-500  dark:bg-slate-300 hover:shadow-3xl hover:text-pink-600 hover:bg-pink-100"
+                      ? "shadow-4xl bg-teal-700 dark:bg-slate-600 dark:text-slate-300 text-black"
+                      : "text-white dark:text-slate-500  dark:bg-slate-300 hover:shadow-3xl hover:text-teal-600 hover:bg-teal-100"
                   }`}
                 >
                   <div className="block">

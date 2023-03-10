@@ -29,7 +29,6 @@ const TeacherLogin = () => {
         progress: undefined,
         theme: "light",
       });
-      console.log("Sorry");
       return;
     }
     try {
