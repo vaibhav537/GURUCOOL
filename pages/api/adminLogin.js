@@ -7,12 +7,10 @@ const handler =  async(req,res) => {
         const adminEmail = await AdminLogin.findOne({ email });
         const adminPassword = await AdminLogin.findOne({ password });
 
-        if(adminEmail && adminPassword){
-            res.status(201).json({msg : "ID PASSWORD MATCHED !!"})
-        }
-        else{
-            res.status(201).json({msg: "ID PASSWORD NOT MATCHED"})
-
+        if(adminEmail  && adminPassword){
+            res.status(201).json({success: true, msg: "ID PASSWORD MATCHED !!"})
+        }else{
+            res.status(401).json({success: false, msg: "ID PASSWORD NOT MATCHED !!"})
         }
     }
     else

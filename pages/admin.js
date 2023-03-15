@@ -1,9 +1,12 @@
 import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const admin = () => {
+  const router = useRouter();
   const [show, setShow] = useState("password");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +20,7 @@ const admin = () => {
     }
   };
 
-  const postAdminLogin = (event) => {
+  const postAdminLogin = async (event) => {
     event.preventDefault();
     if (!email || !password) {
       toast.warning("Please Fill all the fields", {
@@ -25,14 +28,48 @@ const admin = () => {
         hideProgressBar: true,
         closeOnClick: true,
         progress: undefined,
-        theme: "light"
+        theme: "light",
       });
       return;
     }
     try {
-      
+      const res = await fetch("/api/adminLogin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      const response = await res.json();
+      if (response.success === true) {
+        toast.success("ACCESS GRANTED", {
+          position: "top-center",
+          hideProgressBar: true,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        router.push("/admin/ifqRPHleaQkbEvmwOPEqb");
+      } else {
+        toast.error("ACCESS NOT GRANTED", {
+          position: "top-center",
+          hideProgressBar: true,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
     } catch (error) {
-      
+      toast.error("ACCESS NOT GRANTED", {
+        position: "top-center",
+        hideProgressBar: true,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
   return (
@@ -53,7 +90,7 @@ const admin = () => {
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
-        theme="light" 
+        theme="light"
       />
       <div className="bg-[#d0c2e4] h-screen w-screen flex items-center justify-center">
         <div className="bg-[#317773] rounded-md shadow-2xl p-20">
@@ -63,7 +100,6 @@ const admin = () => {
           <form
             method="post"
             className="flex flex-col items-center justify-center"
-            onSubmit={postAdminLogin}
           >
             <div className="">
               <input
@@ -98,15 +134,21 @@ const admin = () => {
                 ></i>
               </div>
             </div>
+
             <div className="">
-              <button
+              <input
                 type="submit"
-                className="uppercase bg-purple-300 p-2 outline-none select-none rounded cursor-pointer hover:text-white hover:bg-teal-800 hover:shadow-3xl transition-all duration-500 font-semibold mt-10"
-              >
-                login
-              </button>
+                className="uppercase bg-purple-300 p-2 outline-none select-none rounded cursor-pointer hover:text-white hover:bg-teal-800 hover:shadow-3xl transition-all duration-500 font-semibold mt-8"
+                onClick={postAdminLogin}
+                value="LOGIN"
+              />
             </div>
           </form>
+          <div className="relative top-[41px] left-[12px] text-sm font-bold hover:text-teal-300 transition-all duration-500">
+              <div>
+                <Link href={"/admin"}>Change Admin Id Password?</Link>
+              </div>
+            </div>
         </div>
       </div>
     </>
