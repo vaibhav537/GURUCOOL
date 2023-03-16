@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Link from "next/link";
+import Dialog from "./components/Dialog";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,6 +10,7 @@ const admin = () => {
   const [show, setShow] = useState("password");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [dialog, setDialog] = useState(false);
 
   const handleShow = (e) => {
     e.preventDefault();
@@ -72,6 +73,13 @@ const admin = () => {
       });
     }
   };
+
+  const handleDialog = (e) => {
+    e.preventDefault();
+    setDialog(true);
+  };
+
+  const handleOnClose = () => setDialog(false)
   return (
     <>
       <Head>
@@ -144,11 +152,13 @@ const admin = () => {
               />
             </div>
           </form>
-          <div className="relative top-[41px] left-[12px] text-sm font-bold hover:text-teal-300 transition-all duration-500">
-              <div>
-                <Link href={"/admin"}>Change Admin Id Password?</Link>
-              </div>
-            </div>
+          <button
+            className="relative top-[41px] left-[12px] text-sm font-bold hover:text-teal-300 transition-all duration-500 cursor-pointer"
+            onClick={handleDialog}
+          >
+            Change Admin Id Password?
+          </button>
+          <Dialog visible={dialog} onClose={handleOnClose}/>
         </div>
       </div>
     </>
