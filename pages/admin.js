@@ -11,6 +11,7 @@ const admin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dialog, setDialog] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleShow = (e) => {
     e.preventDefault();
@@ -23,6 +24,7 @@ const admin = () => {
 
   const postAdminLogin = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     if (!email || !password) {
       toast.warning("Please Fill all the fields", {
         position: "top-center",
@@ -31,6 +33,7 @@ const admin = () => {
         progress: undefined,
         theme: "light",
       });
+      setIsLoading(false);
       return;
     }
     try {
@@ -53,6 +56,7 @@ const admin = () => {
           progress: undefined,
           theme: "dark",
         });
+        setIsLoading(false);
         router.push("/admin/ifqRPHleaQkbEvmwOPEqb");
       } else {
         toast.error("ACCESS NOT GRANTED", {
@@ -62,6 +66,7 @@ const admin = () => {
           progress: undefined,
           theme: "dark",
         });
+        setIsLoading(false);
       }
     } catch (error) {
       toast.error("ACCESS NOT GRANTED", {
@@ -71,12 +76,26 @@ const admin = () => {
         progress: undefined,
         theme: "dark",
       });
+      setIsLoading(false);
     }
   };
 
-  const handleDialog = (e) => {
+  const handleDialog = async(e) => {
     e.preventDefault();
     setDialog(true);
+    try {
+      const data = fetch("/api/AdminOtp",{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email
+        })
+      })
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleOnClose = () => setDialog(false)
@@ -144,12 +163,11 @@ const admin = () => {
             </div>
 
             <div className="">
-              <input
+              <button
                 type="submit"
-                className="uppercase bg-purple-300 p-2 outline-none select-none rounded cursor-pointer hover:text-white hover:bg-teal-800 hover:shadow-3xl transition-all duration-500 font-semibold mt-8"
+                className="flex items-center justify-center uppercase w-20 bg-purple-300 p-2 outline-none select-none rounded cursor-pointer hover:text-white hover:bg-teal-800 hover:shadow-3xl transition-all duration-500 font-semibold mt-8"
                 onClick={postAdminLogin}
-                value="LOGIN"
-              />
+              >{isLoading ? <img src="/adminIdPass.gif" alt="..." className="w-5 h-5"/> : "LOGIN"}</button>
             </div>
           </form>
           <button
