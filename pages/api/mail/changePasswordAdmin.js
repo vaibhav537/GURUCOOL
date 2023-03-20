@@ -18,6 +18,12 @@ changeIdPassword.post(async (req, res) => {
 
     if (diff < 0) { //if expire time is over the this if will run
       res.status(400).json({success:false, msg: "Otp is Expired" }); //If otp is expired then this msg will log to console
+      const delOtp = await otp.findOneAndDelete({code: req.body.otpCode})
+      if(delOtp){
+        res.status(200).json({success:true, msg:"Otp deleted"});
+      }else{
+        res.status(404).json({success:false, msg:"Otp not Deleted"});
+      }
     } else { //if otp doesnot expires then this else statement will run
       res.status(200).json({success:true, msg: "Otp Founded You will Be redirect soon" }); //This will redirect to another page for changing the id password
     }

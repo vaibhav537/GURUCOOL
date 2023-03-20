@@ -1,5 +1,4 @@
-import generateTeacherToken from "./tokens/generateTeacherToken";
-
+const jwt = require('jsonwebtoken');
 const TeacherSchema = require("./models/teacherSchema");
 require("./db/regg");
 
@@ -8,18 +7,12 @@ const handler = async (req, res) => {
     const { email, password } = req.body;
 
     const teacher = await TeacherSchema.findOne({ email });
+    const token = teacher.generateAuthToken();
      
     if(teacher && (await teacher.matchPassword(password))){
-        res.json({
-            _id: teacher._id,
-            name: teacher.name,
-            email: teacher.email,
-            pic: teacher.pic,
-            token: generateTeacherToken(teacher._id)
-        });
+        res.status(222).json(token);
     }else{
-      res.status(401)
-      throw new Error("Invalid Email or Password")
+      res.status(444).json({message:"ERROR"})
     }
   }
 };

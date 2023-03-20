@@ -7,6 +7,7 @@ const TeacherLogin = () => {
   const [show, setShow] = useState("password");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
@@ -21,6 +22,7 @@ const TeacherLogin = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     if (!email || !password) {
       toast.warning("Please Fill all the fields", {
         position: "bottom-center",
@@ -29,11 +31,12 @@ const TeacherLogin = () => {
         progress: undefined,
         theme: "light",
       });
+      setIsLoading(false);
       return;
     }
     try {
 
-      const res = await fetch("/api/loginteacher", {
+      const { res } = await fetch("/api/loginteacher", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,12 +54,13 @@ const TeacherLogin = () => {
         progress: undefined,
         theme: "light",
       });
-
+      console.log(res);
       localStorage.setItem("teacherInfo", JSON.stringify(res));
-      setLoading(false);
+      setIsLoading(false);
 
-      router.push("/teacherprofile");
+      router.push("/");
     } catch (error) {
+      console.log(error);
       toast.error("Login Failed, Try Again Later", {
         position: "bottom-center",
         autoClose: 3000,
@@ -65,8 +69,7 @@ const TeacherLogin = () => {
         progress: undefined,
         theme: "light",
       });
-      setLoading(false);
-
+      setIsLoading(false);
     }
   };
   return (
@@ -144,9 +147,9 @@ const TeacherLogin = () => {
             <button
               onClick={submitHandler}
               type="submit"
-              className="font-bold font-Crimson text-lg text-white bg-green-400 uppercase rounded cursor-pointer hover:bg-green-300 hover:shadow-3xl hover:text-green-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-green-700 dark:hover:bg-green-900"
+              className="font-bold flex items-center justify-center w-20 font-Crimson text-lg text-white bg-green-400 uppercase rounded cursor-pointer hover:bg-green-300 hover:shadow-3xl hover:text-green-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-green-700 dark:hover:bg-green-900"
             >
-              login
+              {isLoading ? <img src="/loader.gif" alt="..." className="w-5 h-5"/> : "login"}
             </button>
           </div>
         </form>

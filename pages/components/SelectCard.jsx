@@ -50,6 +50,7 @@ const SelectCard = () => {
         category
       })
     });
+    if(data){
     toast.success("Category Added", {
       position: "bottom-center",
       autoClose: 3000,
@@ -58,6 +59,16 @@ const SelectCard = () => {
       progress: undefined,
       theme: "dark",
     });
+  }else{
+    toast.error("Category Not Added", {
+      position: "bottom-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  }
     // router.push("/teacher/teacherprofile")
   }catch(error){
     toast.error("Category Cannnot Be Added, Please Try Again Later", {

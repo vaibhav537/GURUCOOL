@@ -6,11 +6,12 @@ const handler = nc()
 .put(async(req,res)=>{
     try{
         const teacher = await TeacherSchema.findOne({_id: req.query.id})
-        teacher.category = req.body.category
+        teacher.category = req.body.category;
+        console.log(req.body.category);
         await teacher.save();
         res.status(201).json({success:"Category Added"})
     }catch(error){
-        console.log(error)
+        console.log(error);
     }
 })
 

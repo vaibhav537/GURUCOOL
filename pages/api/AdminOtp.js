@@ -17,7 +17,7 @@ handler.post(async(req,res)=>{
     let optData = new otp({                             // creating new document in mongo db
         email: "vaibhavmali537@gmail.com",                           // demo email sending 
         code: otpCode,                                  // saving the opt code to mongo db
-        expireIn: new Date().getTime() + 300*1000       // setting the  expiry tiem of the otp
+        expireIn: new Date().getTime() + 300*1000       // setting the  expiry time of the otp
     });
     let otpResponse = await optData.save();              // saving the document created above
     if (otpResponse){    
