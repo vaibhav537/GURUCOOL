@@ -1,10 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image"
+import Image from "next/image";
 import { useRouter } from "next/router";
 import Checkbox from "./Checkbox";
-const Navbar = () => {
-
+const Navbar = ({ teacher, logout }) => {
   const router = useRouter();
   return (
     <>
@@ -12,7 +11,13 @@ const Navbar = () => {
         <div className="flex justify-between items-center p-1 px-6 lg:px-0 container mx-auto">
           <Link href={"/"}>
             <div className=" flex text-lg font-bold uppercase">
-              <Image src="/images/logo.png" alt="..." height={50} width={50} className="dark:invert"/>
+              <Image
+                src="/images/logo.png"
+                alt="..."
+                height={50}
+                width={50}
+                className="dark:invert"
+              />
               <p className="pt-4 dark:text-white pl-4"> GURU COOL</p>
             </div>
           </Link>
@@ -54,28 +59,44 @@ const Navbar = () => {
                   About
                 </a>
               </Link>
-              <Link legacyBehavior href={"/login"}>
+              {!teacher.value && (
+                <Link legacyBehavior href={"/login"}>
+                  <a
+                    className={
+                      router.pathname == "/login"
+                        ? "text-xl text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                        : "text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                    }
+                  >
+                    Login
+                  </a>
+                </Link>
+              )}
+              {!teacher.value && (
+                <Link legacyBehavior href={"/register"}>
+                  <a
+                    className={
+                      router.pathname == "/register"
+                        ? "text-xl text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                        : "text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                    }
+                  >
+                    Register
+                  </a>
+                </Link>
+              )}
+              {teacher.value && (
                 <a
+                onClick={logout}
                   className={
-                    router.pathname == "/login"
-                      ? "text-xl text-black lg:text-gray-500 hover:text-gray-300 transition-all"
-                      : "text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                    router.pathname == "/logout"
+                      ? "text-xl cursor-pointer text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                      : "text-black lg:text-gray-500 cursor-pointer hover:text-gray-300 transition-all"
                   }
                 >
-                  Login
+                  Logout
                 </a>
-              </Link>
-              <Link legacyBehavior href={"/register"}>
-                <a
-                  className={
-                    router.pathname == "/register"
-                      ? "text-xl text-black lg:text-gray-500 hover:text-gray-300 transition-all"
-                      : "text-black lg:text-gray-500 hover:text-gray-300 transition-all"
-                  }
-                >
-                  Register
-                </a>
-              </Link>
+              )}
               <Link legacyBehavior href={"/contact"}>
                 <a
                   className={
@@ -89,7 +110,7 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
-            <Checkbox />
+          <Checkbox />
         </div>
       </div>
     </>

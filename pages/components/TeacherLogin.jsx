@@ -36,7 +36,7 @@ const TeacherLogin = () => {
     }
     try {
 
-      const { res } = await fetch("/api/loginteacher", {
+      const res  = await fetch("/api/loginteacher", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,19 +46,34 @@ const TeacherLogin = () => {
           password,
         }),
       });
-      toast.success("Login Succesfull", {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "light",
-      });
-      console.log(res);
-      localStorage.setItem("teacherInfo", JSON.stringify(res));
-      setIsLoading(false);
 
-      router.push("/");
+
+      let response = await res.json();
+
+      if(response.success === true){
+        toast.success("Login Succesfull", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setIsLoading(false);
+        localStorage.setItem('teacher-token', response.token);
+        router.push("/");
+      }else{
+        toast.error("Login Failed, Try Again Later", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setIsLoading(false);
+      }
+
     } catch (error) {
       console.log(error);
       toast.error("Login Failed, Try Again Later", {

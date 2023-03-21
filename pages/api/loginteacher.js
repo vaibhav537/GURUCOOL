@@ -1,19 +1,28 @@
 const jwt = require('jsonwebtoken');
+import nc from "next-connect";
 const TeacherSchema = require("./models/teacherSchema");
 require("./db/regg");
 
-const handler = async (req, res) => {
-  if (req.method === "POST") {
-    const { email, password } = req.body;
+const handler = nc();
 
+handler.post( async(req, res)=>{
+
+  const { email, password } = req.body;
+  try {
     const teacher = await TeacherSchema.findOne({ email });
-    const token = teacher.generateAuthToken();
-     
+
     if(teacher && (await teacher.matchPassword(password))){
-        res.status(222).json(token);
+      const token = jwt.sign({success: true, teacher}, process.env.JWT_SECRET,{
+        expiresIn:'2d'
+      });
+      res.status(222).json({token, success: true});
     }else{
       res.status(444).json({message:"ERROR"})
     }
+  } catch (error) {
+    console.log(error);
   }
-};
+
+});
+
 export default handler;

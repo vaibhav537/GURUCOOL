@@ -1,4 +1,4 @@
-import generateTeacherToken from './tokens/generateTeacherToken';
+// import generateTeacherToken from './tokens/generateTeacherToken';
 
 require('./db/regg')
 const TeacherSchema = require('./models/teacherSchema')

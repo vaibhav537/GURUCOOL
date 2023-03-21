@@ -63,17 +63,17 @@ teacherSchema.pre("save", async function (next) {
   }
 });
 
-// generating Token
-teacherSchema.methods.generateAuthToken = async function () {
-  try {
-    let token = await jwt.sign({ _id: this._id }, process.env.JWT_SECRET);
-    this.tokens = this.tokens.concat({ token: token });
-    await this.save()
-    return token;
-  } catch (err) {
-    console.log(err);
-  }
-};
+// // generating Token
+// teacherSchema.methods.generateAuthToken = async function () {
+//   try {
+//     let token = await jwt.sign({ _id: this._id }, process.env.JWT_SECRET);
+//     this.tokens = this.tokens.concat({ token: token });
+//     await this.save()
+//     return token;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 const TeacherRegister =
   register.models.TEACHER || register.model("TEACHER", teacherSchema);
