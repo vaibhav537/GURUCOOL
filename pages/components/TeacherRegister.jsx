@@ -13,6 +13,7 @@ const TeacherRegister = () => {
   const [confirmpassword, setConfirmpassword] = useState("");
   const [pic, setPic] = useState("");
   const [loading, setLoading] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
   const [src, setSrc] = useState("/images/Blank.png");
   const router = useRouter();
 
@@ -33,7 +34,7 @@ const TeacherRegister = () => {
         progress: undefined,
         theme: "dark",
       });
-      setLoading(false)
+      setLoading(false);
       return;
     }
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
@@ -78,11 +79,9 @@ const TeacherRegister = () => {
         closeOnClick: true,
         progress: undefined,
         theme: "light",
-        bodyClassName: 'font-bold'
+        bodyClassName: "font-bold",
       });
-      setTimeout(() => {
-        setLoading(false)
-      }, 2000);
+      setLoading(false);
       return;
     }
     if (password !== confirmpassword) {
@@ -94,18 +93,16 @@ const TeacherRegister = () => {
         progress: undefined,
         theme: "light",
       });
-      setTimeout(() => {
-        setLoading(false)
-      }, 2000);
+      setLoading(false);
       return;
     }
     try {
-      const config = {
+      const res = await fetch("/api/registerteacher", {
+        method: "POST",
         headers: {
-          "Content-type":"application/json"
-        }
-      }
-      const { data } = await axios.post("/api/registerteacher", {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
           name,
           phone,
           email,
@@ -113,18 +110,33 @@ const TeacherRegister = () => {
           password,
           confirmpassword,
           pic,
-      },config);
-      toast.success("Registration Succesfull", {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "dark",
+        }),
       });
-      localStorage.setItem("teacher-info", JSON.stringify(data.teacher))
 
-      router.push("/teacher/selectcategory");
+      let response = await res.json();
+      if (response.success === true) {
+        toast.success("Registration Succesfull", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        setLoading(false);
+        localStorage.setItem("teacher-info", JSON.stringify(response.teacher));
+        router.push("/teacher/selectcategory");
+      }else{
+        toast.error("Registration Failed !!", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        setLoading(false);
+      }
     } catch (error) {
       toast.error("Error Occured, Try Again Later", {
         position: "bottom-center",
@@ -133,9 +145,9 @@ const TeacherRegister = () => {
         closeOnClick: true,
         progress: undefined,
         theme: "dark",
-        className:"rounded-full"
+        className: "rounded-full",
       });
-      setLoading(true);
+      setLoading(false);
     }
   };
   return (
@@ -340,9 +352,14 @@ const TeacherRegister = () => {
               <button
                 type="submit"
                 onClick={submitHandler}
-                className="font-bold font-Crimson text-lg text-white bg-green-400 uppercase rounded cursor-pointer hover:bg-green-300 hover:shadow-3xl hover:text-green-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-green-700 dark:hover:bg-green-900"
+                className={`font-bold font-Crimson text-lg text-white bg-green-400 uppercase rounded  hover:bg-green-300  hover:text-green-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-green-700 dark:hover:bg-green-900 ${disableButton ? 'cursor-not-allowed': 'cursor-pointer hover:shadow-3xl'}`}
+                disabled={disableButton}
               >
-                {loading ? <img src="/loader.gif" className="w-[20px] h-[20px]"/> : "ReGister" }
+                {loading ? (
+                  <img src="/loader.gif" className="w-[20px] h-[20px]" />
+                ) : (
+                  "ReGister"
+                )}
               </button>
             </div>
           </form>

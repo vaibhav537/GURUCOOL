@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 const TeacherLogin = () => {
   const [show, setShow] = useState("password");
+  const [disableButton, setDisableButton] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +23,7 @@ const TeacherLogin = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setDisableButton(true);
     setIsLoading(true);
     if (!email || !password) {
       toast.warning("Please Fill all the fields", {
@@ -31,6 +33,7 @@ const TeacherLogin = () => {
         progress: undefined,
         theme: "light",
       });
+      setDisableButton(false);
       setIsLoading(false);
       return;
     }
@@ -59,6 +62,7 @@ const TeacherLogin = () => {
           progress: undefined,
           theme: "light",
         });
+        setDisableButton(false);
         setIsLoading(false);
         localStorage.setItem('teacher-token', response.token);
         router.push("/");
@@ -71,6 +75,7 @@ const TeacherLogin = () => {
           progress: undefined,
           theme: "light",
         });
+        setDisableButton(false);
         setIsLoading(false);
       }
 
@@ -85,6 +90,7 @@ const TeacherLogin = () => {
         theme: "light",
       });
       setIsLoading(false);
+      setDisableButton(false);
     }
   };
   return (
@@ -163,6 +169,7 @@ const TeacherLogin = () => {
               onClick={submitHandler}
               type="submit"
               className="font-bold flex items-center justify-center w-20 font-Crimson text-lg text-white bg-green-400 uppercase rounded cursor-pointer hover:bg-green-300 hover:shadow-3xl hover:text-green-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-green-700 dark:hover:bg-green-900"
+              disabled={disableButton}
             >
               {isLoading ? <img src="/loader.gif" alt="..." className="w-5 h-5"/> : "login"}
             </button>

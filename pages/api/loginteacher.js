@@ -12,10 +12,10 @@ handler.post( async(req, res)=>{
     const teacher = await TeacherSchema.findOne({ email });
 
     if(teacher && (await teacher.matchPassword(password))){
-      const token = jwt.sign({success: true, teacher}, process.env.JWT_SECRET,{
+      const token = jwt.sign({teacher}, process.env.JWT_SECRET,{
         expiresIn:'2d'
       });
-      res.status(222).json({token, success: true});
+      res.status(222).json({success: true, token});
     }else{
       res.status(444).json({message:"ERROR"})
     }

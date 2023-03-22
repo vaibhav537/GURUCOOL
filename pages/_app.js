@@ -29,7 +29,6 @@ function MyApp({ Component, pageProps }) {
       setIsLoading(false);
     }, 5000);
     const teacherToken = localStorage.getItem('teacher-token');
-    console.log(teacherToken)
     if (teacherToken) {
       setTeacher({ value: teacherToken});
       setKey(Math.random());
@@ -61,7 +60,7 @@ function MyApp({ Component, pageProps }) {
       ) : (
         <ThemeProvider attribute="class" enableSystem={true}>
           {noNav.includes(asPath) ? null : <Navbar key={key} teacher={teacher} logout={logout}/>}
-          <Component {...pageProps} />
+          <Component {...pageProps}  />
           {noNav.includes(asPath) ? null : <Footer />}
         </ThemeProvider>
       )}

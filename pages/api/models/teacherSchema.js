@@ -27,23 +27,11 @@ const teacherSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    confirmpassword: {
-      type: String,
-      required: true,
-    },
     pic: {
       type: String,
       default:
         "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     },
-    tokens: [
-      {
-        token: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
   },
   {
     timestamps: true,
@@ -62,18 +50,6 @@ teacherSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, salt);
   }
 });
-
-// // generating Token
-// teacherSchema.methods.generateAuthToken = async function () {
-//   try {
-//     let token = await jwt.sign({ _id: this._id }, process.env.JWT_SECRET);
-//     this.tokens = this.tokens.concat({ token: token });
-//     await this.save()
-//     return token;
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
 
 const TeacherRegister =
   register.models.TEACHER || register.model("TEACHER", teacherSchema);

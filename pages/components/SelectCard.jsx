@@ -38,49 +38,48 @@ const SelectCard = () => {
 
   const postCategory = async () => {
     const teacherinfo = await JSON.parse(localStorage.getItem("teacher-info"));
-    console.log(teacherinfo);
-    try{
-    console.log(teacherinfo._id)  
-    const data = await fetch(`/api/${teacherinfo._id}`,{
-      method:"PUT",
-      headers:{
-        "Content-Type": "appilcation/json"
-      },
-      body: JSON.stringify({
-        category
-      })
-    });
-    if(data){
-    toast.success("Category Added", {
-      position: "bottom-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  }else{
-    toast.error("Category Not Added", {
-      position: "bottom-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  }
-    // router.push("/teacher/teacherprofile")
-  }catch(error){
-    toast.error("Category Cannnot Be Added, Please Try Again Later", {
-      position: "bottom-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      progress: undefined,
-      theme: "dark",
-    });
+    try {
+      const data = await fetch(`/api/${teacherinfo._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "appilcation/json",
+        },
+        body: JSON.stringify({ category }),
+      });
 
-  }
+      const response = await data.json();
+
+      if (response.success === true) {
+        toast.success("Category Added", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        // console.log(response.token);
+      } else {
+        toast.error("Category Not Added", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+      // router.push("/teacher/teacherprofile")
+    } catch (error) {
+      toast.error("Category Cannnot Be Added, Please Try Again Later", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
 
   return (
