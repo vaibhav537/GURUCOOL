@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import Checkbox from "../components/Checkbox";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminNavbar from "../components/AdminNavbar";
+import { useRouter } from "next/router";
 
 
 const UpdateCategory = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!localStorage.getItem("admin-token")) {
+      router.push('/admin')
+    }
+  }, []);
   return (
     <>
       <Head>

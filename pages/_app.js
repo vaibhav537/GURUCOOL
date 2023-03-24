@@ -4,6 +4,7 @@ import Footer from "./components/Footer.jsx";
 import { useRouter } from "next/router";
 import { ThemeProvider } from "next-themes";
 import { useEffect, useState } from "react";
+import LoadingBar from "react-top-loading-bar";
 import Loader from "./components/Loader";
 import Head from "next/head";
 
@@ -20,24 +21,31 @@ function MyApp({ Component, pageProps }) {
     "/admin/Ranking",
   ];
   const [isLoading, setIsLoading] = useState(true);
-  const [teacher, setTeacher] = useState({value: null});
+  const [teacher, setTeacher] = useState({ value: null });
   const [key, setKey] = useState(0);
-
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    router.events.on('routeChangeStart', ()=>{
+      setProgress(40)
+    })
+
+    router.events.on("routeChangeComplete", () => {
+      setProgress(100);
+    });
     setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
-    const teacherToken = localStorage.getItem('teacher-token');
+    }, 1000);
+    const teacherToken = localStorage.getItem("teacher-token");
     if (teacherToken) {
-      setTeacher({ value: teacherToken});
+      setTeacher({ value: teacherToken });
       setKey(Math.random());
     }
   }, [router.query]);
 
   const logout = () => {
-    localStorage.removeItem('teacher-token');
-    setTeacher({value: null});
+    localStorage.removeItem("teacher-token");
+    setTeacher({ value: null });
     setKey(Math.random());
   };
 
@@ -59,8 +67,16 @@ function MyApp({ Component, pageProps }) {
         </>
       ) : (
         <ThemeProvider attribute="class" enableSystem={true}>
-          {noNav.includes(asPath) ? null : <Navbar key={key} teacher={teacher} logout={logout}/>}
-          <Component {...pageProps}  />
+          {noNav.includes(asPath) ? null : (
+            <Navbar key={key} teacher={teacher} logout={logout} />
+          )}
+          <LoadingBar
+            color="#000000"
+            progress={progress}
+            waitingTime = {100}
+            onLoaderFinished={() => setProgress(0)}
+          />
+          <Component {...pageProps} />
           {noNav.includes(asPath) ? null : <Footer />}
         </ThemeProvider>
       )}

@@ -1,10 +1,17 @@
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from 'next/link'
 import styles from "../styles/Error.module.css";
+import { useRouter } from "next/router";
 
 const ErrorPage = () => {
+  const router = useRouter();
+  useEffect(() => {
+    if(localStorage.getItem("teacher-token")){
+      router.push('/')
+    }
   
+  }, [])
   return (
     <>
       <Head>

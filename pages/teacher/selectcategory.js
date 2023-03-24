@@ -1,8 +1,16 @@
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import SelectCard from "../components/SelectCard";
+import { useRouter } from "next/router";
 
 const selectcategory = () => {
+  const router = useRouter();
+  useEffect(() => {
+    if(localStorage.getItem("teacher-token")){
+      router.push('/')
+    }
+  
+  }, [])
   return (
     <>
       <Head>

@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import Radio from './components/Radio.jsx'
+import { useRouter } from 'next/router'
 
 const Register = () => {
-
+  const router = useRouter();
+  useEffect(() => {
+    if(localStorage.getItem("teacher-token")){
+      router.push('/')
+    }
+  
+  }, [])
   return (
     <>
       <Head>

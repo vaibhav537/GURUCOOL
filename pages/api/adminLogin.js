@@ -1,14 +1,17 @@
 import AdminLogin from "./models/adminSchema";
+const jwt = require("jsonwebtoken");
 require("./db/adminConnection");
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
     const { email, password } = req.body;
     const adminEmail = await AdminLogin.findOne({ email });
-    // const adminPassword = await AdminLogin.findOne({ password });
 
     if (adminEmail && (await adminEmail.matchPassword(password))) {
-      res.status(201).json({ success: true, msg: "ID PASSWORD MATCHED !!" });
+      const token = jwt.sign({ teacher }, process.env.JWT_SECRET, {
+        expiresIn: "2d",
+      });
+      res.status(201).json({ success: true, token });
     } else {
       res
         .status(401)

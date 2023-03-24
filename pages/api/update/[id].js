@@ -1,7 +1,7 @@
 import nc from "next-connect";
-require("./db/regg");
+require("../db/regg");
 const jwt = require('jsonwebtoken');
-const TeacherSchema = require("./models/teacherSchema");
+const TeacherSchema = require("../models/teacherSchema");
 
 const handler = nc().put(async (req, res) => {
   try {

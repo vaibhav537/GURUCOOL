@@ -1,14 +1,25 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import AdminNavbar from "../components/AdminNavbar";
 import AdminStudentList from "../components/AdminStudentList";
 import AdminTeacherList from "../components/AdminTeacherList";
 import Checkbox from "../components/Checkbox";
 
+
 const ifqRPHleaQkbEvmwOPEqb = () => {
   const [isActive, setIsActive] = useState(false);
   const [visibleTeacher, setVisibleTeacher] = useState(true);
   const [visibleStudent, setVisibleStudent] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!localStorage.getItem("admin-token")) {
+      router.push('/admin')
+    }
+  }, []);
+
   const handleRadio1 = (e) => {
     e.preventDefault();
     if (visibleStudent === true) {
@@ -63,7 +74,9 @@ const ifqRPHleaQkbEvmwOPEqb = () => {
                   }`}
                 >
                   <div className="block">
-                    <div className="w-full text-lg font-semibold select-none ">TEACHERS</div>
+                    <div className="w-full text-lg font-semibold select-none ">
+                      TEACHERS
+                    </div>
                   </div>
                 </label>
               </li>
@@ -84,7 +97,9 @@ const ifqRPHleaQkbEvmwOPEqb = () => {
                   }`}
                 >
                   <div className="block">
-                    <div className="w-full text-lg font-semibold select-none ">STUDENTS</div>
+                    <div className="w-full text-lg font-semibold select-none ">
+                      STUDENTS
+                    </div>
                   </div>
                 </label>
               </li>

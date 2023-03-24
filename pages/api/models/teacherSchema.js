@@ -14,6 +14,10 @@ const teacherSchema = mongoose.Schema(
       type: String,
       default: "NOCATEGORY",
     },
+    user: {
+      type: String,
+      default: "teacher",
+    },
     email: {
       type: String,
       required: true,

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Dialog from "./components/Dialog";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,6 +12,14 @@ const admin = () => {
   const [password, setPassword] = useState("");
   const [dialog, setDialog] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if(localStorage.getItem("teacher-token")){
+      router.push('/')
+    }
+    
+  }, [])
+  
 
   const handleShow = (e) => {
     e.preventDefault();
@@ -56,6 +64,7 @@ const admin = () => {
           progress: undefined,
           theme: "dark",
         });
+        localStorage.setItem('admin-token', response.token);
         setIsLoading(false);
         router.push("/admin/ifqRPHleaQkbEvmwOPEqb");
       } else {

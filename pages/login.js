@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import LoginRadio from './components/LoginRadio'
+import { useRouter } from 'next/router'
 
 const login = () => {
+    const router = useRouter();
+    useEffect(() => {
+        if(localStorage.getItem("teacher-token")){
+          router.push('/')
+        }
+      
+      }, [])
     return (
         <>
             <Head>

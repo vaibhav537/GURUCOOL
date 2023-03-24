@@ -1,9 +1,32 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import HomeStudent from "./components/HomeStudent";
+import HomeTeacher from "./components/HomeTeacher";
+import HomeUser from "./components/HomeUser";
 import Loader from "./components/Loader";
 
 export default function Home() {
-  
+  const [teacher, setTeacher] = useState(false);
+  const [student, setStudent] = useState(false);
+  const [user, setUser] = useState(true);
+
+  useEffect(() => {
+    const teacherToken = localStorage.getItem("teacher-token");
+    const studentToken = localStorage.getItem("student-token");
+    if (teacherToken) {
+      setTeacher(true);
+      setStudent(false);
+      setUser(false);
+    }
+    if (studentToken) {
+      setStudent(true);
+      setTeacher(false);
+      setUser(false);
+    }
+  }, []);
+
   return (
+    <>
       <Head>
         <title>GURU COOL</title>
         <meta
@@ -12,6 +35,9 @@ export default function Home() {
         />
         <link rel="icon" href="/images/logo.png" />
       </Head>
-
+      {user && <HomeUser />}
+      {teacher && <HomeTeacher />}
+      {student && <HomeStudent />}
+    </>
   );
 }

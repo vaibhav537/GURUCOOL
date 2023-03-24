@@ -1,9 +1,17 @@
 import Head from 'next/head'
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 import AdminNavbar from '../components/AdminNavbar'
 import Checkbox from '../components/Checkbox'
 
 const Ranking = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!localStorage.getItem("admin-token")) {
+      router.push('/admin')
+    }
+  }, []);
   return (
     <>
       <Head>

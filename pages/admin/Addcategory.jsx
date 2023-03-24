@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Checkbox from "../components/Checkbox";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminNavbar from "../components/AdminNavbar";
+import { useRouter } from "next/router";
 
 const Addcategory = () => {
   const [categoryTitle, setCategoryTitle] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
   const [categoryLabel, setCategoryLabel] = useState("");
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!localStorage.getItem("admin-token")) {
+      router.push('/admin')
+    }
+  }, []);
 
   const postAddCategory = async (e) => {
     e.preventDefault();
@@ -129,7 +138,7 @@ const Addcategory = () => {
                   type="submit"
                   value="ADD"
                   onClick={postAddCategory}
-                  className="hover:text-white ml-10 dark:placeholder:text-teal-300 w-[10rem] text-lg font-bold transition-all duration-300 rounded hover:shadow-3xl p-2 dark:bg-teal-800 bg-teal-300 dark:bg-teal-500 dark:hover:bg-teal-700 cursor-pointer hover:bg-teal-500"
+                  className="hover:text-white ml-10 dark:placeholder:text-teal-300 w-[10rem] text-lg font-bold transition-all duration-300 rounded hover:shadow-3xl p-2 dark:bg-teal-800 bg-teal-300 dark:hover:bg-teal-700 cursor-pointer hover:bg-teal-500"
                 /> 
               </div>
             </form>

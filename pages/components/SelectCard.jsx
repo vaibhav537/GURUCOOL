@@ -10,7 +10,7 @@ const SelectCard = () => {
   const [category, setCategory] = useState("");
   const [button, setButton] = useState(false);
   const [fetchedCategory, setFetchedCategory] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
 
   const router = useRouter();
@@ -37,14 +37,15 @@ const SelectCard = () => {
   };
 
   const postCategory = async () => {
+    setIsLoading(true)
     const teacherinfo = await JSON.parse(localStorage.getItem("teacher-info"));
     try {
-      const data = await fetch(`/api/${teacherinfo._id}`, {
+      const data = await fetch(`/api/update/${teacherinfo._id}`, {
         method: "PUT",
         headers: {
-          "Content-Type": "appilcation/json",
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ category }),
+        body: JSON.stringify({ category: category })
       });
 
       const response = await data.json();
@@ -58,7 +59,9 @@ const SelectCard = () => {
           progress: undefined,
           theme: "dark",
         });
-        // console.log(response.token);
+        setIsLoading(false);
+        localStorage.setItem("teacher-token", JSON.stringify(response.token));
+        router.push("/");
       } else {
         toast.error("Category Not Added", {
           position: "bottom-center",
@@ -68,8 +71,8 @@ const SelectCard = () => {
           progress: undefined,
           theme: "dark",
         });
+        setIsLoading(false);
       }
-      // router.push("/teacher/teacherprofile")
     } catch (error) {
       toast.error("Category Cannnot Be Added, Please Try Again Later", {
         position: "bottom-center",
@@ -79,6 +82,7 @@ const SelectCard = () => {
         progress: undefined,
         theme: "dark",
       });
+      setIsLoading(false);
     }
   };
 
@@ -173,10 +177,10 @@ const SelectCard = () => {
       {button && (
         <button
           type="submit"
-          className="block m-auto border-4 border-green-600 hover:rounded-xl cursor-pointer p-4 transition-all rounded fixed bottom-0  right-[39rem] duration-300 bg-green-300 hover:text-white hover:bg-green-500"
+          className="flex items-center justify-center w-[7rem] hover:shadow-3xl cursor-pointer p-4 transition-all rounded fixed bottom-5  right-[39rem] duration-300 bg-green-500 hover:text-white hover:bg-green-300 font-bold"
           onClick={postCategory}
         >
-          SUBMIT
+          { isLoading ? <img src="/loader.gif" alt="..." className="w-[20px] h-[20px]"/> : "SUBMIT"}
         </button>
       )}
     </>
