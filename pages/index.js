@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import HomeStudent from "./components/HomeStudent";
 import HomeTeacher from "./components/HomeTeacher";
@@ -10,20 +11,8 @@ export default function Home() {
   const [student, setStudent] = useState(false);
   const [user, setUser] = useState(true);
 
-  useEffect(() => {
-    const teacherToken = localStorage.getItem("teacher-token");
-    const studentToken = localStorage.getItem("student-token");
-    if (teacherToken) {
-      setTeacher(true);
-      setStudent(false);
-      setUser(false);
-    }
-    if (studentToken) {
-      setStudent(true);
-      setTeacher(false);
-      setUser(false);
-    }
-  }, []);
+  const router = useRouter();
+
 
   return (
     <>

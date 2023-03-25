@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }) {
   ];
   const [isLoading, setIsLoading] = useState(true);
   const [teacher, setTeacher] = useState({ value: null });
+  const [student, setStudent] = useState({ value: null });
   const [key, setKey] = useState(0);
   const [progress, setProgress] = useState(0);
 
@@ -37,8 +38,13 @@ function MyApp({ Component, pageProps }) {
       setIsLoading(false);
     }, 1000);
     const teacherToken = localStorage.getItem("teacher-token");
+    const studentToken = localStorage.getItem("student-token");
     if (teacherToken) {
       setTeacher({ value: teacherToken });
+      setKey(Math.random());
+    }
+    if(student){
+      setStudent({value : studentToken});
       setKey(Math.random());
     }
   }, [router.query]);

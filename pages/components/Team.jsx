@@ -16,7 +16,7 @@ const Team = () => {
     },    
     {
       url: "/images/slide_4.jpg",
-      title: "Developer 4",
+      title: "Vishal Patel",
     },
   ];
 
@@ -34,7 +34,6 @@ const Team = () => {
     const isLastSlide = currentIndex === slides.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex)
-    console.log(newIndex);
   };
 
   return (
