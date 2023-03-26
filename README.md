@@ -1,5 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+GuruCool is a [Next.js](https://nextjs.org/) project 
 
+Steps to run the GuruCool:
+ 1. You have to copy the code to your machine 
+     You can copy the code by cloning it or you can also download the zip file, and then extract the zip file.
+ 2. After completing the First step open the code in the Code editor,my prefrence is to use the VS Code 
+ 3. The VS code can be downloaded with this Link : [VS code downLoad] (https://code.visualstudio.com/)
 ## Getting Started
 
 First, run the development server:
