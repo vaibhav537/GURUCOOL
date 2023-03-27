@@ -11,7 +11,7 @@ const Loader = () => {
           GURU COOL
         </div>
         <div>
-          <img src="/mainLOADER.gif" alt="..."  className="w-28 pt-40"/>
+          <img src="/mainLOADER.gif" alt="..."  className="w-28 pt-[5rem]"/>
         </div>
       </div>
     </>

@@ -6,14 +6,28 @@ import HomeTeacher from "./components/HomeTeacher";
 import HomeUser from "./components/HomeUser";
 import Loader from "./components/Loader";
 
-export default function Home() {
+export default function Home({teacherKam, render}) {
   const [teacher, setTeacher] = useState(false);
   const [student, setStudent] = useState(false);
   const [user, setUser] = useState(true);
 
   const router = useRouter();
 
-
+  useEffect(() => {
+    if(localStorage.getItem("teacher-token")){
+      setStudent(false);
+      setTeacher(true);
+      setUser(false);
+    }else if(localStorage.getItem("student-token")){
+      setStudent(true);
+      setTeacher(false);
+      setUser(false);
+    }else{
+      setTeacher(false);
+      setStudent(false);
+      setUser(true);  
+    }
+  }, [render])
   return (
     <>
       <Head>
@@ -24,7 +38,7 @@ export default function Home() {
         />
         <link rel="icon" href="/images/logo.png" />
       </Head>
-      {user && <HomeUser />}
+      {user && <HomeUser />} 
       {teacher && <HomeTeacher />}
       {student && <HomeStudent />}
     </>

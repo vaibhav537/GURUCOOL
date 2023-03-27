@@ -64,9 +64,22 @@ const TeacherLogin = () => {
         });
         setDisableButton(false);
         setIsLoading(false);
-        localStorage.setItem('teacher-token', response.token);
+        localStorage.setItem('teacher-token', JSON.stringify(response.token));
         router.push("/");
-      }else{
+      }else if(response.success === "timeout"){
+        toast.error("Login Timed Out, Try Again Later", {
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setDisableButton(false);
+        setIsLoading(false);
+
+      }
+      else{
         toast.error("Login Failed, Try Again Later", {
           position: "bottom-center",
           autoClose: 3000,

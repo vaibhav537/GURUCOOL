@@ -8,7 +8,7 @@ const Navbar = ({ teacher, logout }) => {
   return (
     <>
       <div className="bg-slate-200 dark:bg-slate-800 nav transition-all duration-300">
-        <div className="flex justify-between items-center p-1 px-6 lg:px-0 container mx-auto">
+        <div className="flex justify-between items-center p-1 px-6 lg:px-0 container ml-[35px]">
           <Link href={"/"}>
             <div className=" flex text-lg font-bold uppercase">
               <Image

@@ -24,12 +24,13 @@ function MyApp({ Component, pageProps }) {
   const [teacher, setTeacher] = useState({ value: null });
   const [student, setStudent] = useState({ value: null });
   const [key, setKey] = useState(0);
+  const [render, setRender] = useState(0);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    router.events.on('routeChangeStart', ()=>{
-      setProgress(40)
-    })
+    router.events.on("routeChangeStart", () => {
+      setProgress(40);
+    });
 
     router.events.on("routeChangeComplete", () => {
       setProgress(100);
@@ -43,8 +44,8 @@ function MyApp({ Component, pageProps }) {
       setTeacher({ value: teacherToken });
       setKey(Math.random());
     }
-    if(student){
-      setStudent({value : studentToken});
+    if (studentToken) {
+      setStudent({ value: studentToken });
       setKey(Math.random());
     }
   }, [router.query]);
@@ -52,6 +53,7 @@ function MyApp({ Component, pageProps }) {
   const logout = () => {
     localStorage.removeItem("teacher-token");
     setTeacher({ value: null });
+    setRender(Math.random());
     setKey(Math.random());
   };
 
@@ -79,10 +81,10 @@ function MyApp({ Component, pageProps }) {
           <LoadingBar
             color="#000000"
             progress={progress}
-            waitingTime = {100}
+            waitingTime={100}
             onLoaderFinished={() => setProgress(0)}
           />
-          <Component {...pageProps} />
+          <Component {...pageProps} render={render} teacherKam={teacher} logout={logout} />
           {noNav.includes(asPath) ? null : <Footer />}
         </ThemeProvider>
       )}

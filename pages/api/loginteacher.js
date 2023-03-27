@@ -17,10 +17,11 @@ handler.post( async(req, res)=>{
       });
       res.status(222).json({success: true, token});
     }else{
-      res.status(444).json({message:"ERROR"})
+      res.status(444).json({success: false, message:"ERROR"})
     }
   } catch (error) {
     console.log(error);
+    res.status(500).json({success: "timeout", message:"Error Occured"})
   }
 
 });

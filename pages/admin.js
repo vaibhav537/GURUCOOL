@@ -1,25 +1,12 @@
 import Head from "next/head";
-import Dialog from "./components/Dialog";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const admin = () => {
-  const router = useRouter();
   const [show, setShow] = useState("password");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [dialog, setDialog] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if(localStorage.getItem("teacher-token")){
-      router.push('/')
-    }
-    
-  }, [])
-  
 
   const handleShow = (e) => {
     e.preventDefault();
@@ -32,7 +19,6 @@ const admin = () => {
 
   const postAdminLogin = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
     if (!email || !password) {
       toast.warning("Please Fill all the fields", {
         position: "top-center",
@@ -41,11 +27,10 @@ const admin = () => {
         progress: undefined,
         theme: "light",
       });
-      setIsLoading(false);
       return;
     }
     try {
-      const res = await fetch("/api/adminLogin", {
+      const { data } = await fetch("/api/adminLogin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,59 +40,25 @@ const admin = () => {
           password,
         }),
       });
-      const response = await res.json();
-      if (response.success === true) {
+      if(data.status){
         toast.success("ACCESS GRANTED", {
           position: "top-center",
           hideProgressBar: true,
           closeOnClick: true,
           progress: undefined,
-          theme: "dark",
+          theme: "light",
         });
-        localStorage.setItem('admin-token', response.token);
-        setIsLoading(false);
-        router.push("/admin/ifqRPHleaQkbEvmwOPEqb");
-      } else {
+      }else{
         toast.error("ACCESS NOT GRANTED", {
           position: "top-center",
           hideProgressBar: true,
           closeOnClick: true,
           progress: undefined,
-          theme: "dark",
+          theme: "light",
         });
-        setIsLoading(false);
       }
-    } catch (error) {
-      toast.error("ACCESS NOT GRANTED", {
-        position: "top-center",
-        hideProgressBar: true,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "dark",
-      });
-      setIsLoading(false);
-    }
+    } catch (error) {}
   };
-
-  const handleDialog = async(e) => {
-    e.preventDefault();
-    setDialog(true);
-    try {
-      const data = fetch("/api/AdminOtp",{
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email
-        })
-      })
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleOnClose = () => setDialog(false)
   return (
     <>
       <Head>
@@ -136,6 +87,7 @@ const admin = () => {
           <form
             method="post"
             className="flex flex-col items-center justify-center"
+            onSubmit={postAdminLogin}
           >
             <div className="">
               <input
@@ -170,22 +122,15 @@ const admin = () => {
                 ></i>
               </div>
             </div>
-
             <div className="">
               <button
                 type="submit"
-                className="flex items-center justify-center uppercase w-20 bg-purple-300 p-2 outline-none select-none rounded cursor-pointer hover:text-white hover:bg-teal-800 hover:shadow-3xl transition-all duration-500 font-semibold mt-8"
-                onClick={postAdminLogin}
-              >{isLoading ? <img src="/adminIdPass.gif" alt="..." className="w-5 h-5"/> : "LOGIN"}</button>
+                className="uppercase bg-purple-300 p-2 outline-none select-none rounded cursor-pointer hover:text-white hover:bg-teal-800 hover:shadow-3xl transition-all duration-500 font-semibold mt-10"
+              >
+                login
+              </button>
             </div>
           </form>
-          <button
-            className="relative top-[41px] left-[12px] text-sm font-bold hover:text-teal-300 transition-all duration-500 cursor-pointer"
-            onClick={handleDialog}
-          >
-            Change Admin Id Password?
-          </button>
-          <Dialog visible={dialog} onClose={handleOnClose}/>
         </div>
       </div>
     </>
