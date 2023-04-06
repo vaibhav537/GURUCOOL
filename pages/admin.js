@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,6 +8,8 @@ const admin = () => {
   const [show, setShow] = useState("password");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const router = useRouter();
 
   const handleShow = (e) => {
     e.preventDefault();
@@ -17,20 +20,26 @@ const admin = () => {
     }
   };
 
+  const toastConfig = {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    progress: undefined,
+    theme: "light",
+    bodyClassName :"font-bold select-none",
+    closeButton: false
+  }
+
+  
   const postAdminLogin = async (event) => {
     event.preventDefault();
     if (!email || !password) {
-      toast.warning("Please Fill all the fields", {
-        position: "top-center",
-        hideProgressBar: true,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.warning("Please Fill all the fields !!", toastConfig);
       return;
     }
     try {
-      const { data } = await fetch("/api/adminLogin", {
+      const data  = await fetch("/api/adminLogin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,24 +49,17 @@ const admin = () => {
           password,
         }),
       });
-      if(data.status){
-        toast.success("ACCESS GRANTED", {
-          position: "top-center",
-          hideProgressBar: true,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "light",
-        });
+      const response = await data.json();
+      if(response.success){
+        toast.success("ACCESS GRANTED", toastConfig);
+        localStorage.setItem("ADMIN_ACCESS", response.token);
+        router.push("/admin/ifqRPHleaQkbEvmwOPEqb")
       }else{
-        toast.error("ACCESS NOT GRANTED", {
-          position: "top-center",
-          hideProgressBar: true,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error("ACCESS NOT GRANTED", toastConfig);
       }
-    } catch (error) {}
+    } catch (error) {
+      toast.error("ACCESS NOT GRANTED", toastConfig);
+    }
   };
   return (
     <>
@@ -96,7 +98,7 @@ const admin = () => {
                 autoComplete="off"
                 placeholder="Admin Email"
                 onChange={(e) => setEmail(e.target.value)}
-                className="outline-none p-2 rounded mt-10 ring-1 ring-gray-50 focus:ring-4 focus:ring-teal-900 transition-all duration-500"
+                className="outline-none p-2 rounded mt-10 ring-1 text-black ring-gray-50 focus:ring-4 focus:ring-teal-900 transition-all duration-500"
               />
             </div>
             <div className="relative mt-4 mb-6">
@@ -105,7 +107,7 @@ const admin = () => {
                 id="password"
                 name="password"
                 onChange={(e) => setPassword(e.target.value)}
-                className="outline-none p-2 rounded mt-5 ring-1 ring-gray-50 focus:ring-4 focus:ring-teal-900 transition-all duration-500"
+                className="outline-none p-2 rounded mt-5 ring-1 text-black ring-gray-50 focus:ring-4 focus:ring-teal-900 transition-all duration-500"
                 placeholder="Admin Password"
                 autoComplete="off"
               />

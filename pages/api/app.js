@@ -14,7 +14,7 @@ export default function handler(req, res) {
 
       user.save().then(()=>{
         res.status(201).json({msg: "Sent"});
-      }).catch((err)=> res.status(500).json({error: "Not Sent"}))
+      }).catch((err)=> console.log(err));
     }
   }
 }

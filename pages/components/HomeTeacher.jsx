@@ -37,9 +37,6 @@ const HomeTeacher = () => {
         setTeacherUser(teacherData.teacher.teacher.user);
         const ToastTeacherName = teacherData.teacher.teacher.name
         const teacherUpperCaseName = ToastTeacherName.toUpperCase();
-        if(teacherPic === ""){
-          setTeacherPic("https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg");
-        }
 
         toast.success(`WELCOME ${teacherUpperCaseName} !!`, {
           position: "top-center",
@@ -83,7 +80,7 @@ const HomeTeacher = () => {
       ) : (
         <div className="flex  justify-center w-[99vw] h-[90vh] bg-green-100">
           <div className="">
-            <h1 className="text-bold uppercase"> {teacherName} </h1>
+            <h1 className="text-bold uppercase text-black"> {teacherName} </h1>
           </div>
           <div className="border-4 border-green-800 w-[15rem] h-[30rem] shadow-2xl bg-white/25 rounded-lg ">
             <div className=""><img src={teacherPic} alt="..." className="w-[10rem] h-[10rem] pl-5"/></div>

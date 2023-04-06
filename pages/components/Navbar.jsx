@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Checkbox from "./Checkbox";
-const Navbar = ({ teacher, logout }) => {
+const Navbar = ({ user, logout }) => {
   const router = useRouter();
   return (
     <>
@@ -18,7 +18,7 @@ const Navbar = ({ teacher, logout }) => {
                 width={50}
                 className="dark:invert"
               />
-              <p className="pt-4 dark:text-white pl-4"> GURU COOL</p>
+              <p className="pt-4 dark:text-white pl-4 text-black"> GURU COOL</p>
             </div>
           </Link>
           <input
@@ -59,7 +59,7 @@ const Navbar = ({ teacher, logout }) => {
                   About
                 </a>
               </Link>
-              {!teacher.value && (
+              {!user.value && (
                 <Link legacyBehavior href={"/login"}>
                   <a
                     className={
@@ -72,7 +72,7 @@ const Navbar = ({ teacher, logout }) => {
                   </a>
                 </Link>
               )}
-              {!teacher.value && (
+              {!user.value && (
                 <Link legacyBehavior href={"/register"}>
                   <a
                     className={
@@ -85,7 +85,7 @@ const Navbar = ({ teacher, logout }) => {
                   </a>
                 </Link>
               )}
-              {teacher.value && (
+              {user.value && (
                 <a
                 onClick={logout}
                   className={

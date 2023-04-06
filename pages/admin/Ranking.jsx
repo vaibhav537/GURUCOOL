@@ -8,7 +8,7 @@ const Ranking = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!localStorage.getItem("admin-token")) {
+    if (!localStorage.getItem("ADMIN_ACCESS")) {
       router.push('/admin')
     }
   }, []);

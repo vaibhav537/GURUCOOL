@@ -6,7 +6,16 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 
 const SelectCard = () => {
-  //These radios are for the category that will be selected and send it to the mongo db ok can be my last modify
+
+  const toastConfig = {
+    position: "bottom-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    progress: undefined,
+    theme: "dark",
+  }
+
   const [category, setCategory] = useState("");
   const [button, setButton] = useState(false);
   const [fetchedCategory, setFetchedCategory] = useState([]);
@@ -51,37 +60,16 @@ const SelectCard = () => {
       const response = await data.json();
 
       if (response.success === true) {
-        toast.success("Category Added", {
-          position: "bottom-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.success("Category Added", toastConfig);
         setIsLoading(false);
         localStorage.setItem("teacher-token", JSON.stringify(response.token));
         router.push("/");
       } else {
-        toast.error("Category Not Added", {
-          position: "bottom-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.error("Category Not Added", toastConfig);
         setIsLoading(false);
       }
     } catch (error) {
-      toast.error("Category Cannnot Be Added, Please Try Again Later", {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error("Category Cannnot Be Added, Please Try Again Later", toastConfig);
       setIsLoading(false);
     }
   };
@@ -90,8 +78,8 @@ const SelectCard = () => {
     <>
       <ToastContainer
         position="bottom-center"
-        autoClose={3000}
-        hideProgressBar={false}
+        autoClose={1000}
+        hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
         rtl={false}

@@ -23,18 +23,26 @@ const TeacherRegister = () => {
     }
   };
 
+  
+  const toastConfig = {
+    position: "bottom-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    progress: undefined,
+    theme: "dark",
+    bodyClassName :"font-bold select-none",
+    closeButton: false
+  }
+
+
   const postDetails = (pics) => {
     setLoading(true);
+    setDisableButton(true);
     if (pics === undefined) {
-      toast.warning("Please select an Image", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.warning("Please select an Image", toastConfig);
       setLoading(false);
+      setDisableButton(true);
       return;
     }
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
@@ -50,49 +58,40 @@ const TeacherRegister = () => {
         .then((data) => {
           setPic(data.url.toString());
           console.log(data.url.toString());
+          setDisableButton(false);
+
           setLoading(false);
         })
         .catch((err) => {
           console.log(err);
           setLoading(false);
+          setDisableButton(false);
         });
     } else {
-      toast.warning("Please select an Image", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.warning("Please select an Image", toastConfig);
+      setLoading(false);
+      setDisableButton(false);
     }
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setDisableButton(true);
     if (!name || !email || !phone || !gender || !password || !confirmpassword) {
-      toast.warning("Please Fill all the Fields", {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "light",
-        bodyClassName: "font-bold",
-      });
+      toast.warning("Please Fill all the Fields", toastConfig);
       setLoading(false);
+      setDisableButton(false);
       return;
     }
+    else if (pic === undefined || pic === null || pic === "") {
+      toast.warning("Please Choose a Profile Picture", toastConfig);
+      setLoading(false);
+      setDisableButton(false);
+    }
     if (password !== confirmpassword) {
-      toast.warning("Passwords not Matched", {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.warning("Passwords not Matched",toastConfig);
+      setDisableButton(false);
       setLoading(false);
       return;
     }
@@ -115,54 +114,36 @@ const TeacherRegister = () => {
 
       let response = await res.json();
       if (response.success === true) {
-        toast.success("Registration Succesfull", {
-          position: "bottom-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.success("Registration Succesfull", toastConfig);
         setLoading(false);
+        setDisableButton(true);
         localStorage.setItem("teacher-info", JSON.stringify(response.teacher));
         router.push("/teacher/selectcategory");
-      }else{
-        toast.error("Registration Failed !!", {
-          position: "bottom-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "dark",
-        });
+      } else {
+        toast.error("Registration Failed !!", toastConfig);
         setLoading(false);
+        setDisableButton(false);
       }
     } catch (error) {
-      toast.error("Error Occured, Try Again Later", {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "dark",
-        className: "rounded-full",
-      });
+      toast.error("Error Occured, Try Again Later", toastConfig);
       setLoading(false);
+      setDisableButton(false);
+
     }
   };
   return (
     <>
       <ToastContainer
         position="bottom-center"
-        autoClose={3000}
-        hideProgressBar={false}
+        autoClose={1000}
+        hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
         rtl={false}
         theme="dark"
       />
       <div className="flex justify-center items-center transition-all duration-1000 ">
-        <div className="rounded-md p-10  shadow-lg dark:bg-green-900 mt-4 bg-green-100">
+        <div className="rounded-md p-20  shadow-lg dark:bg-green-900 mt-4 bg-green-100">
           <form
             method="post"
             className="flex flex-col"
@@ -331,7 +312,7 @@ const TeacherRegister = () => {
                 </div>
                 <label
                   htmlFor="pic"
-                  className="mt-5 border-2 cursor-pointer dark:border-white dark:hover:text-black dark:hover:bg-white border-black p-2 hover:bg-black transition-all rounded-lg hover:text-white"
+                  className="mt-5 border-2 cursor-pointer text-black dark:border-white dark:hover:text-black dark:hover:bg-white border-black p-2 hover:bg-black transition-all rounded-lg hover:text-white"
                 >
                   SET PROFILE
                 </label>
@@ -352,7 +333,7 @@ const TeacherRegister = () => {
               <button
                 type="submit"
                 onClick={submitHandler}
-                className={`font-bold font-Crimson text-lg text-white bg-green-400 uppercase rounded  hover:bg-green-300  hover:text-green-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-green-700 dark:hover:bg-green-900 ${disableButton ? 'cursor-not-allowed': 'cursor-pointer hover:shadow-3xl'}`}
+                className={`font-bold font-Crimson text-lg text-white bg-green-400 uppercase rounded  hover:bg-green-300  hover:text-green-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-green-700 dark:hover:bg-green-900 ${disableButton ? 'cursor-not-allowed' : 'cursor-pointer hover:shadow-3xl'}`}
                 disabled={disableButton}
               >
                 {loading ? (

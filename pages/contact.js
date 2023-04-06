@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import Alert from "./components/Alert";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const contact = () => {
-  const [alert, setAlert] = useState(null);
-  const showAlert = (message, type, color) => {
-    setAlert({
-      msg: message,
-      type: type,
-      color: color,
-    });
 
-    setTimeout(() => {
-      setAlert(null);
-    }, 2000);
-  };
   const [user, setUser] = useState({
     name: "",
     phone: "",
     email: "",
     desc: "",
   });
+
+  const [loader, setLoader] = useState(false);
+
+
+  const toastConfig = {
+    position: "bottom-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    progress: undefined,
+    theme: "dark",
+    bodyClassName: "font-bold select-none",
+    closeButton: false
+  }
 
   let name, value;
 
@@ -33,12 +37,14 @@ const contact = () => {
 
   const PostData = async (e) => {
     e.preventDefault();
+    setLoader(true);
     const { name, phone, email, desc } = user;
 
     if (!name || !phone || !email || !desc) {
       window.scrollTo(0, 0);
-      showAlert("Not Send, Please Fill all the fields", "Error", "red");
-    } else {
+      toast.warning("Please Fill all the fields", toastConfig);
+        setLoader(false);        
+    }else {
       const res = await fetch("/api/app", {
         method: "POST",
         headers: {
@@ -54,12 +60,15 @@ const contact = () => {
 
       const data = await res.json();
       if (data.status === 422 || !data) {
-        showAlert("Not Send, Please try Again Later", "Error", "red");
+        toast.error("Error Occured Try Again Later !!", toastConfig);
+        setLoader(false);
         setUser({ name: "", phone: "", email: "", desc: "" });
         window.scrollTo(0, 0);
       } else {
         window.scrollTo(0, 0);
-        showAlert("Sent, Thank You for Contacting Us", "Success", "green");
+        toast.success("Thank You For Contacting US !!", toastConfig);
+        setLoader(false);
+
         setUser({ name: "", phone: "", email: "", desc: "" });
       }
     }
@@ -74,7 +83,16 @@ const contact = () => {
         />
         <link rel="icon" href="/images/logo.png" />
       </Head>
-      <Alert alert={alert} />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={1000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        theme="dark"
+      />
       <div className={"antialiased dark:bg-slate-600 bg-gray-100 h-full transition-all duration-1000"}>
         <div className="flex w-full min-h-screen justify-center items-center ">
           <div
@@ -108,7 +126,7 @@ const contact = () => {
               </div>
               <div className="flex space-x-4 text-lg ">
                 <Link href={"https://www.facebook.com/groups/573143149428004/"}>
-                  <i className="fa-brands fa-facebook"></i>
+                  <i className="fa-brands fa-facebook hover:bg-blue-500"></i>
                 </Link>
                 <Link
                   href={"https://www.instagram.com/vidya.bhawanpolycollegeudr/"}
@@ -186,13 +204,12 @@ const contact = () => {
                       autoComplete="off"
                     />
                   </div>
-                  <input
-                    className="inline-block dark:text-white cursor-pointer self-end bg-cyan-700   pt-3  text-white font-bold rounded-lg px-6 py-2 uppercase text-sm"
+                  <button
+                    className={`dark:text-white w-[11rem] flex items-center justify-center transition-all duration-500 hover:shadow-3xl cursor-pointer self-end bg-cyan-700   pt-3  text-white font-bold rounded-lg px-6 py-2 uppercase text-sm`}
                     type="submit"
                     name="send"
-                    value="Send Message"
                     onClick={PostData}
-                  />
+                  > {loader  ? <img src="/adminIdPass.gif" alt="..." className="w-[20px] h-[20px]"/> :"Send Message"}</button>
                 </form>
               </div>
             </div>

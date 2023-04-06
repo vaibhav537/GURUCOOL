@@ -21,9 +21,9 @@ const LoginRadio = () => {
 
   return (
     <div className="flex flex-col h-screen mb-[50px] transition-all duration-1000 bg-slate-100 dark:bg-slate-600">
-      <div className="flex mt-20">
+      <div className="flex mt-20 mb-[8rem]">
         <span
-          className={`transition-all w-[20rem] duration-300 font-bold ml-[155px] mr-[8px] mt-[20px] ${
+          className={`transition-all w-[20rem] duration-300 font-bold ml-[35rem] mr-[8px] mt-[20px] ${
             isActive
               ? "text-slate-700 dark:text-slate-300 text-2xl"
               : "text-green-500  text-3xl"

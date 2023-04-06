@@ -23,7 +23,7 @@ changeAdminIdPassword.put(async(req, res) => {
         if(!email || !password){
             res.status(400).json({ Error: "Please fill in the email" });
         }
-        const admin = await AdminLogin.findOne({_id: "6409e5a5a9300e3830675a79"});
+        const admin = await AdminLogin.findOne({_id: "642ea0bac525ef7a032c95de"});
         
         admin.email = email;
         admin.password = password; 

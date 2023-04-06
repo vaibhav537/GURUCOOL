@@ -5,6 +5,15 @@ const StudentLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const toastConfig = {
+    position: "bottom-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    progress: undefined,
+    theme: "dark",
+  }
+
   const handleShow = (e) => {
     e.preventDefault();
     if(show === 'password'){

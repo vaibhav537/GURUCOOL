@@ -16,6 +16,15 @@ const StudentRegister = () => {
 
   const router = useRouter();
 
+  const toastConfig = {
+    position: "bottom-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    progress: undefined,
+    theme: "dark",
+  }
+
   const onImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setSrc(URL.createObjectURL(e.target.files[0]));
@@ -25,14 +34,7 @@ const StudentRegister = () => {
   const postDetails = (pics) => {
     setLoading(true);
     if (pics === undefined) {
-      toast.warning("Please select an Image", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.warning("Please select an Image", toastConfig );
       setLoading(false);
       return;
     }
@@ -56,14 +58,7 @@ const StudentRegister = () => {
           setLoading(false);
         });
     } else {
-      toast.warning("Please select an Image", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.warning("Please select an Image", toastConfig);
     }
   };
 
@@ -71,29 +66,14 @@ const StudentRegister = () => {
     e.preventDefault();
     setLoading(true);
     if (!name || !email || !phone || !gender || !password || !confirmpassword) {
-      toast.warning("Please Fill all the Fields", {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "light",
-        bodyClassName: "font-bold",
-      });
+      toast.warning("Please Fill all the Fields", toastConfig);
       setTimeout(() => {
         setLoading(false);
       }, 2000);
       return;
     }
     if (password !== confirmpassword) {
-      toast.warning("Passwords not Matched", {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.warning("Passwords not Matched", toastConfig);
       setTimeout(() => {
         setLoading(false);
       }, 2000);
@@ -115,16 +95,9 @@ const StudentRegister = () => {
           pic,
         }),
       });
-      toast.success("Registration Succesfull", {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.success("Registration Succesfull", toastConfig);
 
-      localStorage.setItem("studentinfo", JSON.stringify(res));
+      localStorage.setItem("student-info", JSON.stringify(res));
       setLoading(false);
 
       router.push("/student/studentprofile");
@@ -145,15 +118,15 @@ const StudentRegister = () => {
     <>
       <ToastContainer
         position="bottom-center"
-        autoClose={3000}
-        hideProgressBar={false}
+        autoClose={1000}
+        hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
         rtl={false}
         theme="dark"
       />
       <div className="flex justify-center items-center transition-all duration-1000 ">
-        <div className="rounded-md p-10  shadow-lg dark:bg-blue-900 mt-4 bg-blue-100">
+        <div className="rounded-md p-20  shadow-lg dark:bg-blue-900 mt-4 bg-blue-100">
           <form
             method="post"
             className="flex flex-col"

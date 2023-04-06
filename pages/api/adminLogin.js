@@ -8,7 +8,7 @@ const handler = async (req, res) => {
     const adminEmail = await AdminLogin.findOne({ email });
 
     if (adminEmail && (await adminEmail.matchPassword(password))) {
-      const token = jwt.sign({ teacher }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ adminEmail }, process.env.JWT_SECRET, {
         expiresIn: "2d",
       });
       res.status(201).json({ success: true, token });

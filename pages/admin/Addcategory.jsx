@@ -14,7 +14,7 @@ const Addcategory = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!localStorage.getItem("admin-token")) {
+    if (!localStorage.getItem("ADMIN_ACCESS")) {
       router.push('/admin')
     }
   }, []);
@@ -93,7 +93,7 @@ const Addcategory = () => {
                   type="text"
                   id="title"
                   placeholder="ex: Class 9 RBSE"
-                  className="p-2 dark:bg-teal-800 outline-none dark:placeholder:text-teal-300 placeholder:text-teal-900 bg-teal-100 transition-all w-96 duration-500 rounded ring-2 ring-teal-100 focus:ring-4 focus:ring-teal-500 mt-4"
+                  className="p-2 dark:bg-teal-800 text-black outline-none dark:placeholder:text-teal-300 placeholder:text-teal-900 bg-teal-100 transition-all w-96 duration-500 rounded ring-2 ring-teal-100 focus:ring-4 focus:ring-teal-500 mt-4"
                   onChange={(e) => {
                     setCategoryTitle(e.target.value);
                   }}
@@ -109,7 +109,7 @@ const Addcategory = () => {
                   type="text"
                   id="title"
                   placeholder="Description of the Category"
-                  className="p-2 dark:bg-teal-800 outline-none dark:placeholder:text-teal-300 placeholder:text-teal-900 bg-teal-100 transition-all w-96 duration-500 rounded ring-2 ring-teal-100 focus:ring-4 focus:ring-teal-500 mt-4"
+                  className="p-2 dark:bg-teal-800 text-black outline-none dark:placeholder:text-teal-300 placeholder:text-teal-900 bg-teal-100 transition-all w-96 duration-500 rounded ring-2 ring-teal-100 focus:ring-4 focus:ring-teal-500 mt-4"
                   onChange={(e) => {
                     setCategoryDescription(e.target.value);
                   }}
@@ -125,7 +125,7 @@ const Addcategory = () => {
                   type="text"
                   id="title"
                   placeholder="example: class9CBSE"
-                  className="p-2 dark:bg-teal-800 outline-none dark:placeholder:text-teal-300 placeholder:text-teal-900 bg-teal-100 transition-all w-96 duration-500 rounded ring-2 ring-teal-100 focus:ring-4 focus:ring-teal-500 mt-4"
+                  className="p-2 dark:bg-teal-800 text-black outline-none dark:placeholder:text-teal-300 placeholder:text-teal-900 bg-teal-100 transition-all w-96 duration-500 rounded ring-2 ring-teal-100 focus:ring-4 focus:ring-teal-500 mt-4"
                   onChange={(e) => {
                     setCategoryLabel(e.target.value);
                   }}

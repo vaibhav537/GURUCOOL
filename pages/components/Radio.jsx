@@ -21,9 +21,9 @@ const Radio = () => {
   }
 
   return (
-    <div className="flex flex-col bg-slate-100 dark:bg-slate-600 h-screen mb-[50px]  transition-all duration-1000">
-      <div className="flex mt-20">
-        <span className={`transition-all w-[20rem] duration-300 font-bold ml-[155px] mr-[8px] mt-[20px] ${isActive?"text-slate-700 dark:text-slate-300 text-2xl": "text-green-500  text-3xl"}`}>
+    <div className="flex flex-col bg-slate-100 dark:bg-slate-600 h-screen mb-[100px]  transition-all duration-1000">
+      <div className="flex mt-20 mb-[8rem]">
+        <span className={`transition-all w-[20rem] duration-300 font-bold ml-[35rem] mr-[8px] mt-[20px] ${isActive?"text-slate-700 dark:text-slate-300 text-2xl": "text-green-500  text-3xl"}`}>
           Register As Teacher
         </span>
         <label

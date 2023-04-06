@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(true);
   const [teacher, setTeacher] = useState({ value: null });
   const [student, setStudent] = useState({ value: null });
+  const [user, setUser] = useState({ value: null });
   const [key, setKey] = useState(0);
   const [render, setRender] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -42,10 +43,12 @@ function MyApp({ Component, pageProps }) {
     const studentToken = localStorage.getItem("student-token");
     if (teacherToken) {
       setTeacher({ value: teacherToken });
+      setUser({ value: "THEREISUSER"});
       setKey(Math.random());
     }
     if (studentToken) {
       setStudent({ value: studentToken });
+      setUser({ value: "THEREISUSER"});
       setKey(Math.random());
     }
   }, [router.query]);
@@ -53,6 +56,7 @@ function MyApp({ Component, pageProps }) {
   const logout = () => {
     localStorage.removeItem("teacher-token");
     setTeacher({ value: null });
+    setUser({ value: null});
     setRender(Math.random());
     setKey(Math.random());
   };
@@ -76,7 +80,7 @@ function MyApp({ Component, pageProps }) {
       ) : (
         <ThemeProvider attribute="class" enableSystem={true}>
           {noNav.includes(asPath) ? null : (
-            <Navbar key={key} teacher={teacher} logout={logout} />
+            <Navbar key={key} user={user} logout={logout} />
           )}
           <LoadingBar
             color="#000000"
@@ -84,7 +88,7 @@ function MyApp({ Component, pageProps }) {
             waitingTime={100}
             onLoaderFinished={() => setProgress(0)}
           />
-          <Component {...pageProps} render={render} teacherKam={teacher} logout={logout} />
+          <Component {...pageProps} render={render} studentKam={student} teacherKam={teacher}  logout={logout} />
           {noNav.includes(asPath) ? null : <Footer />}
         </ThemeProvider>
       )}

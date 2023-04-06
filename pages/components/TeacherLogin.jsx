@@ -12,6 +12,19 @@ const TeacherLogin = () => {
 
   const router = useRouter();
 
+  
+  const toastConfig = {
+    position: "bottom-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    progress: undefined,
+    theme: "dark",
+    bodyClassName :"font-bold select-none",
+    closeButton: false
+  }
+
+
   const handleShow = (e) => {
     e.preventDefault();
     if (show === "password") {
@@ -26,13 +39,7 @@ const TeacherLogin = () => {
     setDisableButton(true);
     setIsLoading(true);
     if (!email || !password) {
-      toast.warning("Please Fill all the fields", {
-        position: "bottom-center",
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.warning("Please Fill all the fields", toastConfig);
       setDisableButton(false);
       setIsLoading(false);
       return;
@@ -54,54 +61,26 @@ const TeacherLogin = () => {
       let response = await res.json();
 
       if(response.success === true){
-        toast.success("Login Succesfull", {
-          position: "bottom-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.success("Login Succesfull", toastConfig);
         setDisableButton(false);
         setIsLoading(false);
         localStorage.setItem('teacher-token', JSON.stringify(response.token));
         router.push("/");
       }else if(response.success === "timeout"){
-        toast.error("Login Timed Out, Try Again Later", {
-          position: "bottom-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error("Login Timed Out, Try Again Later", toastConfig);
         setDisableButton(false);
         setIsLoading(false);
 
       }
       else{
-        toast.error("Login Failed, Try Again Later", {
-          position: "bottom-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error("Login Failed, Try Again Later", toastConfig);
         setDisableButton(false);
         setIsLoading(false);
       }
 
     } catch (error) {
       console.log(error);
-      toast.error("Login Failed, Try Again Later", {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Login Failed, Try Again Later", toastConfig);
       setIsLoading(false);
       setDisableButton(false);
     }
@@ -110,16 +89,16 @@ const TeacherLogin = () => {
     <>
     <ToastContainer
     position="bottom-center"
-    autoClose={3000}
-    hideProgressBar={false}
+    autoClose={1000}
+    hideProgressBar={true}
     newestOnTop={false}
     closeOnClick
     rtl={false}
     pauseOnFocusLoss
-    theme="light"
+    theme="dark"
   />
     <div className="flex justify-center items-center transition-all duration-1000 ">
-      <div className="rounded-md p-10  shadow-lg dark:bg-green-900 mt-4 bg-green-100">
+      <div className="rounded-md p-10 w-[20rem] h-[20rem] flex justify-center items-center shadow-lg dark:bg-green-900 mt-4 bg-green-100">
         <form
           method="post"
           className="flex flex-col"
