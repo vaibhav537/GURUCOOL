@@ -20,6 +20,7 @@ function MyApp({ Component, pageProps }) {
     "/admin/UpdateCategory",
     "/admin/Ranking",
   ];
+
   const [isLoading, setIsLoading] = useState(true);
   const [teacher, setTeacher] = useState({ value: null });
   const [student, setStudent] = useState({ value: null });
@@ -55,6 +56,7 @@ function MyApp({ Component, pageProps }) {
 
   const logout = () => {
     localStorage.removeItem("teacher-token");
+    localStorage.removeItem("student-token");
     setTeacher({ value: null });
     setUser({ value: null});
     setRender(Math.random());
@@ -89,7 +91,7 @@ function MyApp({ Component, pageProps }) {
             onLoaderFinished={() => setProgress(0)}
           />
           <Component {...pageProps} render={render} studentKam={student} teacherKam={teacher}  logout={logout} />
-          {noNav.includes(asPath) ? null : <Footer />}
+          {noNav.includes(asPath) ? null : <Footer student = {student} teacher={teacher} render={render}/>}
         </ThemeProvider>
       )}
     </>

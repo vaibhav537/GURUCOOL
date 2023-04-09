@@ -10,7 +10,7 @@ const Checkbox = () => {
   if(!mounted) return null
 
   return (
-    <div  className="flex -mr-[6.25rem] ml-[15rem] select-none">
+    <div  className="flex -mr-[18.25rem] -ml-[9rem] select-none">
         <p className="mr-2 uppercase dark:text-white pt-1 select-none text-black">{theme === 'light' ? 'dark' : 'light'} Mode</p>
         <label htmlFor="mode"  className="bg-black relative w-12 h-6 rounded-full dark:bg-white select-none" >
          <input onClick={()=>setTheme(theme==='light'? 'dark': 'light')} type="checkbox" id="mode" className="sr-only peer" />

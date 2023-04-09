@@ -14,8 +14,7 @@ handler.post(async (req, res) => {
   try {
     const userExists = await TeacherSchema.findOne({ email });
     if (userExists) {
-      res.status(400);
-      throw new Error("User already exists");
+      res.status(400).json({success: "already", message:"Already Exist"})
     }
 
     const teacher = await TeacherSchema.create({
@@ -28,7 +27,7 @@ handler.post(async (req, res) => {
     });
     if (teacher) {
       res.status(222).json({ success: true, teacher });
-    } else {
+    } else { 
       res.status(400);
       throw new Error("Failed to create the teacher");
     }

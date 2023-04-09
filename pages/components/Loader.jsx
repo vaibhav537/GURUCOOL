@@ -1,17 +1,19 @@
 import React from "react";
+import styles from "../../styles/footer.module.css"
 
 const Loader = () => {
   return (
     <>
       <div className="flex items-center justify-center mt-16 flex-col">
         <div>
-          <img src="/images/logo.png" alt="..." className="w-48 h-48 " />
+          <img src="/images/logo.png" alt="..." className="w-80 h-80  " />
         </div>
-        <div className="text-4xl mt-7 ml-10">
+
+        <div className={styles.container}>
+         <div className={styles.progress}></div>
+        </div>
+        <div className="text-4xl mt-[25rem] ml-10 text-black">
           GURU COOL
-        </div>
-        <div>
-          <img src="/mainLOADER.gif" alt="..."  className="w-28 pt-[5rem]"/>
         </div>
       </div>
     </>

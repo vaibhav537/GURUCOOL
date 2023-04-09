@@ -18,7 +18,7 @@ const Navbar = ({ user, logout }) => {
                 width={50}
                 className="dark:invert"
               />
-              <p className="pt-4 dark:text-white pl-4 text-black"> GURU COOL</p>
+              <p className="pt-4 dark:text-white pl-4 text-black select-none"> GURU COOL</p>
             </div>
           </Link>
           <input
@@ -41,8 +41,8 @@ const Navbar = ({ user, logout }) => {
                 <a
                   className={
                     router.pathname == "/"
-                      ? "text-xl text-black lg:text-gray-500 hover:text-gray-300 transition-all"
-                      : "text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                      ? "text-xl select-none text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                      : "text-black select-none lg:text-gray-500 hover:text-gray-300 transition-all"
                   }
                 >
                   Home
@@ -52,8 +52,8 @@ const Navbar = ({ user, logout }) => {
                 <a
                   className={
                     router.pathname == "/about"
-                      ? "text-xl text-black lg:text-gray-500 hover:text-gray-300 transition-all "
-                      : "text-black lg:text-gray-500 hover:text-gray-300 transition-all "
+                      ? "text-xl select-none text-black lg:text-gray-500 hover:text-gray-300 transition-all "
+                      : "text-black select-none lg:text-gray-500 hover:text-gray-300 transition-all "
                   }
                 >
                   About
@@ -64,8 +64,8 @@ const Navbar = ({ user, logout }) => {
                   <a
                     className={
                       router.pathname == "/login"
-                        ? "text-xl text-black lg:text-gray-500 hover:text-gray-300 transition-all"
-                        : "text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                        ? "text-xl select-none text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                        : "text-black select-none  lg:text-gray-500 hover:text-gray-300 transition-all"
                     }
                   >
                     Login
@@ -77,8 +77,8 @@ const Navbar = ({ user, logout }) => {
                   <a
                     className={
                       router.pathname == "/register"
-                        ? "text-xl text-black lg:text-gray-500 hover:text-gray-300 transition-all"
-                        : "text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                        ? "text-xl select-none text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                        : "text-black select-none lg:text-gray-500 hover:text-gray-300 transition-all"
                     }
                   >
                     Register
@@ -90,8 +90,8 @@ const Navbar = ({ user, logout }) => {
                 onClick={logout}
                   className={
                     router.pathname == "/logout"
-                      ? "text-xl cursor-pointer text-black lg:text-gray-500 hover:text-gray-300 transition-all"
-                      : "text-black lg:text-gray-500 cursor-pointer hover:text-gray-300 transition-all"
+                      ? "text-xl cursor-pointer select-none text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                      : "text-black lg:text-gray-500 select-none cursor-pointer hover:text-gray-300 transition-all"
                   }
                 >
                   Logout
@@ -101,8 +101,8 @@ const Navbar = ({ user, logout }) => {
                 <a
                   className={
                     router.pathname == "/contact"
-                      ? "text-xl text-black lg:text-gray-500 hover:text-gray-300 transition-all"
-                      : "text-black lg:text-gray-500 hover:text-gray-300 transition-all"
+                      ? "text-xl text-black select-none lg:text-gray-500 hover:text-gray-300 transition-all"
+                      : "text-black lg:text-gray-500 select-none hover:text-gray-300 transition-all"
                   }
                 >
                   Contact

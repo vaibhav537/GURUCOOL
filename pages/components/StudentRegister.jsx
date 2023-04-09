@@ -10,9 +10,15 @@ const StudentRegister = () => {
   const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
+  const [disableButton, setDisableButton] = useState(false);
   const [pic, setPic] = useState("");
   const [loading, setLoading] = useState(false);
   const [src, setSrc] = useState("/images/Blank.png");
+  const [verify, setVerify] = useState(null);
+  const [model, setModel] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [otpDisableButton, setOtpDisableButton] = useState(false);
 
   const router = useRouter();
 
@@ -20,10 +26,11 @@ const StudentRegister = () => {
     position: "bottom-center",
     autoClose: 1000,
     hideProgressBar: true,
-    closeOnClick: true,
+    closeOnClick: false,
     progress: undefined,
-    theme: "dark",
-  }
+    theme:"dark",
+    bodyClassName: "font-bold font-Nunito",
+  };
 
   const onImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -32,10 +39,12 @@ const StudentRegister = () => {
   };
 
   const postDetails = (pics) => {
+    setDisableButton(true);
     setLoading(true);
     if (pics === undefined) {
-      toast.warning("Please select an Image", toastConfig );
+      toast.warning("Please select an Image", toastConfig);
       setLoading(false);
+      setDisableButton(false);
       return;
     }
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
@@ -52,13 +61,118 @@ const StudentRegister = () => {
           setPic(data.url.toString());
           console.log(data.url.toString());
           setLoading(false);
+          setDisableButton(false);
         })
         .catch((err) => {
           console.log(err);
           setLoading(false);
+          setDisableButton(false);
         });
     } else {
       toast.warning("Please select an Image", toastConfig);
+      setLoading(false);
+      setDisableButton(false);
+    }
+  };
+
+  //verifying the otp in this funvtion
+  const handleOtpCode = async (e) => {
+    e.preventDefault();
+    setOtpLoading(true);
+    setOtpDisableButton(true);
+
+    if (!otp) {
+      toast.warning("Please Enter OTP", toastConfig);
+      setOtpLoading(false);
+      setOtpDisableButton(false);
+      return;
+    } else if (otp.toString().length > 6 || otp.toString().length < 6) {
+      toast.warning("Please Enter 6 Digits OTP Code", toastConfig);
+      setOtpLoading(false);
+      setOtpDisableButton(false);
+      return;
+    } else {
+      try {
+        const otpResult = await fetch("/api/verify/verifyOtpUSer", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            otp: otp,
+          }),
+        });
+        const otpResponse = await otpResult.json();
+
+        if (otpResponse.success === true) {
+          toast.success("OTP Verified !!", toastConfig);
+          setVerify(true);
+          setOtpLoading(false);
+          setOtpDisableButton(false);
+          setModel(false);
+        } else if (otpResponse.success === "exp") {
+          toast.error("OTP Expired !!", toastConfig);
+          setOtpLoading(false);
+          setOtpDisableButton(false);
+          setModel(false);
+        } else {
+          toast.warning("Wrong OTP !!", toastConfig);
+          setOtpLoading(false);
+          setOtpDisableButton(false);
+          console.log(otpResponse);
+        }
+      } catch (error) {
+        toast.warning("Error Occured !!", toastConfig);
+        setOtpLoading(false);
+        setOtpDisableButton(false);
+        setModel(false);
+      }
+    }
+  };
+
+  //verifying the email Address field
+  const verifyEmail = async (event) => {
+    event.preventDefault(); // preventing  form from default action
+    setModel(true); //Displaying the dailog/modal
+    setLoading(true);
+    setDisableButton(true);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //Regex for the email
+
+    if (!email) {
+      toast.warning("Please Fill Email Field", toastConfig);
+      setLoading(false);
+      setModel(false); //Removing model
+      setDisableButton(false);
+      return;
+    } else if (!emailRegex.test(email)) {
+      toast.warning("Invalid Email Address", toastConfig);
+      setLoading(false);
+      setModel(false);
+      setDisableButton(false);
+      return;
+    } else {
+      const VerifyResult = await fetch("/api/verify/GeneratingOtp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          name: name,
+        }),
+      });
+      const VerifyData = await VerifyResult.json();
+      if (VerifyData.success === true) {
+        toast.success("An Otp Has Send On Your Email Address !!", toastConfig);
+        setLoading(false);
+        setDisableButton(false);
+      } else {
+        toast.error("Otp Cannot Sent, Retry !!", toastConfig);
+        setLoading(false);
+        setDisableButton(false);
+        setModel(false);
+      }
     }
   };
 
@@ -67,16 +181,48 @@ const StudentRegister = () => {
     setLoading(true);
     if (!name || !email || !phone || !gender || !password || !confirmpassword) {
       toast.warning("Please Fill all the Fields", toastConfig);
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
+      setLoading(false);
+      setDisableButton(false);
       return;
     }
+
+    if (pic === undefined || pic === null || pic === "") {
+      toast.warning("Please Choose a Profile Picture", toastConfig);
+      setLoading(false);
+      setDisableButton(false);
+      return;
+    }
+
+    // validating the phone number
+    const phoneRegex = /^[0-9]{10}$/; // regular expression for 10-digit phone number
+    if (!phoneRegex.test(phone)) {
+      toast.warning("Invalid Phone Number", toastConfig);
+      setLoading(false);
+      setDisableButton(false);
+      return;
+    }
+
+    //validating the email address
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // regular expression for email
+    if (!emailRegex.test(email)) {
+      toast.warning("Invalid Email Address", toastConfig);
+      setLoading(false);
+      setDisableButton(false);
+      return;
+    }
+
+    //verify Otp from the Email
+    if (verify === null) {
+      toast.warning("Please Verify Your Email Address", toastConfig);
+      setLoading(false);
+      setDisableButton(false);
+      return;
+    }
+
     if (password !== confirmpassword) {
       toast.warning("Passwords not Matched", toastConfig);
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
+      setLoading(false);
+      setDisableButton(false);
       return;
     }
     try {
@@ -95,23 +241,27 @@ const StudentRegister = () => {
           pic,
         }),
       });
-      toast.success("Registration Succesfull", toastConfig);
 
-      localStorage.setItem("student-info", JSON.stringify(res));
-      setLoading(false);
-
-      router.push("/student/studentprofile");
+      const response = await res.json();
+      if (response.success === true) {
+        toast.success("Registration Succesfull !!", toastConfig);
+        localStorage.setItem("student-token", JSON.stringify(response.token));
+        setLoading(false);
+        setDisableButton(false);
+        router.push("/");
+      } else if (response.success === "already") {
+        toast.error("Student Already Registered!!", toastConfig);
+        setLoading(false);
+        setDisableButton(false);
+      } else {
+        toast.success("Can't Register Try Again Later !!", toastConfig);
+        setLoading(false);
+        setDisableButton(false);
+      }
     } catch (error) {
-      toast.error("Error Occured, Try Again Later", {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "dark",
-        className: "rounded-full",
-      });
-      setLoading(true);
+      toast.error("Error Occured, Try Again Later", toastConfig);
+      setLoading(false);
+      setDisableButton(false);
     }
   };
   return (
@@ -123,9 +273,9 @@ const StudentRegister = () => {
         newestOnTop={false}
         closeOnClick
         rtl={false}
-        theme="dark"
+        closeButton={false}
       />
-      <div className="flex justify-center items-center transition-all duration-1000 ">
+      <div className="flex  justify-center items-center transition-all duration-1000 ">
         <div className="rounded-md p-20  shadow-lg dark:bg-blue-900 mt-4 bg-blue-100">
           <form
             method="post"
@@ -166,6 +316,12 @@ const StudentRegister = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                     />
+                    <div
+                      onClick={verifyEmail}
+                      className="h-5 w-[5.6rem] text-slate-400 dark:text-blue-300 hover:text-slate-600 dark:hover:text-blue-800 cursor-pointer absolute -right-[30px] top-[45px]"
+                    >
+                      Verify Email
+                    </div>
                   </div>
                 </div>
                 <div className="relative">
@@ -295,7 +451,7 @@ const StudentRegister = () => {
                 </div>
                 <label
                   htmlFor="pic"
-                  className="mt-5 border-2 cursor-pointer dark:border-white dark:hover:text-black dark:hover:bg-white border-black p-2 hover:bg-black transition-all rounded-lg hover:text-white"
+                  className="mt-5 border-2 cursor-pointer text-black dark:text-white dark:border-white dark:hover:text-black dark:hover:bg-white border-black p-2 hover:bg-black transition-all rounded-lg hover:text-white"
                 >
                   SET PROFILE
                 </label>
@@ -316,12 +472,57 @@ const StudentRegister = () => {
               <button
                 type="submit"
                 onClick={submitHandler}
-                className="font-bold font-Crimson text-lg text-white bg-blue-400 uppercase rounded cursor-pointer hover:bg-blue-300 hover:shadow-3xl hover:text-blue-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-blue-700 dark:hover:bg-blue-900"
+                className={` ${
+                  disableButton
+                    ? "cursor-not-allowed font-bold font-Crimson text-lg text-white bg-blue-400 uppercase rounded  hover:bg-blue-300  hover:text-blue-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-blue-700 dark:hover:bg-blue-900"
+                    : "font-bold font-Crimson text-lg text-white bg-blue-400 uppercase rounded  hover:bg-blue-300  hover:text-blue-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-blue-700 dark:hover:bg-blue-900 cursor-pointer hover:shadow-3xl"
+                }`}
+                disabled={disableButton}
               >
-                REGISTER
+                {loading ? (
+                  <img src="/student.gif" alt="..." className="w-5 h-5" />
+                ) : (
+                  "register"
+                )}
               </button>
             </div>
           </form>
+          {model && (
+            <div
+              id="Container"
+              className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
+            >
+              <div className="bg-blue-100 p-5 rounded flex flex-col items-center justify-center text-black dark:text-white ">
+                <h1 className="text-3xl text-slate-500 select-none">
+                  Welcome to
+                  <span className="uppercase font-bold text-slate-800">
+                    gurucool
+                  </span>
+                </h1>
+                <div className="bg-white rounded-full w-28 h-28 flex items-center justify-center select-none my-6">
+                  <i className="fa-solid fa-shield-halved text-slate-800 text-[4rem]"></i>
+                </div>
+                <h2 className="text-xl font-medium select-none">
+                  Enter Your Verification Code
+                </h2>
+                <div>
+                  <input
+                    type="number"
+                    className="text-black ring-2 ring-blue-100 outline-none p-2 my-3 pl-4 text-lg rounded focus:ring-blue-500 transition-all duration-500"
+                    onChange={(event) => setOtp(event.target.value)}
+                    placeholder="6 Digit Code"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="text-white select-none w-40 rounded-md my-5 p-2 flex items-center justify-center bg-blue-700 hover:shadow-3xl hover:bg-blue-300 transition-all duration-500"
+                  onClick={handleOtpCode}
+                >
+                  { otpLoading ? <img className="w-[20px] h-[20px]" alt="..." src="/loader.png"/>:"Verify Code"}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

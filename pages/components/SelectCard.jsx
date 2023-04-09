@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 
 const SelectCard = () => {
-
   const toastConfig = {
     position: "bottom-center",
     autoClose: 1000,
@@ -14,7 +13,7 @@ const SelectCard = () => {
     closeOnClick: true,
     progress: undefined,
     theme: "dark",
-  }
+  };
 
   const [category, setCategory] = useState("");
   const [button, setButton] = useState(false);
@@ -36,25 +35,19 @@ const SelectCard = () => {
 
   const handleChange = (event) => {
     setCategory(event.target.value);
-    if (category === "") {
-      setButton(false);
-      return button;
-    } else {
-      setButton(true);
-      return button;
-    }
+    setButton(true);
   };
 
   const postCategory = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     const teacherinfo = await JSON.parse(localStorage.getItem("teacher-info"));
     try {
       const data = await fetch(`/api/update/${teacherinfo._id}`, {
         method: "PUT",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ category: category })
+        body: JSON.stringify({ category: category }),
       });
 
       const response = await data.json();
@@ -69,7 +62,10 @@ const SelectCard = () => {
         setIsLoading(false);
       }
     } catch (error) {
-      toast.error("Category Cannnot Be Added, Please Try Again Later", toastConfig);
+      toast.error(
+        "Category Cannnot Be Added, Please Try Again Later",
+        toastConfig
+      );
       setIsLoading(false);
     }
   };
@@ -165,10 +161,14 @@ const SelectCard = () => {
       {button && (
         <button
           type="submit"
-          className="flex items-center justify-center w-[7rem] hover:shadow-3xl cursor-pointer p-4 transition-all rounded fixed bottom-5  right-[39rem] duration-300 bg-green-500 hover:text-white hover:bg-green-300 font-bold"
+          className="flex items-center justify-center w-[7rem] hover:shadow-3xl cursor-pointer p-4 transition-all rounded fixed bottom-5  right-[54rem] duration-300 bg-green-500 hover:text-white hover:bg-green-300 font-bold"
           onClick={postCategory}
         >
-          { isLoading ? <img src="/loader.gif" alt="..." className="w-[20px] h-[20px]"/> : "SUBMIT"}
+          {isLoading ? (
+            <img src="/loader.gif" alt="..." className="w-[20px] h-[20px]" />
+          ) : (
+            "SUBMIT"
+          )}
         </button>
       )}
     </>

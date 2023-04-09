@@ -66,14 +66,8 @@ const TeacherLogin = () => {
         setIsLoading(false);
         localStorage.setItem('teacher-token', JSON.stringify(response.token));
         router.push("/");
-      }else if(response.success === "timeout"){
-        toast.error("Login Timed Out, Try Again Later", toastConfig);
-        setDisableButton(false);
-        setIsLoading(false);
-
-      }
-      else{
-        toast.error("Login Failed, Try Again Later", toastConfig);
+      }else if(response.success === false){
+        toast.error("Wrong Email or Password !!", toastConfig);
         setDisableButton(false);
         setIsLoading(false);
       }

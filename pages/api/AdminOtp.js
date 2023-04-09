@@ -25,8 +25,7 @@ handler.post(async(req,res)=>{
         await mailer(email, otpCode)
     }else{
         res.status(404).json("OTP NOT FOUND");           // any error ocuurs then it woll show this error
-    }8
-    .69
+    }
   }
 
 })
