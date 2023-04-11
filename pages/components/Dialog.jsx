@@ -1,31 +1,49 @@
-import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState } from "react"; //importing the state from react
+import { ToastContainer, toast } from "react-toastify";//importing the toast from react-toastify
+import "react-toastify/dist/ReactToastify.css";//importing the css of the ReactToast
 
-const Dialog = ({ visible, onClose }) => {
-  const [otpCode, setOtpCode] = useState();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmpassword, setConfirmpassword] = useState("");
-  const [firstDiv, setFirstDiv] = useState(true);
-  const [secondDiv, setSecondDiv] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const handleClose = (e) => {
+const Dialog = ({ visible, onClose }) => {  // reciving the props from the parent component
+  const [otpCode, setOtpCode] = useState(); // state for the storing otp code
+  const [email, setEmail] = useState(""); // state for the storing email
+  const [password, setPassword] = useState(""); // state for the storing password
+  const [confirmpassword, setConfirmpassword] = useState(""); // state for the storing confirm password
+  const [firstDiv, setFirstDiv] = useState(true); // state for the hide and show the first div
+  const [secondDiv, setSecondDiv] = useState(false);  // state for hide and show the second div
+  const [isLoading, setIsLoading] = useState(false); // state for showing the loader
+  // defing the function for hiding the dialog 
+  const handleClose = (e) => { 
     if (e.target.id === "Container") {
       onClose();
     }
   };
 
+  // toast configurations
+  const toastConfig = {
+    position: "bottom-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    progress: undefined,
+    theme: "dark",
+    bodyClassName: "font-bold select-none font-Nunito",
+    closeButton: false,
+  };
+ // send int otp caode to backend and showing the first div
   const handleOTP = async (e) => {
-    setIsLoading(true);
-    e.preventDefault();
-    if (firstDiv === false) {
+    setIsLoading(true); // shoeing the loader
+    e.preventDefault(); // prevent default behavior 
+    // if the firstdiv is not showing then  this if will run
+    if (firstDiv === false) { 
       setFirstDiv(true);
       setSecondDiv(false);
     }
+
+    // if user enter the otp code then this if will run
     if (otpCode) {
-      const codeString = otpCode.toString();
+      const codeString = otpCode.toString(); // converting the otpcode datatype number to string datatype
+      // check the lenght of the code 
       if (codeString.length === 6) {
+        // if code lenghr is 6 then try catch will run
         try {
           const data = await fetch("/api/mail/changePasswordAdmin", {
             method: "POST",
@@ -38,28 +56,14 @@ const Dialog = ({ visible, onClose }) => {
           });
           const response = await data.json();
           if (response.success === true) {
-            toast.success("Verified ", {
-              position: "top-center",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              progress: undefined,
-              theme: "light",
-            });
+            toast.success("Verified ", toastConfig);
             setIsLoading(false);
             if (firstDiv === true) {
               setSecondDiv(true);
               setFirstDiv(false);
             }
           } else {
-            toast.error("Invalid Verification Code", {
-              position: "top-center",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              progress: undefined,
-              theme: "light",
-            });
+            toast.error("Invalid Verification Code", toastConfig);
             setIsLoading(false);
           }
         } catch (error) {
@@ -67,26 +71,12 @@ const Dialog = ({ visible, onClose }) => {
           console.log(error);
         }
       } else {
-        toast.error("Invalid Verification Code", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error("Invalid Verification Code", toastConfig);
         setIsLoading(false);
       }
     }
     else{
-      toast.error("Please Enter the Verification Code", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Please Enter the Verification Code", toastConfig);
       setIsLoading(false);
     }
   };
@@ -96,26 +86,12 @@ const Dialog = ({ visible, onClose }) => {
     e.preventDefault();
     try {
       if (!email || !password || !confirmpassword) {
-        toast.error("Please Enter All Fields", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error("Please Enter All Fields", toastConfig);
         setIsLoading(false);
         return;
       }
       if (password !== confirmpassword) {
-        toast.error("Passwords not Matched", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error("Passwords not Matched", toastConfig);
         setIsLoading(false);
         return;
       }
@@ -130,25 +106,11 @@ const Dialog = ({ visible, onClose }) => {
         }),
       });
       if (updated) {
-        toast.success("Admin Id Password Updated !!", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.success("Admin Id Password Updated !!", toastConfig);
         setIsLoading(false);
         handleClose();
       } else {
-        toast.error("Admin Not Updated !!", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error("Admin Not Updated !!", toastConfig);
         setIsLoading(false);
       }
     } catch (error) {
@@ -171,23 +133,9 @@ const Dialog = ({ visible, onClose }) => {
       });
 
       if (data) {
-        toast.success("Verfication Code Sent", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.success("Verfication Code Sent",toastConfig);
       } else {
-        toast.error("Could'nt Send Verification Code", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error("Could'nt Send Verification Code", toastConfig);
       }
     } catch (error) {
       console.log(error);
@@ -217,21 +165,21 @@ const Dialog = ({ visible, onClose }) => {
           <div className="bg-white p-5 rounded flex flex-col ">
             {firstDiv && (
               <>
-                <div className="flex items-center justify-center mt-2 mb-4">
+                <div className="flex items-center justify-center ml-5 mt-2 ">
                   <img
                     src="/images/AdminOtp.png"
                     alt="..."
                     className="w-36 h-32 select-none"
                   />
                 </div>
-                <h1 className="text-center text-2xl font-bold select-none">
+                <h1 className="text-center text-2xl text-black font-bold select-none my-4">
                   Enter the Verification Code
                 </h1>
                 <form className="flex justify-center items-center flex-col my-5">
                   <div className="flex">
                     <input
                       type="number"
-                      className="w-32 font-bold ring-1 ring-black focus:ring-2 mx-2 outline-none h-11 rounded text-lg text-center select-none"
+                      className="w-32 font-bold ring-1 text-black ring-black focus:ring-2 mx-2 outline-none h-11 rounded text-lg text-center select-none"
                       onChange={(e) => {
                         setOtpCode(e.target.value);
                       }}

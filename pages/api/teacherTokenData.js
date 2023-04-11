@@ -18,7 +18,8 @@ handler.post(async (req, res) => {
     if (teacher === "token Expired") {
       return res.status(201).json({ status: false, data: "Token Expired !!" });
     }else{
-        return res.status(201).json({ status: true, teacher})
+      const teacherData = await TeacherSchema.findOne({ _id: teacher.teacher._id})
+      res.status(201).json({ status: true, teacher: teacherData}) 
     }
   } catch (error) {
     console.log(error);

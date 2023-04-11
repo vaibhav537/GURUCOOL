@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TeacherAccountUpdate from "./TeacherAccountUpdate";
+import TeacherDeleteAccount from "./TeacherDeleteAccount";
 
 const HomeTeacher = () => {
   const [loading, setLoading] = useState(false);
@@ -12,10 +14,28 @@ const HomeTeacher = () => {
   const [teacherPic, setTeacherPic] = useState("");
   const [teacherUser, setTeacherUser] = useState("");
   const [dropdown, setDropdown] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [visible2, setVisible2] = useState(false);
   const router = useRouter();
 
+  const handleClose = () => {
+    setVisible(false);
+    setVisible2(false);
+  };
   const toggleDropDown = () => {
     setDropdown(!dropdown);
+  };
+
+  // toast configurations
+  const toastConfig = {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    progress: undefined,
+    theme: "light",
+    bodyClassName: "font-bold select-none font-Nunito",
+    closeButton: false,
   };
 
   useEffect(() => {
@@ -35,33 +55,19 @@ const HomeTeacher = () => {
       });
       const teacherData = await teacherInformation.json();
       if (teacherData.status === true) {
-        setTeacherName(teacherData.teacher.teacher.name);
-        setTeacherCategory(teacherData.teacher.teacher.category);
-        setTeacherEmail(teacherData.teacher.teacher.email);
-        setTeacherPhone(teacherData.teacher.teacher.phone);
-        setTeacherPic(teacherData.teacher.teacher.pic);
-        setTeacherUser(teacherData.teacher.teacher.user);
-        const ToastTeacherName = teacherData.teacher.teacher.name;
+        setTeacherName(teacherData.teacher.name);
+        setTeacherCategory(teacherData.teacher.category);
+        setTeacherEmail(teacherData.teacher.email);
+        setTeacherPhone(teacherData.teacher.phone);
+        setTeacherPic(teacherData.teacher.pic);
+        setTeacherUser(teacherData.teacher.user);
+        const ToastTeacherName = teacherData.teacher.name;
         const teacherUpperCaseName = ToastTeacherName.toUpperCase();
-
-        toast.success(`WELCOME ${teacherUpperCaseName} !!`, {
-          position: "top-center",
-          hideProgressBar: true,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.success(`WELCOME ${teacherUpperCaseName} !!`, toastConfig);
         console.log(teacherData);
         setLoading(false);
       } else {
-        toast.error(" Token Expired, Please Login Again", {
-          position: "bottom-center",
-          hideProgressBar: true,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "light",
-          autoClose: 1000,
-        });
+        toast.error(" Token Expired, Please Login Again", toastConfig);
         setLoading(false);
       }
     };
@@ -80,11 +86,11 @@ const HomeTeacher = () => {
         theme="light"
       />
       {loading ? (
-        <div className="flex items-center  justify-center w-[100vw] h-[90vh] bg-green-100">
+        <div className="flex items-center  justify-center w-screen  max-w-full min-w-fit h-[90vh] bg-green-100">
           <img src="/loader.gif" alt="..." className="w-20 h-20" />
         </div>
       ) : (
-        <div className="flex relative justify-center w-[99vw] h-[90vh] bg-green-100">
+        <div className="flex relative justify-center w-screen h-[90vh] bg-green-100">
           <div className="">
             <h1 className="text-bold uppercase text-black"> {teacherName} </h1>
           </div>
@@ -100,17 +106,32 @@ const HomeTeacher = () => {
           >
             <i className="text-black text-2xl fa-solid fa-user-gear hover:text-gray-700 transition-all duration-500"></i>
             {dropdown && (
-            <div className="absolute text-black top-[1.5rem] bg-white p-3 rounded-lg shadow-2xl -right-[3rem] w-36">
-              <li className="list-none py-2 border-b-2 cursor-pointer hover:text-slate-500">
-                Delete Account
-              </li>
-              <li className="list-none py-2 cursor-pointer hover:text-slate-500">
-                Update Account
-              </li>
-            </div>
-          )}
+              <div className="absolute text-black top-[1.5rem] bg-white p-3 rounded-lg shadow-2xl -right-[3rem] w-36">
+                <li
+                  className="list-none py-2 border-b-2 cursor-pointer hover:text-slate-500"
+                  onClick={() => setVisible2(true)}
+                >
+                  Delete Account
+                </li>
+                <li
+                  className="list-none py-2 cursor-pointer hover:text-slate-500"
+                  onClick={() => setVisible(true)}
+                >
+                  Update Account
+                </li>
+              </div>
+            )}
           </div>
-
+          <TeacherAccountUpdate
+            visible={visible}
+            onClose={handleClose}
+            teacherEmail={teacherEmail}
+          />
+          <TeacherDeleteAccount
+            visible={visible2}
+            onClose={handleClose}
+            teacherEmail={teacherEmail}
+          />
         </div>
       )}
     </>

@@ -1,16 +1,52 @@
-import Head from "next/head";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Head from "next/head"; //Importing the head of the Next.js
+import { useRouter } from "next/router"; //importing the router of the Next.js
+import React, { useState } from "react"; //importing the state from react
+import { ToastContainer, toast } from "react-toastify"; //importing the toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; //importing the css of the ReactToast
+import Dialog from "./components/Dialog"; //importing the dialog component
 
 const admin = () => {
-  const [show, setShow] = useState("password");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [show, setShow] = useState("password"); // state for the password hide and show
+  const [email, setEmail] = useState(""); // state for the email value
+  const [password, setPassword] = useState(""); // state for the password value
+  const [visible, setVisible] = useState(""); // state for hiding and showing the Dialog component
 
-  const router = useRouter();
+  const router = useRouter(); // Defining useRouter to router variable
 
+  //finction for sending the code on email
+  const changeIdPAssword = (e) => {
+    e.preventDefault(); //preventing the form from its default behaviour
+    // using try catch block for the  error handling
+    try {
+      // using fetch api to send the otp code
+      const data = fetch("/api/AdminOtp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+        }),
+      });
+
+      // if the response comes from fetch api then this if statement will run
+      if (data) {
+        toast.success("Verfication Code Sent", toastConfig);
+        setVisible(true);
+      } else {
+        toast.error("Could'nt Send Verification Code", toastConfig);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // function to hide the modal
+  const handleDialog = () => {
+    setVisible(false); // hiding the dialog
+  };
+
+  // function to show and hide the password
   const handleShow = (e) => {
     e.preventDefault();
     if (show === "password") {
@@ -20,6 +56,7 @@ const admin = () => {
     }
   };
 
+  // toast configurations
   const toastConfig = {
     position: "top-center",
     autoClose: 1000,
@@ -27,19 +64,23 @@ const admin = () => {
     closeOnClick: true,
     progress: undefined,
     theme: "light",
-    bodyClassName :"font-bold select-none",
-    closeButton: false
-  }
+    bodyClassName: "font-bold select-none",
+    closeButton: false,
+  };
 
-  
+  // send the input details to back end
   const postAdminLogin = async (event) => {
     event.preventDefault();
+    // validating the emai and password
     if (!email || !password) {
       toast.warning("Please Fill all the fields !!", toastConfig);
       return;
     }
+
+    // using the try catch block for error handling
     try {
-      const data  = await fetch("/api/adminLogin", {
+      //sending the email and password to backend using fetch api
+      const data = await fetch("/api/adminLogin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,12 +90,16 @@ const admin = () => {
           password,
         }),
       });
+
+      // converting the response to json
       const response = await data.json();
-      if(response.success){
+
+      // if the response contains success true the below if will run
+      if (response.success) {
         toast.success("ACCESS GRANTED", toastConfig);
         localStorage.setItem("ADMIN_ACCESS", response.token);
-        router.push("/admin/ifqRPHleaQkbEvmwOPEqb")
-      }else{
+        router.push("/admin/ifqRPHleaQkbEvmwOPEqb");
+      } else {
         toast.error("ACCESS NOT GRANTED", toastConfig);
       }
     } catch (error) {
@@ -132,6 +177,13 @@ const admin = () => {
                 login
               </button>
             </div>
+            <p
+              className="mt-5 text-teal-100 hover:text-teal-500 transition-all duration-500  cursor-pointer"
+              onClick={changeIdPAssword}
+            >
+              Change the Admin Id Password?
+            </p>
+            <Dialog visible={visible} onClose={handleDialog} />
           </form>
         </div>
       </div>
