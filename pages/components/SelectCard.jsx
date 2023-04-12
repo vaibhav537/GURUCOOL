@@ -56,6 +56,7 @@ const SelectCard = () => {
         toast.success("Category Added", toastConfig);
         setIsLoading(false);
         localStorage.setItem("teacher-token", JSON.stringify(response.token));
+        localStorage.removeItem("teacher-info");
         router.push("/");
       } else {
         toast.error("Category Not Added", toastConfig);

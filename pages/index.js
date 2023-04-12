@@ -39,7 +39,7 @@ export default function Home({teacherKam, render}) {
         <link rel="icon" href="/images/logo.png" />
       </Head>
       {user && <HomeUser />} 
-      {teacher && <HomeTeacher />}
+      {teacher && <HomeTeacher teaacherKam = {teacherKam} render={render} />}
       {student && <HomeStudent />}
     </>
   );

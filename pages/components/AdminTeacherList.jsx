@@ -24,7 +24,7 @@ const AdminTeacherList = () => {
             <img src="/admin.gif" className="h-20 w-20" alt="loader" />
           </div>
         ) : (
-          <table className="ml-[50px] mt-[25px] text-black">
+          <table className="ml-[50px] mt-[25px] text-black dark:text-white">
             <tbody>
               <tr className="border-y-2  border-slate-500 font-Garamond text-lg">
                 <td className="p-3 w-[10rem] text-center select-none ">

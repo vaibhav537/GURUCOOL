@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
 import register from "../db/regg";
 const jwt = require("jsonwebtoken");
 
@@ -46,18 +45,6 @@ const teacherSchema = mongoose.Schema(
   }
 );
 
-teacherSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
-
-teacherSchema.pre("save", async function (next) {
-  if (!this.isModified) {
-    next();
-  } else {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-  }
-});
 
 const TeacherRegister =
   register.models.TEACHER || register.model("TEACHER", teacherSchema);

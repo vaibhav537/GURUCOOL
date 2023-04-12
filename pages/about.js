@@ -18,7 +18,7 @@ const about = (props) => {
       <div className="bg-slate-100 ">
         <IntroTeam />
         <div className="bg-slate-100 dark:bg-slate-600 transition-all duration-700">
-          <p className="text-center text-3xl pt-5 select-text text-black cursor-text">Developer's team</p>
+          <p className="text-center text-3xl pt-5 select-text text-black dark:text-white cursor-text">Developer's team</p>
           <Team />
         </div>
         <Faclities />

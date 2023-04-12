@@ -59,7 +59,6 @@ const StudentRegister = () => {
         .then((res) => res.json())
         .then((data) => {
           setPic(data.url.toString());
-          console.log(data.url.toString());
           setLoading(false);
           setDisableButton(false);
         })
@@ -115,12 +114,11 @@ const StudentRegister = () => {
           toast.error("OTP Expired !!", toastConfig);
           setOtpLoading(false);
           setOtpDisableButton(false);
-          setModel(false);
+          setModel(true);
         } else {
           toast.warning("Wrong OTP !!", toastConfig);
           setOtpLoading(false);
           setOtpDisableButton(false);
-          console.log(otpResponse);
         }
       } catch (error) {
         toast.warning("Error Occured !!", toastConfig);
@@ -260,6 +258,7 @@ const StudentRegister = () => {
       }
     } catch (error) {
       toast.error("Error Occured, Try Again Later", toastConfig);
+      console.log(error);
       setLoading(false);
       setDisableButton(false);
     }

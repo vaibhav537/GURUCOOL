@@ -15,8 +15,8 @@ const AdminStudentList = () => {
   }, []);
   return (
     <>
-      <div className="w-[60vw]  shadow-5xl shadow-inset p-10 dark:bg-slate-800 bg-teal-100  rounded dark:border-red-200 transition-all duration-1000">
-        <h4 className="text-3xl select-none uppercase font-semibold text-center text-black/75">
+      <div className="w-[60vw] shadow-5xl shadow-inset p-10 bg-teal-100 dark:bg-slate-800 rounded dark:border-red-200 transition-all duration-1000">
+        <h4 className="text-3xl select-none uppercase font-semibold text-center dark:text-white text-black/75">
           Students in MEET IN
         </h4>
         {isLoading ? (
@@ -24,18 +24,15 @@ const AdminStudentList = () => {
             <img src="/admin.gif" className="h-20 w-20" alt="loader" />
           </div>
         ) : (
-          <table className="ml-[50px] mt-[25px]">
+          <table className="ml-[200px] mt-[25px] dark:text-white text-black ">
             <tbody>
-              <tr className="border-y-2  border-slate-500 font-Garamond text-lg">
+              <tr className="border-y-2  border-slate-500 font-Garamond text-lg ">
                 <td className="p-3 w-[10rem] text-center select-none ">
                   Sr No.
                 </td>
                 <td className="p-3 w-[10rem] text-center select-none ">Name</td>
                 <td className="p-3 w-[10rem] text-center select-none ">
                   Email
-                </td>
-                <td className="p-3 w-[10rem] text-center select-none ">
-                  Category
                 </td>
                 <td className="p-3 w-[10rem] text-center select-none ">
                   Delete
@@ -62,16 +59,7 @@ const AdminStudentList = () => {
                     >
                       {val.email}
                     </td>
-                    <td
-                      className="p-3 w-[10rem] text-center select-none "
-                      key={val.createdAt}
-                    >
-                      {val.category}
-                    </td>
-                    <td
-                      className="p-3 w-[10rem] text-center cursor-pointer hover:text-red-500 transition-all duration-300 hover:text-xl"
-                      key={val.updatedAt}
-                    >
+                    <td className="p-3 w-[10rem] text-center cursor-pointer hover:text-red-500 transition-all duration-300 hover:text-xl">
                       <i className="fa-solid fa-trash"></i>
                     </td>
                   </tr>

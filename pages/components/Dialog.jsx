@@ -64,6 +64,7 @@ const Dialog = ({ visible, onClose }) => {  // reciving the props from the paren
             }
           } else {
             toast.error("Invalid Verification Code", toastConfig);
+            console.log(response)
             setIsLoading(false);
           }
         } catch (error) {

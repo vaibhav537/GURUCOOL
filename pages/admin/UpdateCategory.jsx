@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Checkbox from "../components/Checkbox";
 import { ToastContainer, toast } from "react-toastify";
@@ -8,7 +8,12 @@ import { useRouter } from "next/router";
  //UI HAS BEEN MADE BUT FUNCTIONALITY IS NOT DONE YET...
 
 const UpdateCategory = () => {
+  const [title, setTitle] = useState("");
+  const [categoryTitle, setCategoryTitle] = useState("");
+  const [categoryLabel, setCategoryLabel] = useState("");
+  const [categoryDescription, setCategoryDescription] = useState("");
   const router = useRouter();
+
 
   useEffect(() => {
     if (!localStorage.getItem("ADMIN_ACCESS")) {
@@ -39,22 +44,23 @@ const UpdateCategory = () => {
             </p>
             <form className="flex flex-col ">
               <div className="flex flex-col pt-20">
-                <label htmlFor="title" className="text-xl text-white">
+                <label htmlFor="title" className="text-xl select-none text-white">
                   Enter the title of the Category
                 </label>
                 <input
                   type="text"
                   id="title"
                   placeholder="ex: Class 9 RBSE"
-                  className="p-2 dark:bg-teal-800 outline-none dark:placeholder:text-teal-300 placeholder:text-teal-900 bg-teal-100 transition-all w-96 duration-500 rounded ring-2 ring-teal-100 focus:ring-4 focus:ring-teal-500 mt-4"
-                  name="categoryTitle"
+                  className="p-2 dark:bg-teal-800 dark:text-white text-teal-900 outline-none dark:placeholder:text-teal-300 placeholder:text-teal-900 bg-teal-100 transition-all w-96 duration-500 rounded ring-2 ring-teal-100 focus:ring-4 focus:ring-teal-500 mt-4"
+                  name="Title"
+                  onChange={(e)=>{setTitle(e.target.value)}}
                   autoComplete="off"
                 />
                 <div>
-                  <h1 className="text-xl text-white mt-20">Select that which fields you want to  Update</h1>
-                  <div>
+                  <h1 className="text-xl text-white mt-20 select-none">Select that which fields you want to  Update</h1>
+                  <div className="select-none">
                     <div>
-                      <input type="radio" name="categoryTitle" id="categoryTitle" className="w-4 h-4 my-3 mr-3 dark:accent-purple-300 text-purple-600 accent-purple-700 outline-none bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600" />
+                      <input type="radio" name="categoryTitle" id="categoryTitle" value="categoryTitle" onChange={(e)=>{setCategoryTitle(e.target.value)}} className="w-4 h-4 my-3 mr-3 dark:accent-purple-300 text-purple-600 accent-purple-700 outline-none bg-gray-100 border-gray-300   dark:ring-offset-gray-800  dark:bg-gray-700 dark:border-gray-600" />
                       <label htmlFor="categoryTitle">Title of Category</label>
                     </div>
                     <div>

@@ -2,6 +2,8 @@ import nc from "next-connect";
 require('./db/regg')
 const StudentSchema = require('./models/studentSchema')
 const jwt = require('jsonwebtoken');
+const CryptoJS = require("crypto-js");
+
 
 const handler = nc();
 
@@ -10,18 +12,21 @@ handler.post(async (req, res) => {
   if (!name || !email || !phone || !gender || !password || !confirmpassword) {
     throw new Error('Please Fill all fields');
   }
-  const userExists = await StudentSchema.findOne({ email });
-  if (userExists) {
-    res.status(400).json({ success: "already", msg:"User Already Exist" });
-  }
 
+  try {
+    const userExists = await StudentSchema.findOne({ email });
+    if (userExists) {
+      res.status(400).json({ success: "already", msg:"User Already Exist" });
+    }
+  const encryptedPassword = CryptoJS.AES.encrypt(JSON.stringify(password), 'W7iPZDaEWV46arHl8v5EFV1tYaSZagYC').toString();
+
+  
   const student = await StudentSchema.create({
     name,
     email,
     phone,
     gender,
-    password,
-    confirmpassword,
+    password: encryptedPassword,
     pic,
   });
 
@@ -35,6 +40,14 @@ handler.post(async (req, res) => {
     res.status(400).json({ success: false, msg:"Error Occured !!" });
 
   }
+  } catch (error) {
+    console.log(error); 
+  }
+
+
+
+
+
 })
 
 //handling the get request

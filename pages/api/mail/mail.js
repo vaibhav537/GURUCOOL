@@ -1,7 +1,7 @@
 // importing the nodemailer  package
 const nodemailer = require("nodemailer");
 
-const mailer = (email, otp) => {
+const mailer = (email, otpCode) => {
   let transporter = nodemailer.createTransport({
     service: "gmail",
     port: 587,
@@ -23,7 +23,7 @@ const mailer = (email, otp) => {
       </div>
       <p style="font-size:1.1em">Hi,</p>
       <p>Use the following Verification Code to reset the Id and Password and to Generate the new One. OTP is valid for 2 minutes</p>
-      <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>
+      <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otpCode}</h2>
       <p style="font-size:0.9em;">Regards,<br />Guru Cool Team</p>
       <hr style="border:none;border-top:1px solid #eee" />
       <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">

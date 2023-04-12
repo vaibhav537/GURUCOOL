@@ -1,7 +1,7 @@
 // importing the nodemailer  package
 const nodemailer = require("nodemailer");
 
-const OtpSending = (email,name, otp) => {
+const OtpSending = (email,name, otpCode) => {
 
   let nameUpperCase = name.toUpperCase();
 
@@ -31,7 +31,7 @@ const OtpSending = (email,name, otp) => {
       </div>
       <p style="font-size:1.1em">Hi,</p>
       <p>Thank you for choosing the GURUCOOL. Use the following OTP to complete your Sign Up procedures. <span style = "color:red;"> OTP is valid for only <span style="font-weight:bold;" >3 minutes!!</span> </span> </p>
-      <h2 style="background: #475569;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otp}</h2>
+      <h2 style="background: #475569;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otpCode}</h2>
       <p style="font-size:0.9em;">Regards,<br />GURUCOOL TEAM</p>
       <hr style="border:none;border-top:1px solid #eee" />
       <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">

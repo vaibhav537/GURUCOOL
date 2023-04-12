@@ -120,16 +120,16 @@ const TeacherRegister = () => {
           toast.error("OTP Expired !!", toastConfig)
           setOtpLoading(false);
           setOtpDisableButton(false);
-          setModel(false)
+          setModel(true)
         }else {
           toast.warning("Wrong OTP !!", toastConfig);
           setOtpLoading(false);
           setOtpDisableButton(false);
-          console.log(otpResponse)
         }
       } catch (error) {
         toast.warning("Error Occured !!", toastConfig);
         setOtpLoading(false);
+        console.log(error);
         setOtpDisableButton(false);
         setModel(false);
       }

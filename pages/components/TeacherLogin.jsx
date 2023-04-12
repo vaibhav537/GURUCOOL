@@ -70,6 +70,10 @@ const TeacherLogin = () => {
         toast.error("Wrong Email or Password !!", toastConfig);
         setDisableButton(false);
         setIsLoading(false);
+      }else{
+        toast.error("Email Doesn't Registered !!", toastConfig);
+        setDisableButton(false);
+        setIsLoading(false);
       }
 
     } catch (error) {

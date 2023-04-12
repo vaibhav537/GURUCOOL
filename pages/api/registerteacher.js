@@ -1,6 +1,8 @@
 import nc from "next-connect";
 require("./db/regg");
 const TeacherSchema = require("./models/teacherSchema");
+const CryptoJS = require("crypto-js");
+
 
 const handler = nc();
 
@@ -16,13 +18,13 @@ handler.post(async (req, res) => {
     if (userExists) {
       res.status(400).json({success: "already", message:"Already Exist"})
     }
-
+    const encryptedPassword = CryptoJS.AES.encrypt(JSON.stringify(password), 'W7iPZDaEWV46arHl8v5EFV1tYaSZagYC').toString();
     const teacher = await TeacherSchema.create({
       name,
       email,
       phone,
       gender,
-      password,
+      password: encryptedPassword,
       pic,
     });
     if (teacher) {

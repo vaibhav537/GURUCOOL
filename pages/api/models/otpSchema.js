@@ -8,7 +8,7 @@ import Otp from "../db/otpConntection";
 const otpSchema = mongoose.Schema({
     email: String,
     code : String,
-    expireIn : Number
+    expireIn : Date
 }, {
     timestamps: true
 })

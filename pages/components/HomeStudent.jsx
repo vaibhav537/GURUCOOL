@@ -82,7 +82,7 @@ const HomeStudent = () => {
         <img src="/student.gif" alt="..." className="w-20 h-20" />
       </div>
     ) : (
-      <div className="flex  justify-center w-[99vw] h-[90vh] bg-blue-100">
+      <div className="flex  justify-center w-screen h-[90vh] bg-blue-100">
         <div className="flex flex-col">
           <h1 className="text-bold uppercase text-black"> {studentName} </h1>
           <h1 className="text-bold uppercase text-black"> {studentGender} </h1>

@@ -1,5 +1,6 @@
 import AdminLogin from "./models/adminSchema";
 const jwt = require("jsonwebtoken");
+const CryptoJS = require("crypto-js");
 require("./db/adminConnection");
 
 const handler = async (req, res) => {
@@ -7,7 +8,13 @@ const handler = async (req, res) => {
     const { email, password } = req.body;
     const adminEmail = await AdminLogin.findOne({ email });
 
-    if (adminEmail && (await adminEmail.matchPassword(password))) {
+    const bytes = CryptoJS.AES.decrypt(
+      adminEmail.password,
+      "W7iPZDaEWV46arHl8v5EFV1tYaSZagYC"
+    );
+    const decryptedPassword = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+
+    if (adminEmail && password === decryptedPassword) {
       const token = jwt.sign({ adminEmail }, process.env.JWT_SECRET, {
         expiresIn: "2d",
       });

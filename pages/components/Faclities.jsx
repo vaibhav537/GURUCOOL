@@ -3,7 +3,7 @@ import Image from "next/image"
 
 const Faclities = () => {
   return (
-    <div className="text-black" >
+    <div className="text-black dark:text-white" >
       <div className="flex dark:bg-slate-600 pt-3 select-none flex-col xl:px-20 lg:px-1">
         <p className="text-xl text-center md:text-2xl lg:text-3xl">
           FACALITIES

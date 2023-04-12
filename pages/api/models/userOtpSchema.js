@@ -14,6 +14,6 @@ const UserOtpSchema = mongoose.Schema({
 })
 
 // Creating the documents in the database
-let userOtp =  UserOtp.models.USEROTPSCHEMA || UserOtp.model("USEROTP", UserOtpSchema);
+let userOtp =  UserOtp.models.USEROTP|| UserOtp.model("USEROTP", UserOtpSchema);
 
 module.exports = userOtp;

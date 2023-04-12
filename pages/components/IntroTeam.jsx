@@ -3,10 +3,10 @@ import React from "react";
 const IntroTeam = () => {
   return (
     <div className="pt-[4rem] text-center transition-all duration-700 dark:bg-slate-600 md:pt-[6rem] select-none cursor-text text font-medium bg-slate-100">
-      <p className="text-2xl md:text-4xl text-black ">
+      <p className="text-2xl md:text-4xl text-black dark:text-white ">
         MEET OUR TEAM
       </p>
-        <p className="text-sm p-6 md:text-lg text-black md:p-10 select-none cursor-text lg:text-xl xl:text-xl lg:px-20 xl:px-32 2xl:text-xl">
+        <p className="text-sm p-6 md:text-lg text-black dark:text-white md:p-10 select-none cursor-text lg:text-xl xl:text-xl lg:px-20 xl:px-32 2xl:text-xl">
           We are all very different. We Born in different cities and different
           places, at different times. But something is unites us all. It is
           knowledge. We all are gaining it from each and every seconds. But its
