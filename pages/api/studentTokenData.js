@@ -1,5 +1,6 @@
 import nc from "next-connect";
 const jwt = require("jsonwebtoken");
+const StudentSchema = require("./models/studentSchema");
 require("./db/regg");
 
 const handler = nc();
@@ -17,8 +18,11 @@ handler.post(async (req, res) => {
     });
     if (student === "token Expired") {
       return res.status(201).json({ status: false, data: "Token Expired !!" });
-    }else{
-        return res.status(201).json({ status: true, student})
+    } else {
+      const studentData = await StudentSchema.findOne({
+        _id: student.student._id,
+      });
+      res.status(201).json({ status: true, student: studentData });
     }
   } catch (error) {
     console.log(error);
@@ -39,5 +43,6 @@ handler.put((req, res) => {
 handler.delete((req, res) => {
   res.status(404).json({ msg: "Wrong Request !!" });
 });
+
 
 export default handler;

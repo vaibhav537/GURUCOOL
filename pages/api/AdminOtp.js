@@ -19,7 +19,7 @@ handler.post(async (req, res) => {
       for (let i = 0; i < 6; i++) {
         otpCode += Math.floor(Math.random() * 10);
       }
-      if(otpCode === undefined){
+      if (otpCode === undefined) {
         generateOTP();
       }
       return otpCode;
@@ -50,6 +50,18 @@ handler.post(async (req, res) => {
       res.status(404).json("OTP NOT FOUND"); // any error ocuurs then it woll show this error
     }
   }
+});
+
+handler.get((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
+});
+
+handler.put((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
+});
+
+handler.delete((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
 });
 
 //exporting default the function handler

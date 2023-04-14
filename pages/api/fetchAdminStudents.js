@@ -1,17 +1,30 @@
-const StudentSchema = require('./models/studentSchema')
+import nc from "next-connect";
+const StudentSchema = require("./models/studentSchema");
 
-require('./db/regg');
+require("./db/regg");
 
-export default function handler (req, res) {
-    if(req.method === "GET"){
-        StudentSchema.find({},function(err, data){
-            if(err){
-                console.log(err);
-            }else{
-                res.status(200).json(data)
-            }
-        })
-    }else{
-        console.log("This is not a get req")
+const handler = nc();
+
+handler.get((req, res) => {
+  StudentSchema.find({}, function (err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).json(data);
     }
-}
+  });
+});
+
+handler.post((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
+});
+
+handler.put((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
+});
+
+handler.delete((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
+});
+
+export default handler;

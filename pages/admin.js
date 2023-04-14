@@ -98,12 +98,19 @@ const admin = () => {
       if (response.success) {
         toast.success("ACCESS GRANTED", toastConfig);
         localStorage.setItem("ADMIN_ACCESS", response.token);
+        if (localStorage.getItem("student-token")) {
+          localStorage.removeItem("student-token");
+        } else if (localStorage.getItem("teacher-token")) {
+          localStorage.removeItem("teacher-token");
+        }
         router.push("/admin/ifqRPHleaQkbEvmwOPEqb");
       } else {
         toast.error("ACCESS NOT GRANTED", toastConfig);
+        console.log(response)
       }
     } catch (error) {
       toast.error("ACCESS NOT GRANTED", toastConfig);
+      console.log(error);
     }
   };
   return (

@@ -23,6 +23,14 @@ changeIdPassword.post(async (req, res) => {
   res.status(200).json({ success: true, msg: "Found otp" });
   console.log("OTP is valid");
 
+  let deleteOtp = await otp.deleteOne({
+    code: req.body.otpCode,
+  });
+  if (deleteOtp) {
+    console.log("OTP DELETED");
+  } else {
+    console.log("OTP NOT DELETED");
+  }
 });
 
 //exporting the changeIdPasssword  Function to the whole GuruCool enviroment

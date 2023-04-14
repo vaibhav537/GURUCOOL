@@ -29,7 +29,8 @@ const StudentRegister = () => {
     closeOnClick: false,
     progress: undefined,
     theme:"dark",
-    bodyClassName: "font-bold font-Nunito",
+    bodyClassName: "font-bold select-none font-Nunito",
+    closeButton: false,
   };
 
   const onImageChange = (e) => {
@@ -246,6 +247,11 @@ const StudentRegister = () => {
         localStorage.setItem("student-token", JSON.stringify(response.token));
         setLoading(false);
         setDisableButton(false);
+        if(localStorage.getItem("teacher-token")){
+          localStorage.removeItem("teacher-token");
+        }else if(localStorage.getItem("ADMIN_ACCESS")){
+          localStorage.removeItem("ADMIN_ACCESS");
+        }
         router.push("/");
       } else if (response.success === "already") {
         toast.error("Student Already Registered!!", toastConfig);

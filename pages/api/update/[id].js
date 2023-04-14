@@ -1,9 +1,11 @@
 import nc from "next-connect";
 require("../db/regg");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const TeacherSchema = require("../models/teacherSchema");
 
-const handler = nc().put(async (req, res) => {
+const handler = nc();
+
+handler.put(async (req, res) => {
   try {
     const teacher = await TeacherSchema.findOne({ _id: req.query.id });
     if (teacher) {
@@ -21,5 +23,32 @@ const handler = nc().put(async (req, res) => {
     console.log(error);
   }
 });
+
+handler.delete(async (req, res) => {
+  try {
+    const teacher = await TeacherSchema.findOne({ _id: req.query.id });
+    if (teacher) {
+      const teacherDelete = await TeacherSchema.deleteOne({ _id: req.query.id });
+      if(teacherDelete){
+        res.status(200).json({success:true, message: "Teacher Deleted" });
+      }else{
+        res.status(404).json({success:false, message: "Teacher Not Found" });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+handler.get((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
+});
+
+handler.post((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
+});
+
+
+
 
 export default handler;

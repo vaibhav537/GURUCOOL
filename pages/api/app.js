@@ -1,20 +1,50 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-const User = require('./models/userSchema')
-require('./db/conn')
+import nc from "next-connect";
+const User = require("./models/userSchema");
+require("./db/conn");
 
+const handler = nc();
 
-
-export default function handler(req, res) {
-  if(req.method === 'POST'){
-    const { name, phone, email, desc } = req.body;
-    if( !name || !phone || !email || !desc ){
-      return res.status(422).json({ error: "Please fill all the fields first" });
-    }else{
+handler.post(async (req, res) => {
+  const { name, phone, email, desc } = req.body;
+  try {
+    if (!name || !phone || !email || !desc) {
+      return res
+        .status(422)
+        .json({ error: "Please fill all the fields first" });
+    } else {
       const user = new User({ name, phone, email, desc });
 
-      user.save().then(()=>{
-        res.status(201).json({msg: "Sent"});
-      }).catch((err)=> console.log(err));
+      const result = await user.save();
+      if (result) {
+        return res.status(201).json({
+          message: "User created successfully",
+          success: true,
+        });
+      } else {
+        return res.status(500).json({
+          message: "Something went wrong",
+          success: false,
+        });
+      }
     }
+  } catch (error) {
+    return res.status(500).json({
+      message: "Something went wrong",
+      success: false,
+    });
   }
-}
+});
+
+handler.get((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
+});
+
+handler.put((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
+});
+
+handler.delete((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
+});
+export default handler;

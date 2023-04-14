@@ -1,17 +1,16 @@
 import Head from "next/head";
 import React, { useEffect } from "react";
-import Link from 'next/link'
+import Link from "next/link";
 import styles from "../styles/Error.module.css";
 import { useRouter } from "next/router";
 
 const ErrorPage = () => {
   const router = useRouter();
   useEffect(() => {
-    if(localStorage.getItem("teacher-token")){
-      router.push('/')
+    if (localStorage.getItem("teacher-token")) {
+      router.push("/");
     }
-  
-  }, [])
+  }, []);
   return (
     <>
       <Head>
@@ -22,60 +21,60 @@ const ErrorPage = () => {
         />
         <link rel="icon" href="/images/logo.png" />
       </Head>
-    <div className={`${styles.container} ${styles.container_star}`}>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={styles.star_1}></div>
-      <div className={`${styles.bird} ${styles.bird_anim}`}>
-        <div className={styles.bird_container}>
-          <div className={`${styles.wing} ${styles.wing_left}`}>
-            <div className={styles.wing_left_top}></div>
-          </div>
-          <div className={`${styles.wing} ${styles.wing_right} `}>
-            <div className={styles.wing_right_top}></div>
+      <div className={`${styles.container} ${styles.container_star}`}>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={styles.star_1}></div>
+        <div className={`${styles.bird} ${styles.bird_anim}`}>
+          <div className={styles.bird_container}>
+            <div className={`${styles.wing} ${styles.wing_left}`}>
+              <div className={styles.wing_left_top}></div>
+            </div>
+            <div className={`${styles.wing} ${styles.wing_right} `}>
+              <div className={styles.wing_right_top}></div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className={styles.container_title}>
-        <div className={styles.title}>
-            <div className={styles.number}>
-                4
-            </div>
+        <div className={styles.container_title}>
+          <div className={styles.title}>
+            <div className={styles.number}>4</div>
             <div className={styles.moon}>
-                <div className={styles.face}>
-                    <div className={styles.mouth}></div>
-                    <div className={styles.eyes}>
-                        <div className={styles.eye_left}></div>
-                        <div className={styles.eye_right}></div>
-                    </div>
+              <div className={styles.face}>
+                <div className={styles.mouth}></div>
+                <div className={styles.eyes}>
+                  <div className={styles.eye_left}></div>
+                  <div className={styles.eye_right}></div>
                 </div>
+              </div>
             </div>
             <div className={styles.number}>4</div>
+          </div>
+          <div className={styles.subtitle}>
+            Oops, Looks like you took a wrong turn
+          </div>
         </div>
-        <div className={styles.subtitle}>Oops, Looks like you took a wrong turn</div>
       </div>
-    </div>
     </>
   );
 };

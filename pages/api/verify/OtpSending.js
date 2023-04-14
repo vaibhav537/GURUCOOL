@@ -1,7 +1,7 @@
 // importing the nodemailer  package
 const nodemailer = require("nodemailer");
 
-const OtpSending = (email,name, otpCode) => {
+const OtpSending = (email, otpCode, name) => {
 
   let nameUpperCase = name.toUpperCase();
 

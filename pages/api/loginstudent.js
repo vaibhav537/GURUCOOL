@@ -10,9 +10,10 @@ handler.post(async (req, res) => {
   const { email, password } = req.body;
   try {
     const student = await StudentSchema.findOne({ email });
+
     const bytes = CryptoJS.AES.decrypt(
       student.password,
-      "W7iPZDaEWV46arHl8v5EFV1tYaSZagYC"
+      process.env.CRYPTO_SECRET
     );
     const decryptedPassword = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
@@ -29,5 +30,7 @@ handler.post(async (req, res) => {
     res.status(500).json({ success: "timeout", message: "Error Occured" });
   }
 });
+
+
 
 export default handler;

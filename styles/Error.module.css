@@ -27,6 +27,9 @@
     -webkit-animation: twinkle 5s infinite ease-in-out;
             animation: twinkle 5s infinite ease-in-out;
   }
+
+
+
   .star_1:after {
     height: 100%;
     width: 100%;

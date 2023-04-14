@@ -5,6 +5,12 @@ import { useRouter } from "next/router";
 
 const AdminNavbar = () => {
   const router = useRouter();
+
+  const handleLogout = () => {
+   localStorage.removeItem('ADMIN_ACCESS');
+   router.push("/admin")
+    
+  }
   return (
     <div>
       <div>
@@ -19,61 +25,78 @@ const AdminNavbar = () => {
           MEET IN - ADMIN
         </p>
         <ul className="flex flex-col mt-[3rem]">
-        <Link legacyBehavior href={"/admin/ifqRPHleaQkbEvmwOPEqb"}>
-        <a
-            className={`select-none  flex uppercase items-center  border-2 justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px] 
-              ${router.pathname == "/admin/ifqRPHleaQkbEvmwOPEqb"
+          <Link legacyBehavior href={"/admin/ifqRPHleaQkbEvmwOPEqb"}>
+            <a
+              className={`select-none  flex uppercase items-center  border-2 justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px] 
+              ${
+                router.pathname == "/admin/ifqRPHleaQkbEvmwOPEqb"
+                  ? " border-black bg-teal-200 rounded hover:border-gray-500 text-black hover:text-teal-700 transition-all "
+                  : "text-black border-teal-300 dark:border-slate-800  lg:text-gray-500 hover:text-teal-700 transition-all "
+              }
+            `}
+            >
+              Home Admin
+            </a>
+          </Link>
+          <Link legacyBehavior href={"/admin/Addcategory"}>
+            <a
+              className={`select-none  flex items-center border-2 uppercase  justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px]
+              ${
+                router.pathname == "/admin/Addcategory"
+                  ? "  border-black bg-teal-200 rounded hover:border-gray-500 text-black hover:text-teal-700 transition-all "
+                  : "text-black border-teal-300 dark:border-slate-800   lg:text-gray-500 hover:text-teal-700 transition-all "
+              }
+            `}
+            >
+              Add Category
+            </a>
+          </Link>
+          <Link legacyBehavior href={"/admin/DeleteCategory"}>
+            <a
+              className={`select-none  flex items-center border-2   justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px] 
+              ${
+                router.pathname == "/admin/DeleteCategory"
+                  ? " border-black bg-teal-200 rounded hover:border-gray-500 text-black hover:text-teal-700 transition-all "
+                  : "text-black  border-teal-300 dark:border-slate-800  lg:text-gray-500 hover:text-teal-700 transition-all "
+              }
+            `}
+            >
+              DELETE CATEGORY
+            </a>
+          </Link>
+          <Link legacyBehavior href={"/admin/UpdateCategory"}>
+            <a
+              className={`select-none  flex items-center border-2   uppercase justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px] 
+            ${
+              router.pathname == "/admin/UpdateCategory"
                 ? " border-black bg-teal-200 rounded hover:border-gray-500 text-black hover:text-teal-700 transition-all "
-                : "text-black border-teal-300 dark:border-slate-800  lg:text-gray-500 hover:text-teal-700 transition-all "}
-            `}
-          >
-            Home Admin
-          </a>
-        </Link>
-        <Link legacyBehavior href={"/admin/Addcategory"}>
-          <a
-            className={`select-none  flex items-center border-2 uppercase  justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px]
-              ${router.pathname == "/admin/Addcategory"
-                ? "  border-black bg-teal-200 rounded hover:border-gray-500 text-black hover:text-teal-700 transition-all "
-                : "text-black border-teal-300 dark:border-slate-800   lg:text-gray-500 hover:text-teal-700 transition-all "}
-            `}
-          >
-            Add Category
-          </a>
-        </Link>
-        <Link legacyBehavior href={"/admin/DeleteCategory"}>
-        <a
-            className={`select-none  flex items-center border-2   justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px] 
-              ${router.pathname == "/admin/DeleteCategory"
-                ? " border-black bg-teal-200 rounded hover:border-gray-500 text-black hover:text-teal-700 transition-all "
-                : "text-black  border-teal-300 dark:border-slate-800  lg:text-gray-500 hover:text-teal-700 transition-all "}
-            `}
-          >
-            DELETE CATEGORY
-          </a>
-        </Link>
-        <Link legacyBehavior href={"/admin/UpdateCategory"}>
-          <a
-            className={`select-none  flex items-center border-2   uppercase justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px] 
-            ${router.pathname == "/admin/UpdateCategory"
-              ? " border-black bg-teal-200 rounded hover:border-gray-500 text-black hover:text-teal-700 transition-all "
-              : "text-black  border-teal-300 dark:border-slate-800  lg:text-gray-500 hover:text-teal-700 transition-all "}
+                : "text-black  border-teal-300 dark:border-slate-800  lg:text-gray-500 hover:text-teal-700 transition-all "
+            }
           `}
-          >
-            Update Category
-          </a>
-        </Link>
-        <Link legacyBehavior href={"/admin/Ranking"}>
-        <a
-            className={`select-none  flex uppercase items-center  border-2 justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px] 
-              ${router.pathname == "/admin/Ranking"
-                ? " border-black bg-teal-200 rounded hover:border-teal-500 text-black hover:text-teal-700 transition-all "
-                : "text-black border-teal-300 dark:border-slate-800  lg:text-gray-500 hover:text-teal-700 transition-all "}
+            >
+              Update Category
+            </a>
+          </Link>
+          <Link legacyBehavior href={"/admin/Ranking"}>
+            <a
+              className={`select-none  flex uppercase items-center  border-2 justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px] 
+              ${
+                router.pathname == "/admin/Ranking"
+                  ? " border-black bg-teal-200 rounded hover:border-teal-500 text-black hover:text-teal-700 transition-all "
+                  : "text-black border-teal-300 dark:border-slate-800  lg:text-gray-500 hover:text-teal-700 transition-all "
+              }
             `}
+            >
+              Ranking
+            </a>
+          </Link>
+          <div
+            className="select-none  flex uppercase items-center justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px] 
+                   bg-teal-300 rounded hover:border-teal-500 text-slate-500 hover:text-teal-700 transition-all "
+            onClick={handleLogout}
           >
-            Ranking
-          </a>
-        </Link>
+            Logout
+          </div>
         </ul>
       </div>
     </div>

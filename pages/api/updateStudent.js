@@ -1,6 +1,7 @@
 import nc from "next-connect";
-const TeacherSchema = require("./models/teacherSchema");
+const StudentSchema = require("./models/studentSchema");
 const CryptoJS = require("crypto-js");
+
 const handler = nc();
 
 handler.put(async (req, res) => {
@@ -10,18 +11,19 @@ handler.put(async (req, res) => {
     if (!email || !password || !phone || !name || !gender) {
       res.status(400).json({ Error: "Please fill all fields" });
     }
-    const teacher = await TeacherSchema.findOne({ email: email });
+    const student = await StudentSchema.findOne({ email: email });
 
-    if (teacher) {
+
+    if (student) {
       const encryptedPassword = CryptoJS.AES.encrypt(
         JSON.stringify(password),
         process.env.CRYPTO_SECRET
       ).toString();
-      teacher.name = name;
-      teacher.password = encryptedPassword;
-      teacher.phone = phone;
-      teacher.gender = gender;
-      const done = await teacher.save();
+      student.name = name;
+      student.password = encryptedPassword;
+      student.phone = phone;
+      student.gender = gender;
+      const done = await student.save();
 
       if (done) {
         res

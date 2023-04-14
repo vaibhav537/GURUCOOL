@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import LoaderStudent from "./LoaderStudent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -57,6 +56,11 @@ const SelectCard = () => {
         setIsLoading(false);
         localStorage.setItem("teacher-token", JSON.stringify(response.token));
         localStorage.removeItem("teacher-info");
+        if(localStorage.getItem("student-token")){
+          localStorage.removeItem("student-token");
+        }else if(localStorage.getItem("ADMIN_ACCESS")){
+          localStorage.removeItem("ADMIN_ACCESS");
+        }
         router.push("/");
       } else {
         toast.error("Category Not Added", toastConfig);
@@ -99,7 +103,7 @@ const SelectCard = () => {
                   />
                   <input
                     type="text"
-                    className="bg-white shadow-xl h-14 w-full px-12 rounded-lg focus:outline-none hover:cursor-pointer"
+                    className="bg-white text-black dark:text-white shadow-xl h-14 w-full px-12 rounded-lg focus:outline-none hover:cursor-pointer"
                     onChange={(e) => {
                       setQuery(e.target.value);
                     }}

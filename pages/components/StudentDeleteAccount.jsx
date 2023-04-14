@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
-const TeacherDeleteAccount = ({ visible, onClose, teacherEmail }) => {
+const StudentDeleteAccount = ({ visible, onClose, studentEmail }) => {
   const [disableButton, setDisableButton] = useState(false); //state for disabling the button
   const [disableDialogButton, setDisableDialogButton] = useState(false); //state for disabling the password dialog button
   const [dialogPassword, setDialogPassword] = useState(""); // state  for storing the  dialog  password value
   const [Div1, setDiv1] = useState(true); // state for showing and hiding the div1
 
   const router = useRouter();
+
   // toast configurations
   const toastConfig = {
     position: "top-center",
@@ -23,47 +23,56 @@ const TeacherDeleteAccount = ({ visible, onClose, teacherEmail }) => {
   };
 
   useEffect(() => {
-    const teacherToken = localStorage.getItem("teacher-token");
-    if (!teacherToken) {
+    const studentToken = localStorage.getItem("student-token");
+    if (!studentToken) {
       router.push("/register");
     }
   }, []);
 
-  //deleting the teacher
+  // hiding the modal
+  const handleClose = (e) => {
+    if (e.target.id === "Container") {
+      onClose();
+    }
+    if (e.target.id === "Button") {
+      onClose();
+    }
+  };
+
+  //deleting the student
   const handleDelete = async (e) => {
     e.preventDefault();
-    const teacherDelete = await fetch("/api/deleteTeacher", {
+    const studentDelete = await fetch("/api/deleteStudent", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: teacherEmail,
+        email: studentEmail,
       }),
     });
-    const teacherDeleteResponse = await teacherDelete.json();
+    const studentDeleteResponse = await studentDelete.json();
 
-    if (teacherDeleteResponse.success === true) {
-      toast.success("Teacher deleted", toastConfig);
-      localStorage.removeItem("teacher-token");
+    if (studentDeleteResponse.success === true) {
+      toast.success("Student deleted", toastConfig);
+      localStorage.removeItem("student-token");
       router.reload();
       router.push("/register");
     } else {
-      toast.error("Teacher NOT deleted", toastConfig);
-      console.log(teacherDeleteResponse);
+      toast.error("Student NOT deleted", toastConfig);
     }
   };
 
   //function to check the teacher's password
   const handlePasswordDialogClick = async (event) => {
     event.preventDefault();
-    const matchPassword = await fetch("/api/checkTeacherPassword", {
+    const matchPassword = await fetch("/api/checkStudentPassword", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: teacherEmail,
+        email: studentEmail,
         password: dialogPassword,
       }),
     });
@@ -74,16 +83,6 @@ const TeacherDeleteAccount = ({ visible, onClose, teacherEmail }) => {
       toast.success("Password Confirmed successfully", toastConfig);
     } else {
       toast.error("Wrong password", toastConfig);
-    }
-  };
-
-  // hiding the modal
-  const handleClose = (e) => {
-    if (e.target.id === "Container") {
-      onClose();
-    }
-    if (e.target.id === "Button") {
-      onClose();
     }
   };
 
@@ -114,7 +113,7 @@ const TeacherDeleteAccount = ({ visible, onClose, teacherEmail }) => {
           >
             {Div1 ? (
               <>
-                <h1 className="text-2xl font-semibold text-green-700 m-auto">
+                <h1 className="text-2xl font-semibold text-blue-700 m-auto">
                   Enter Your Password
                 </h1>
                 <div className="flex items-center justify-center mt-4">
@@ -122,7 +121,7 @@ const TeacherDeleteAccount = ({ visible, onClose, teacherEmail }) => {
                     type="password"
                     placeholder="Password"
                     onChange={(event) => setDialogPassword(event.target.value)}
-                    className="outline-none pl-3 ring-2 transition-all duration-500 p-2  rounded  ring-green-900 text-lg focus:ring-4"
+                    className="outline-none pl-3 ring-2 transition-all duration-500 p-2  rounded  ring-blue-900 text-lg focus:ring-4"
                   />
                 </div>
                 <div className="mt-5 m-auto">
@@ -130,8 +129,8 @@ const TeacherDeleteAccount = ({ visible, onClose, teacherEmail }) => {
                     type="submit"
                     className={`${
                       disableDialogButton
-                        ? "bg-green-600 hover:bg-green-200 px-3 flex items-center justify-center w-28 py-1 rounded-md text-white text-xl  cursor-not-allowed  transition-all duration-500"
-                        : "bg-green-600 px-3 flex hover:bg-green-300 items-center justify-center w-28 py-1 rounded-md text-white text-xl  transition-all hover:shadow-3xl cursor-pointer duration-500"
+                        ? "bg-blue-600 hover:bg-blue-200 px-3 flex items-center justify-center w-28 py-1 rounded-md text-white text-xl  cursor-not-allowed  transition-all duration-500"
+                        : "bg-blue-600 px-3 flex hover:bg-blue-300 items-center justify-center w-28 py-1 rounded-md text-white text-xl  transition-all hover:shadow-3xl cursor-pointer duration-500"
                     }`}
                     disabled={disableDialogButton}
                     onClick={handlePasswordDialogClick}
@@ -151,7 +150,7 @@ const TeacherDeleteAccount = ({ visible, onClose, teacherEmail }) => {
                     Delete
                   </button>
                   <button
-                    className="bg-green-400 text-lg text-white hover:bg-green-300 hover:shadow-3xl rounded-lg transition-all duration-500 w-20 p-2"
+                    className="bg-blue-400 text-lg text-white hover:bg-blue-300 hover:shadow-3xl rounded-lg transition-all duration-500 w-20 p-2"
                     onClick={handleClose}
                     id="Button"
                   >
@@ -167,4 +166,4 @@ const TeacherDeleteAccount = ({ visible, onClose, teacherEmail }) => {
   }
 };
 
-export default TeacherDeleteAccount;
+export default StudentDeleteAccount;

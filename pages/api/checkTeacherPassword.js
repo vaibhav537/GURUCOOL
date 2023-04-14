@@ -14,7 +14,7 @@ handler.post(async (req, res) => {
 
     const bytes = CryptoJS.AES.decrypt(
       teacher.password,
-      "W7iPZDaEWV46arHl8v5EFV1tYaSZagYC"
+      process.env.CRYPTO_SECRET
     );
     const decryptedPassword = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 

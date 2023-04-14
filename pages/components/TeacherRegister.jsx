@@ -3,8 +3,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 
-
-
 const TeacherRegister = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -80,24 +78,24 @@ const TeacherRegister = () => {
   };
 
   //verifying the otp in this funvtion
-  const handleOtpCode = async(e) => {
+  const handleOtpCode = async (e) => {
     e.preventDefault();
     setOtpLoading(true);
     setOtpDisableButton(true);
 
-    if(!otp){
+    if (!otp) {
       toast.warning("Please Enter OTP", toastConfig);
       setOtpLoading(false);
       setOtpDisableButton(false);
       return;
-    }else if(otp.toString().length > 6 || otp.toString().length < 6 ){
+    } else if (otp.toString().length > 6 || otp.toString().length < 6) {
       toast.warning("Please Enter 6 Digits OTP Code", toastConfig);
       setOtpLoading(false);
       setOtpDisableButton(false);
       return;
-    }else{
+    } else {
       try {
-        const otpResult = await fetch("/api/verify/verifyOtpUSer",{
+        const otpResult = await fetch("/api/verify/verifyOtpUSer", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -105,23 +103,22 @@ const TeacherRegister = () => {
           body: JSON.stringify({
             email: email,
             otp: otp,
-
           }),
-        })
+        });
         const otpResponse = await otpResult.json();
 
-        if(otpResponse.success=== true){
-          toast.success("OTP Verified !!", toastConfig)
+        if (otpResponse.success === true) {
+          toast.success("OTP Verified !!", toastConfig);
           setVerify(true);
           setOtpLoading(false);
           setOtpDisableButton(false);
-          setModel(false)
-        }else if(otpResponse.success === "exp"){
-          toast.error("OTP Expired !!", toastConfig)
+          setModel(false);
+        } else if (otpResponse.success === "exp") {
+          toast.error("OTP Expired !!", toastConfig);
           setOtpLoading(false);
           setOtpDisableButton(false);
-          setModel(true)
-        }else {
+          setModel(true);
+        } else {
           toast.warning("Wrong OTP !!", toastConfig);
           setOtpLoading(false);
           setOtpDisableButton(false);
@@ -134,8 +131,7 @@ const TeacherRegister = () => {
         setModel(false);
       }
     }
-  }
-
+  };
 
   //verifying the email Address field
   const verifyEmail = async (event) => {
@@ -252,13 +248,17 @@ const TeacherRegister = () => {
         setLoading(false);
         setDisableButton(true);
         localStorage.setItem("teacher-info", JSON.stringify(response.teacher));
+        if (localStorage.getItem("student-token")) {
+          localStorage.removeItem("student-token");
+        } else if (localStorage.getItem("ADMIN_ACCESS")) {
+          localStorage.removeItem("ADMIN_ACCESS");
+        }
         router.push("/teacher/selectcategory");
-      } else if(response.success === "already"){
+      } else if (response.success === "already") {
         toast.error("Your Id already Exist !!", toastConfig);
         setLoading(false);
         setDisableButton(false);
-      }
-      else {
+      } else {
         toast.error("Registration Failed !!", toastConfig);
         setLoading(false);
         setDisableButton(false);
@@ -482,7 +482,7 @@ const TeacherRegister = () => {
                 className={` ${
                   disableButton
                     ? "cursor-not-allowed font-bold font-Crimson text-lg text-white bg-green-400 uppercase rounded  hover:bg-green-300  hover:text-green-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-green-700 dark:hover:bg-green-900"
-                    : "font-bold font-Crimson text-lg text-white bg-green-400 uppercase rounded  hover:bg-green-300  hover:text-green-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-green-700 dark:hover:bg-green-900 cursor-pointer hover:shadow-3xl"
+                    : "font-bold font-Crimson text-lg text-white bg-green-500 uppercase rounded  hover:bg-green-300  hover:text-green-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-green-700 dark:hover:bg-green-900 cursor-pointer hover:shadow-3xl"
                 }`}
                 disabled={disableButton}
               >
@@ -513,9 +513,18 @@ const TeacherRegister = () => {
                   Enter Your Verification Code
                 </h2>
                 <div>
-                  <input type="number" className="text-black ring-2 ring-green-100 outline-none p-2 my-3 pl-4 text-lg rounded focus:ring-green-500 transition-all duration-500" onChange={(event)=> setOtp(event.target.value)} placeholder="6 Digit Code"/>
+                  <input
+                    type="number"
+                    className="text-black ring-2 ring-green-100 outline-none p-2 my-3 pl-4 text-lg rounded focus:ring-green-500 transition-all duration-500"
+                    onChange={(event) => setOtp(event.target.value)}
+                    placeholder="6 Digit Code"
+                  />
                 </div>
-                <button type="submit" className="text-white w-40 rounded-md my-5 p-2 flex items-center justify-center bg-green-700 hover:shadow-3xl hover:bg-green-300 transition-all duration-500" onClick={handleOtpCode}>
+                <button
+                  type="submit"
+                  className="text-white w-40 rounded-md my-5 p-2 flex items-center justify-center bg-green-700 hover:shadow-3xl hover:bg-green-300 transition-all duration-500"
+                  onClick={handleOtpCode}
+                >
                   Verify Code
                 </button>
               </div>

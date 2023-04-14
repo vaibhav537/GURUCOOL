@@ -27,7 +27,7 @@ changeAdminIdPassword.put(async (req, res) => {
     const admin = await AdminLogin.findOne({ _id: "642ea0bac525ef7a032c95de" });
     const encryptedPassword = CryptoJS.AES.encrypt(
       JSON.stringify(password),
-      "W7iPZDaEWV46arHl8v5EFV1tYaSZagYC"
+      process.env.CRYPTO_SECRET
     ).toString();
 
     admin.email = email;

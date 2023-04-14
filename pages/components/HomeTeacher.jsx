@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import TeacherAccountUpdate from "./TeacherAccountUpdate";
 import TeacherDeleteAccount from "./TeacherDeleteAccount";
 
-const HomeTeacher = ({teackerKam, render}) => {
+const HomeTeacher = () => {
   const [loading, setLoading] = useState(false);
   const [teacherName, setTeacherName] = useState("");
   const [teacherCategory, setTeacherCategory] = useState("");
@@ -16,6 +16,8 @@ const HomeTeacher = ({teackerKam, render}) => {
   const [dropdown, setDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
+
+  
   const router = useRouter();
 
   const handleClose = () => {
@@ -126,8 +128,6 @@ const HomeTeacher = ({teackerKam, render}) => {
             visible={visible}
             onClose={handleClose}
             teacherEmail={teacherEmail}
-            teacherKam= {teackerKam}
-            render={render}
           />
           <TeacherDeleteAccount
             visible={visible2}

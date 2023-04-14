@@ -51,12 +51,24 @@ handler.post(async (req, res) => {
     let otpResponse = await optData.save(); // saving the document created above
 
     if (otpResponse) {
-      res.status(201).json("OTP GENERATED"); // if document is generated then sending success
-      await mailer(email, otpCode);
+      res.status(201).json({success: true, msg:"OTP GENERATED"}); // if document is generated then sending success
+      await OtpSending(email, otpCode, name);
     } else {
-      res.status(404).json("OTP NOT FOUND"); // any error ocuurs then it woll show this error
+      res.status(404).json({success :false, msg:"OTP NOT FOUND"}); // any error ocuurs then it woll show this error
     }
   }
+});
+
+handler.get((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
+});
+
+handler.put((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
+});
+
+handler.delete((req, res) => {
+  res.status(404).json({ message: "Wrong Request" });
 });
 
 //exporting default the function handler
