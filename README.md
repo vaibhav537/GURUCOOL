@@ -5,37 +5,16 @@ GuruCool is a [Next.js](https://nextjs.org/) project
      You can copy the code by cloning it or you can also download the zip file, and then extract the zip file.
  2. After completing the First step open the code in the Code editor,my prefrence is to use the VS Code 
  3. The VS code can be downloaded with this Link : [VSCode Download](https://code.visualstudio.com/)
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
- 
-##We are Using Tailwind css Tooo
+ 4. You Need Install the latest version of NodeJS
+ 5. Now to need to check the NodeJS version.
+ 6. To check the version you need to run command ```node --version ```
+ 7. And in GuruCool we use yarn package manager to install and remove our packages either you can use yarn or npm (defaut package manager).
+ 8. To install yarn you have run  command in VSCode's terminal ```npm install --global yarn ```.
+ 9. Now to Generate the `package.json` file you need to run  the command ```yarn init``` or ```npm init```.
+ 10. After generating `package.json` file you need to install dependencies.
+ 11. To install all the dependencies you need to run the command ```yarn install``` or ```npm  install```.
+ 12. This command will generate a `yarn.lock` file or `package-lock.json` file.
+ 13. Now need to configure the data base connection in `.env.local` file that shoolud be created manually.
+ 14. `.env.local` file should be created in the main folder below the `package.json` file.
+ 15. In `.env.local` file you need to configure the database Strings(4 database Strings) and **JWT_SECRET** and **CRYPTO_SECRET** sholud be given in `.env.local` file.
+ 16. After following all the steps we are ready  to **run the GURUCOOL**  by running the command ```yarn dev``` or ```npm run dev```.
