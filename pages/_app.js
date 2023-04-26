@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 import LoadingBar from "react-top-loading-bar";
 import Loader from "./components/Loader";
 import Head from "next/head";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { SocketProvider } from "./context/SocketProvider";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -18,8 +21,18 @@ function MyApp({ Component, pageProps }) {
     "/admin/Addcategory",
     "/admin/DeleteCategory",
     "/admin/UpdateCategory",
-    "/admin/Ranking",
+    "/admin/ContactInfo",
+    "/lobby",
+    "/room/[room]",
   ];
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true, // Animate only once when the user scrolls to an element
+    });
+  }, []);
+
 
   const [isLoading, setIsLoading] = useState(true);
   const [teacher, setTeacher] = useState({ value: null });
@@ -28,6 +41,14 @@ function MyApp({ Component, pageProps }) {
   const [key, setKey] = useState(0);
   const [render, setRender] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [showMenu, setShowMenu] = useState(true);
+
+  useEffect(() => {
+    const isNoNav =
+      noNav.includes(router.pathname) || router.pathname.startsWith("/room/");
+
+    setShowMenu(!isNoNav);
+  }, [router.pathname, noNav]);
 
   useEffect(() => {
     router.events.on("routeChangeStart", () => {
@@ -39,17 +60,17 @@ function MyApp({ Component, pageProps }) {
     });
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 2000);
     const teacherToken = localStorage.getItem("teacher-token");
     const studentToken = localStorage.getItem("student-token");
     if (teacherToken) {
       setTeacher({ value: teacherToken });
-      setUser({ value: "THEREISUSER"});
+      setUser({ value: "THEREISUSER" });
       setKey(Math.random());
     }
     if (studentToken) {
       setStudent({ value: studentToken });
-      setUser({ value: "THEREISUSER"});
+      setUser({ value: "THEREISUSER" });
       setKey(Math.random());
     }
   }, [router.query]);
@@ -58,7 +79,7 @@ function MyApp({ Component, pageProps }) {
     localStorage.removeItem("teacher-token");
     localStorage.removeItem("student-token");
     setTeacher({ value: null });
-    setUser({ value: null});
+    setUser({ value: null });
     setRender(Math.random());
     setKey(Math.random());
   };
@@ -80,19 +101,27 @@ function MyApp({ Component, pageProps }) {
           </div>
         </>
       ) : (
-        <ThemeProvider attribute="class" enableSystem={true}>
-          {noNav.includes(asPath) ? null : (
-            <Navbar key={key} user={user} logout={logout} />
-          )}
-          <LoadingBar
-            color="#000000"
-            progress={progress}
-            waitingTime={100}
-            onLoaderFinished={() => setProgress(0)}
-          />
-          <Component {...pageProps} render={render} studentKam={student} teacherKam={teacher}  logout={logout} />
-          {noNav.includes(asPath) ? null : <Footer student = {student} teacher={teacher} render={render}/>}
-        </ThemeProvider>
+        <SocketProvider>
+          <ThemeProvider attribute="class" enableSystem={true}>
+            {showMenu && <Navbar key={key} user={user} logout={logout} />}
+            <LoadingBar
+              color="#000000"
+              progress={progress}
+              waitingTime={100}
+              onLoaderFinished={() => setProgress(0)}
+            />
+            <Component
+              {...pageProps}
+              render={render}
+              studentKam={student}
+              teacherKam={teacher}
+              logout={logout}
+            />
+            {showMenu && (
+              <Footer student={student} teacher={teacher} render={render} />
+            )}
+          </ThemeProvider>
+        </SocketProvider>
       )}
     </>
   );

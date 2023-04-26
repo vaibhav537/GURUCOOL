@@ -95,7 +95,7 @@ const StudentLogin = () => {
         pauseOnFocusLoss
         theme="light"
       />
-      <div className="rounded-md p-10  shadow-lg dark:bg-blue-900 mt-4 bg-blue-100">
+      <div className="rounded-md p-10 w-[20rem] h-[20rem] flex justify-center items-center shadow-lg dark:bg-blue-900 mt-4 bg-blue-100" data-aos="fade">
         <form
           method="post"
           className="flex flex-col"

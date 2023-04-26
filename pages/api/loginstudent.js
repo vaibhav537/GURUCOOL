@@ -18,7 +18,8 @@ handler.post(async (req, res) => {
     const decryptedPassword = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
     if (student && password === decryptedPassword) {
-      const token = jwt.sign({ student }, process.env.JWT_SECRET, {
+      const studentID = student._id
+      const token = jwt.sign({ studentID }, process.env.JWT_SECRET, {
         expiresIn: "2d",
       });
       res.status(222).json({ success: true, token });

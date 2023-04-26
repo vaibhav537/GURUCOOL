@@ -8,7 +8,7 @@ const Navbar = ({ user, logout }) => {
   return (
     <>
       <div className="bg-slate-200 dark:bg-slate-800 nav transition-all duration-300">
-        <div className="flex justify-between items-center p-1 px-6 lg:px-0 container ml-[35px]">
+        <div className="flex justify-between items-center p-1 px-6  lg:px-0 container ml-[35px]">
           <Link href={"/"}>
             <div className=" flex text-lg font-bold uppercase">
               <Image
@@ -16,7 +16,7 @@ const Navbar = ({ user, logout }) => {
                 alt="..."
                 height={50}
                 width={50}
-                className="dark:invert"
+                className="dark:invert select-none"
               />
               <p className="pt-4 dark:text-white pl-4 text-black select-none"> GURU COOL</p>
             </div>
@@ -29,7 +29,7 @@ const Navbar = ({ user, logout }) => {
           />
           <label
             htmlFor="hamburger"
-            className="peer-checked:hamburger block relative cursor-pointer lg:hidden border-2 border-gray-300 peer-checked:border-2 peer-checked:border-white p-3 rounded-md transition-all "
+            className="peer-checked:hamburger block relative -z-20 cursor-pointer lg:hidden border-2 border-gray-300 peer-checked:border-2 peer-checked:border-white p-3 rounded-md transition-all "
           >
             <div className="m-auto w-6 h-0.5 rounded bg-gray-300 transition-all duration-300"></div>
             <div className="m-auto mt-2 w-6 h-0.5 rounded bg-gray-300 transition-all duration-300"></div>

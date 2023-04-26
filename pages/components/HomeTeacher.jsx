@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TeacherAccountUpdate from "./TeacherAccountUpdate";
 import TeacherDeleteAccount from "./TeacherDeleteAccount";
+import Image from "next/image";
+import Link from "next/link";
 
 const HomeTeacher = () => {
   const [loading, setLoading] = useState(false);
@@ -13,11 +16,12 @@ const HomeTeacher = () => {
   const [teacherPhone, setTeacherPhone] = useState("");
   const [teacherPic, setTeacherPic] = useState("");
   const [teacherUser, setTeacherUser] = useState("");
+  const [teacherGender, setTeacherGender] = useState("");
+  const [teacherRoom, setTeacherRoom] = useState("");
   const [dropdown, setDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
 
-  
   const router = useRouter();
 
   const handleClose = () => {
@@ -40,39 +44,44 @@ const HomeTeacher = () => {
     closeButton: false,
   };
 
+  const getTeacher = async () => {
+    setLoading(true);
+    const teacherToken = await JSON.parse(
+      localStorage.getItem("teacher-token")
+    );
+    const teacherInformation = await fetch("/api/teacherTokenData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: teacherToken,
+      }),
+    });
+    const teacherData = await teacherInformation.json();
+
+    if (teacherData.status === true) {
+      setTeacherName(teacherData.teacher.name);
+      setTeacherCategory(teacherData.teacher.category);
+      setTeacherEmail(teacherData.teacher.email);
+      setTeacherPhone(teacherData.teacher.phone);
+      setTeacherPic(teacherData.teacher.pic);
+      setTeacherUser(teacherData.teacher.user);
+      setTeacherGender(teacherData.teacher.gender);
+      setTeacherRoom(teacherData.teacher.room);
+
+      const ToastTeacherName = teacherData.teacher.name;
+      const teacherUpperCaseName = ToastTeacherName.toUpperCase();
+      toast.success(`WELCOME ${teacherUpperCaseName} !!`, toastConfig);
+      console.log(teacherData);
+      setLoading(false);
+    } else {
+      toast.error(" Token Expired, Please Login Again", toastConfig);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const getTeacher = async () => {
-      setLoading(true);
-      const teacherToken = await JSON.parse(
-        localStorage.getItem("teacher-token")
-      );
-      const teacherInformation = await fetch("/api/teacherTokenData", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: teacherToken,
-        }),
-      });
-      const teacherData = await teacherInformation.json();
-      if (teacherData.status === true) {
-        setTeacherName(teacherData.teacher.name);
-        setTeacherCategory(teacherData.teacher.category);
-        setTeacherEmail(teacherData.teacher.email);
-        setTeacherPhone(teacherData.teacher.phone);
-        setTeacherPic(teacherData.teacher.pic);
-        setTeacherUser(teacherData.teacher.user);
-        const ToastTeacherName = teacherData.teacher.name;
-        const teacherUpperCaseName = ToastTeacherName.toUpperCase();
-        toast.success(`WELCOME ${teacherUpperCaseName} !!`, toastConfig);
-        console.log(teacherData);
-        setLoading(false);
-      } else {
-        toast.error(" Token Expired, Please Login Again", toastConfig);
-        setLoading(false);
-      }
-    };
     getTeacher();
   }, [router.query]);
 
@@ -88,42 +97,94 @@ const HomeTeacher = () => {
         theme="light"
       />
       {loading ? (
-        <div className="flex items-center  justify-center w-screen  max-w-full min-w-fit h-[90vh] bg-green-100">
-          <img src="/loader.gif" alt="..." className="w-20 h-20" />
+        <div className="flex items-center  justify-center w-screen  max-w-full min-w-fit h-[90vh] dark:bg-green-900/5 select-none bg-white transition-all duration-500  ">
+          <Image src="/loader.gif" alt="..." width={80} height={80} />
         </div>
       ) : (
-        <div className="flex relative justify-center w-screen h-[90vh] bg-green-100">
-          <div className="">
-            <h1 className="text-bold uppercase text-black"> {teacherName} </h1>
-          </div>
-          <div className="border-4 border-green-800 w-[15rem] h-[30rem] shadow-2xl bg-white/25 rounded-lg ">
-            <div className="">
-              <img src={teacherPic} alt="..." className="w-full h-[10rem] " />
+        <div className="flex relative justify-center w-screen h-[90vh]  dark:bg-green-900/5 select-none  bg-slate-100 transition-all duration-500">
+          <div
+            className="p-2 border-2 border-white/40 w-[65rem] left-[11rem] top-[3rem]  h-[37.5rem] my-20 shadow-2xl dark:bg-green-800  bg-green-100 overflow-hidden  rounded-lg absolute"
+            data-aos="fade-up"
+          >
+            <h1 className="text-bold uppercase dark:text-white text-black text-center my-10 text-3xl font-semibold">
+              {teacherName}
+            </h1>
+            <div className="flex">
+              <p className="text-bold ml-10 dark:text-white text-black my-10">
+                <span className="mr-2">Email :</span>
+                <span className="font-semibold uppercase text-xl">
+                  {teacherEmail}
+                </span>
+              </p>
+              <p className="text-bold ml-[23rem] dark:text-white text-black my-10">
+                <span className="mr-2">Phone :</span>
+                <span className="font-semibold uppercase text-xl">
+                  {teacherPhone}
+                </span>
+              </p>
             </div>
+            <div className="flex">
+              <p className="text-bold ml-10 dark:text-white text-black my-2">
+                <span className="mr-2">Category :</span>
+                <span className="font-semibold uppercase text-xl">
+                  {teacherCategory}
+                </span>
+              </p>
+              <span className="absolute bg-green-800 dark:bg-green-300 transition-all duration-500 h-40 -z-10 rounded-full -top-11 w-40 -left-5"></span>
+              <span className="absolute bg-green-800 dark:bg-green-300 transition-all duration-500 h-40 -z-10 rounded-full -bottom-11 w-40 -right-5"></span>
+              <p className="text-bold ml-[31.8rem] dark:text-white text-black my-2">
+                <span className="mr-2">User :</span>
+                <span className="font-semibold uppercase text-xl">
+                  {teacherUser}
+                </span>
+              </p>
+            </div>
+            <div className="flex">
+              <p className="text-bold ml-10 dark:text-white text-black my-10">
+                <span className="mr-2">Gender :</span>
+                <span className="font-semibold uppercase text-xl">
+                  {teacherGender}
+                </span>
+              </p>
+              <p className="text-bold ml-[38rem] dark:text-white mb-[10rem] text-black my-10">
+                <span className="mr-2">Room Number :</span>
+                <span className="font-semibold uppercase text-xl">
+                  {teacherRoom}
+                </span>
+              </p>
+            </div>
+            <Link href={"/lobby"}>
+              <span className="bg-green-600 hover:shadow-3xl hover:bg-green-300 rounded transition-all duration-500 p-2 text-white ml-[30rem] text-xl ">
+                Start Class
+              </span>
+            </Link>
           </div>
           <div
-            className="absolute top-[5rem] right-[16rem]  cursor-pointer"
-            onMouseEnter={toggleDropDown}
-            onMouseLeave={toggleDropDown}
+            className=" p-2 flex flex-col dark:bg-green-800 transition-all duration-500 items-center border-2 border-white/40 w-[15rem] h-[37.5rem] my-20 shadow-2xl bg-green-100  rounded-lg absolute right-[15rem] top-12"
+            data-aos="fade-up"
           >
-            <i className="text-black text-2xl fa-solid fa-user-gear hover:text-gray-700 transition-all duration-500"></i>
-            {dropdown && (
-              <div className="absolute text-black top-[1.5rem] bg-white p-3 rounded-lg shadow-2xl -right-[3rem] w-36">
-                <li
-                  className="list-none py-2 border-b-2 cursor-pointer hover:text-slate-500"
-                  onClick={() => setVisible2(true)}
-                >
-                  Delete Account
-                </li>
-                <li
-                  className="list-none py-2 cursor-pointer hover:text-slate-500"
-                  onClick={() => setVisible(true)}
-                >
-                  Update Account
-                </li>
-              </div>
-            )}
+            <div className="">
+              <img
+                src={teacherPic}
+                alt="..."
+                className="w-full h-40 shadow-3xl"
+                loading="lazy"
+              />
+            </div>
+            <li
+              className="list-none my-20 text-2xl text-black cursor-pointer hover:text-slate-500 dark:text-white"
+              onClick={() => setVisible2(true)}
+            >
+              Delete Account
+            </li>
+            <li
+              className="list-none text-2xl text-black cursor-pointer hover:text-slate-500 dark:text-white"
+              onClick={() => setVisible(true)}
+            >
+              Update Account
+            </li>
           </div>
+
           <TeacherAccountUpdate
             visible={visible}
             onClose={handleClose}

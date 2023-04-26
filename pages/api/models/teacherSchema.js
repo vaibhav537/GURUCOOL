@@ -26,6 +26,11 @@ const teacherSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    room:{
+      type: Number,
+      required: true,
+      unique: true,
+    },
     phone: {
       type: String,
       required: true,

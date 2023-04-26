@@ -8,61 +8,61 @@ import { useRouter } from "next/router";
 
 const DeleteCategory = () => {
   const [categoryTitle, setCategoryTitle] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
 
   const router = useRouter();
 
+  const toastConfig = {
+    position: "bottom-center",
+    autoClose: 1000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    progress: undefined,
+    theme: "dark",
+    bodyClassName: "font-bold select-none font-Nunito",
+    closeButton: false,
+  };
+
   useEffect(() => {
     if (!localStorage.getItem("ADMIN_ACCESS")) {
-      router.push('/admin')
+      router.push("/admin");
     }
   }, []);
 
   const deleteCat = async (e) => {
+    setLoading(true);
+    setDisableButton(true);
     e.preventDefault();
     try {
       if (!categoryTitle) {
-        toast.error("Enter the Title First", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        toast.error("Enter the Title First", toastConfig);
+        setLoading(false);
+        setDisableButton(false);
+        return;
+      }
+
+      const res = await fetch(`/api/rules/${categoryTitle}`, {
+        method: "DELETE",
+      });
+      const result = await res.json();
+
+      console.log(result);
+
+      if (result.success === true) {
+        toast.success("Successfully Delete !!", toastConfig);
+        setLoading(false);
+        setDisableButton(false);
       } else {
-        const { res } = await fetch(`/api/update/${categoryTitle}`, {
-          method: "DELETE",
-        });
-        if (res.status === false) {
-          toast.error("ERROR", {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        } else {
-          toast.success("Successfully Delete", {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            progress: undefined,
-            theme: "dark",
-          });
-        }
+        toast.error("Not Deleted !!", toastConfig);
+        setLoading(false);
+        setDisableButton(false);
       }
     } catch (error) {
       console.log(error);
-      toast.error("Not Deleted, Try Again some later", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.error("Not Deleted, Try Again some later", toastConfig);
+      setLoading(false);
+      setDisableButton(false);
     }
   };
   return (
@@ -105,7 +105,7 @@ const DeleteCategory = () => {
                   type="text"
                   id="title"
                   placeholder="ex: Class 9 RBSE"
-                  className="p-2 dark:bg-teal-800 outline-none dark:placeholder:text-teal-300 placeholder:text-teal-900 bg-teal-100 transition-all w-96 duration-500 rounded ring-2 ring-teal-100 focus:ring-4 focus:ring-teal-500 mt-4"
+                  className="p-2 dark:bg-teal-800 outline-none text-black dark:placeholder:text-teal-300 placeholder:text-teal-900 bg-teal-100 transition-all w-96 duration-500 rounded ring-2 ring-teal-100 focus:ring-4 focus:ring-teal-500 mt-4"
                   onChange={(e) => {
                     setCategoryTitle(e.target.value);
                   }}
@@ -114,12 +114,22 @@ const DeleteCategory = () => {
                 />
               </div>
               <div className="pt-20">
-                <input
+                <button
                   type="submit"
-                  value="DELETE"
+                  disabled={disableButton}
                   onClick={deleteCat}
-                  className="hover:text-white ml-10 dark:placeholder:text-teal-300 w-[10rem] text-lg font-bold transition-all duration-300 rounded hover:shadow-3xl p-2 dark:bg-teal-800 bg-teal-300 dark:hover:bg-teal-700 cursor-pointer hover:bg-teal-500"
-                />
+                  className={` ${
+                    disableButton
+                      ? "cursor-not-allowed font-bold font-Crimson text-lg text-white bg-green-400 uppercase rounded  hover:bg-green-300  hover:text-green-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-green-700 dark:hover:bg-green-900"
+                      : "font-bold font-Crimson text-lg text-white bg-green-500 uppercase rounded  hover:bg-green-300  hover:text-green-500 transition-all duration-700 dark:text-white bg-transparent p-2 px-5 dark:bg-green-700 dark:hover:bg-green-900 cursor-pointer hover:shadow-3xl"
+                  }`}
+                >
+                  {loading ? (
+                    <img src="/admin.gif" className="w-[20px] h-[20px]" />
+                  ) : (
+                    "Delete"
+                  )}
+                </button>
               </div>
             </form>
           </div>

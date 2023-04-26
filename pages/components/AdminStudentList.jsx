@@ -163,6 +163,7 @@ const AdminStudentList = () => {
       {deleteModel && (
         <div
           id="Container"
+          data-aos="zoom-in"
           className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
         >
           <div className="bg-green-100 p-5 rounded flex flex-col items-center justify-center text-black dark:text-white ">

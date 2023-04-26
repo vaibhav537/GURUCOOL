@@ -106,7 +106,7 @@ const admin = () => {
         router.push("/admin/ifqRPHleaQkbEvmwOPEqb");
       } else {
         toast.error("ACCESS NOT GRANTED", toastConfig);
-        console.log(response)
+        console.log(response);
       }
     } catch (error) {
       toast.error("ACCESS NOT GRANTED", toastConfig);
@@ -133,7 +133,10 @@ const admin = () => {
         pauseOnFocusLoss
         theme="light"
       />
-      <div className="bg-[#d0c2e4] h-screen w-screen flex items-center justify-center">
+      <div
+        className="bg-[#d0c2e4] h-screen w-screen flex items-center justify-center"
+        data-aos="fade"
+      >
         <div className="bg-[#317773] rounded-md shadow-2xl p-20">
           <h3 className="font-bold text-white text-2xl text-center select-none">
             ADMIN LOGIN
@@ -168,11 +171,12 @@ const admin = () => {
                 onClick={handleShow}
               >
                 <i
-                  className={`text-teal-600 ${
+                  className={`text-teal-600 transition-all duration-1000 ${
                     show === "password"
                       ? "fa-solid fa-eye"
-                      : "fa-solid fa-eye-slash transition-all duration-1000"
+                      : "fa-solid fa-eye-slash "
                   } `}
+                  
                 ></i>
               </div>
             </div>

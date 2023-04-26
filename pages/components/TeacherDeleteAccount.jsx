@@ -105,6 +105,7 @@ const TeacherDeleteAccount = ({ visible, onClose, teacherEmail }) => {
         />
         <div
           onClick={handleClose}
+          data-aos= "zoom-in"
           id="Container"
           className="fixed inset-0 bg-black z-10 bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
         >

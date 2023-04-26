@@ -6,9 +6,9 @@ const CryptoJS = require("crypto-js");
 const handler = nc();
 
 handler.post(async (req, res) => {
-  const { name, email, phone, gender, password, confirmpassword, pic } =
+  const { name, email, phone, gender, password, confirmpassword, pic, room } =
     req.body;
-  if (!name || !email || !phone || !gender || !password || !confirmpassword) {
+  if (!name || !email || !phone || !gender || !password || !confirmpassword || !room ) {
     throw new Error("Please Fill all fields");
   }
 
@@ -27,6 +27,7 @@ handler.post(async (req, res) => {
       phone,
       gender,
       password: encryptedPassword,
+      room,
       pic,
     });
     if (teacher) {

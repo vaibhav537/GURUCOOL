@@ -28,7 +28,7 @@ const StudentRegister = () => {
     hideProgressBar: true,
     closeOnClick: false,
     progress: undefined,
-    theme:"dark",
+    theme: "dark",
     bodyClassName: "font-bold select-none font-Nunito",
     closeButton: false,
   };
@@ -247,9 +247,9 @@ const StudentRegister = () => {
         localStorage.setItem("student-token", JSON.stringify(response.token));
         setLoading(false);
         setDisableButton(false);
-        if(localStorage.getItem("teacher-token")){
+        if (localStorage.getItem("teacher-token")) {
           localStorage.removeItem("teacher-token");
-        }else if(localStorage.getItem("ADMIN_ACCESS")){
+        } else if (localStorage.getItem("ADMIN_ACCESS")) {
           localStorage.removeItem("ADMIN_ACCESS");
         }
         router.push("/");
@@ -280,7 +280,10 @@ const StudentRegister = () => {
         rtl={false}
         closeButton={false}
       />
-      <div className="flex  justify-center items-center transition-all duration-1000 ">
+      <div
+        className="flex  justify-center items-center transition-all duration-1000 "
+        data-aos="flip-left"
+      >
         <div className="rounded-md p-20  shadow-lg dark:bg-blue-900 mt-4 bg-blue-100">
           <form
             method="post"
@@ -495,7 +498,8 @@ const StudentRegister = () => {
           {model && (
             <div
               id="Container"
-              className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
+              className="fixed z-20 -bottom-[110px] left-0 right-0 -top-[21rem] bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
+              data-aos="zoom-in"
             >
               <div className="bg-blue-100 p-5 rounded flex flex-col items-center justify-center text-black dark:text-white ">
                 <h1 className="text-3xl text-slate-500 select-none">
@@ -523,7 +527,15 @@ const StudentRegister = () => {
                   className="text-white select-none w-40 rounded-md my-5 p-2 flex items-center justify-center bg-blue-700 hover:shadow-3xl hover:bg-blue-300 transition-all duration-500"
                   onClick={handleOtpCode}
                 >
-                  { otpLoading ? <img className="w-[20px] h-[20px]" alt="..." src="/loader.png"/>:"Verify Code"}
+                  {otpLoading ? (
+                    <img
+                      className="w-[20px] h-[20px]"
+                      alt="..."
+                      src="/loader.png"
+                    />
+                  ) : (
+                    "Verify Code"
+                  )}
                 </button>
               </div>
             </div>

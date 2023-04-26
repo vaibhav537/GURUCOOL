@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import LoaderStudent from "./LoaderStudent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
@@ -21,6 +20,25 @@ const SelectCard = () => {
   const [query, setQuery] = useState("");
 
   const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url, param = {}) => {
+      const { shallow } = param;
+      // If the user tries to go back to the previous page,
+      // prevent them from doing so only on the "/teacher/selectcategory" route
+      if (!shallow && router.pathname === "/teacher/selectcategory") {
+        router.replace(router.asPath);
+      }
+    };
+
+    // Add the route change event listener
+    router.beforePopState(handleRouteChange);
+
+    // Remove the route change event listener on cleanup
+    return () => {
+      router.beforePopState(undefined);
+    };
+  }, [router]);
 
   const getData = async () => {
     const response = await fetch("/api/fetchCategory");
@@ -56,9 +74,9 @@ const SelectCard = () => {
         setIsLoading(false);
         localStorage.setItem("teacher-token", JSON.stringify(response.token));
         localStorage.removeItem("teacher-info");
-        if(localStorage.getItem("student-token")){
+        if (localStorage.getItem("student-token")) {
           localStorage.removeItem("student-token");
-        }else if(localStorage.getItem("ADMIN_ACCESS")){
+        } else if (localStorage.getItem("ADMIN_ACCESS")) {
           localStorage.removeItem("ADMIN_ACCESS");
         }
         router.push("/");
@@ -130,32 +148,34 @@ const SelectCard = () => {
                 })
                 .map((val, index) => {
                   return (
-                    <li key={index}>
-                      <input
-                        type="radio"
-                        id={val.categoryLabel}
-                        name="category"
-                        value={val.categoryTitle}
-                        className="hidden peer"
-                        onChange={handleChange}
-                        key={"header" + val.categoryDescription}
-                        required
-                      />
-                      <label
-                        htmlFor={val.categoryLabel}
-                        key={val._id}
-                        className="inline-flex justify-between items-center transition-all duration-200 p-5 w-full select-none text-gray-500 bg-green-100 peer-checked:shadow-3xl rounded-lg border border-green-400 cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-green-500 peer-checked:border-green-600 peer-checked:text-green-700 peer-checked:border-2 hover:text-gray-600 hover:bg-green-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-                      >
-                        <div className="block">
-                          <div className="w-full select-none text-xl font-semibold text-center">
-                            {val.categoryTitle}
+                    <React.Fragment key={index}>
+                      <li>
+                        <input
+                          type="radio"
+                          id={val.categoryLabel}
+                          name="category"
+                          value={val.categoryTitle}
+                          className="hidden peer"
+                          onChange={handleChange}
+                          key={"header" + val.categoryDescription}
+                          required
+                        />
+                        <label
+                          htmlFor={val.categoryLabel}
+                          key={val._id}
+                          className="inline-flex justify-between items-center transition-all duration-200 p-5 w-full select-none text-gray-500 bg-green-100 peer-checked:shadow-3xl rounded-lg border border-green-400 cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-green-500 peer-checked:border-green-600 peer-checked:text-green-700 peer-checked:border-2 hover:text-gray-600 hover:bg-green-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+                        >
+                          <div className="block">
+                            <div className="w-full select-none text-xl font-semibold text-center">
+                              {val.categoryTitle}
+                            </div>
+                            <div className="w-full select-none text-center text-sm">
+                              {val.categoryDescription}
+                            </div>
                           </div>
-                          <div className="w-full select-none text-center text-sm">
-                            {val.categoryDescription}
-                          </div>
-                        </div>
-                      </label>
-                    </li>
+                        </label>
+                      </li>
+                    </React.Fragment>
                   );
                 })}
             </ul>
@@ -166,7 +186,7 @@ const SelectCard = () => {
       {button && (
         <button
           type="submit"
-          className="flex items-center justify-center w-[7rem] hover:shadow-3xl cursor-pointer p-4 transition-all rounded fixed bottom-5  right-[54rem] duration-300 bg-green-500 hover:text-white hover:bg-green-300 font-bold"
+          className="flex items-center justify-center w-[7rem] hover:shadow-3xl cursor-pointer p-4 transition-all rounded fixed bottom-5  right-[57rem] duration-300 bg-green-500 hover:text-white hover:bg-green-300 font-bold"
           onClick={postCategory}
         >
           {isLoading ? (

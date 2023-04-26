@@ -24,7 +24,7 @@
     width: 0;
     background-color: rgb(51 65 85);
     opacity: 0.8;
-    animation: progress 1s forwards alternate;
+    animation: progress 2s forwards alternate;
 }
 
 @keyframes progress {

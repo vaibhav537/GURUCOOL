@@ -93,7 +93,7 @@ const contact = () => {
         pauseOnFocusLoss
         theme="dark"
       />
-      <div className={"antialiased dark:bg-slate-600 bg-gray-100 h-full transition-all duration-1000"}>
+      <div className={"antialiased dark:bg-slate-600 bg-gray-100 h-full transition-all duration-1000"} data-aos="fade-out">
         <div className="flex w-full min-h-screen justify-center items-center ">
           <div
             className={
@@ -102,18 +102,18 @@ const contact = () => {
           >
             <div className="flex flex-col space-y-8 justify-between">
               <div>
-                <h1 className="font-bold text-4xl tracking-wide ">
+                <h1 className="font-bold text-4xl tracking-wide select-none  ">
                   Contact Us
                 </h1>
-                <p className="pt-2 text-cyan-100 text-sm">
+                <p className="pt-2 text-cyan-100 text-sm select-none">
                   We will soon contact you once you send your information to us
                   and clearly tell your problem in the concern section
                 </p>
               </div>
-              <div className="flex flex-col space-y-6">
+              <div className="flex flex-col space-y-6 select-none">
                 <div className="inline-flex space-x-2 items-center">
                   <i className="fa-solid fa-phone text-teal-300 text-xl"></i>
-                  <span>(+91) 635330324</span>
+                  <span>(+91) XXXXXXXXXX</span>
                 </div>
                 <div className="inline-flex space-x-2 items-center">
                   <i className="fa-solid fa-envelope text-teal-300 text-xl"></i>
@@ -142,7 +142,7 @@ const contact = () => {
                 </Link>
               </div>
             </div>
-            <div className="relative">
+            <div className="relative select-none">
               <div className="absolute z-10 w-40 h-40 bg-teal-400 rounded-full -right-28 -top-28"></div>
               <div className="absolute z-10 w-40 h-40 bg-teal-400 rounded-full -left-28 -bottom-16"></div>
               <div className="relative z-10 bg-white dark:bg-slate-600 rounded-xl shadow-lg p-8 text-gray-700 md:w-96">

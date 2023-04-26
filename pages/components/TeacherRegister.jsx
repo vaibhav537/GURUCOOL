@@ -11,6 +11,8 @@ const TeacherRegister = () => {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
   const [pic, setPic] = useState("");
+  const [room, setRoom] = useState("");
+  const [verifyRoom, setVerifyRoom] = useState(null);
   const [loading, setLoading] = useState(false);
   const [disableButton, setDisableButton] = useState(false);
   const [src, setSrc] = useState("/images/Blank.png");
@@ -35,7 +37,7 @@ const TeacherRegister = () => {
     closeOnClick: true,
     progress: undefined,
     theme: "dark",
-    bodyClassName: "font-bold select-none font-Nunito",
+    className: "w-[21rem] font-bold select-none font-Nunito",
     closeButton: false,
   };
 
@@ -133,6 +135,41 @@ const TeacherRegister = () => {
     }
   };
 
+  //verify that the room is already taken or not
+  const verifyRoomFunction = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setDisableButton(true);
+    if (!room) {
+      toast.warning("Please enter Room Field !!", toastConfig);
+      setLoading(false);
+      setDisableButton(false);
+      return;
+    }
+    const roomResult = await fetch("/api/rules/verifyRoom", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        room,
+      }),
+    });
+    const roomResponse = await roomResult.json();
+
+    if (roomResponse.success === true) {
+      setVerifyRoom(true);
+      setLoading(false);
+      setDisableButton(false);
+      toast.success("Room Verified", toastConfig);
+    } else {
+      setVerifyRoom(null);
+      setLoading(false);
+      setDisableButton(false);
+      toast.error("Room is Already been taken !!", toastConfig);
+    }
+  };
+
   //verifying the email Address field
   const verifyEmail = async (event) => {
     event.preventDefault(); // preventing  form from default action
@@ -181,7 +218,15 @@ const TeacherRegister = () => {
     e.preventDefault();
     setLoading(true);
     setDisableButton(true);
-    if (!name || !email || !phone || !gender || !password || !confirmpassword) {
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !gender ||
+      !password ||
+      !confirmpassword ||
+      !room
+    ) {
       toast.warning("Please Fill all the Fields", toastConfig);
       setLoading(false);
       setDisableButton(false);
@@ -206,6 +251,14 @@ const TeacherRegister = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // regular expression for email
     if (!emailRegex.test(email)) {
       toast.warning("Invalid Email Address", toastConfig);
+      setLoading(false);
+      setDisableButton(false);
+      return;
+    }
+
+    //Room number sholud be unique
+    if (verifyRoom === null) {
+      toast.warning("Please Verify Your Room Number", toastConfig);
       setLoading(false);
       setDisableButton(false);
       return;
@@ -238,6 +291,7 @@ const TeacherRegister = () => {
           gender,
           password,
           confirmpassword,
+          room,
           pic,
         }),
       });
@@ -280,7 +334,7 @@ const TeacherRegister = () => {
         rtl={false}
         theme="dark"
       />
-      <div className="flex justify-center items-center transition-all duration-1000 ">
+      <div className="flex justify-center items-center transition-all duration-1000 "  data-aos="flip-right">
         <div className="rounded-md p-20  shadow-lg dark:bg-green-900 mt-4 bg-green-100">
           <form
             method="post"
@@ -418,6 +472,32 @@ const TeacherRegister = () => {
                 <div className="relative mt-4">
                   <div className="relative mb-6">
                     <div className="text-xl absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <i className= "fa-solid fa-house-circle-check text-green-400"></i>
+                    </div>
+                    <input
+                      type="number"
+                      id="room"
+                      name="room"
+                      onChange={(e) => {
+                        setRoom(e.target.value);
+                      }}
+                      className="text-green-800 text-sm focus:border-b-4 transition-all duration-300 border-b-2 border-green-300 bg-green-100 block w-full pl-10 p-2.5  dark:placeholder:text-green-300 dark:bg-green-900 dark:text-green-200 outline-none"
+                      placeholder="Enter Your Room Number"
+                      autoComplete="off"
+                      required
+                    />
+                  </div>
+                  <div
+                    onClick={verifyRoomFunction}
+                    className="h-5 w-[5.6rem] text-slate-400 dark:text-green-300 hover:text-slate-600 dark:hover:text-green-800 cursor-pointer absolute -right-[30px] top-[41px]"
+                  >
+                    Verify Room
+                  </div>
+                </div>
+
+                <div className="relative mt-4">
+                  <div className="relative mb-6">
+                    <div className="text-xl absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                       <i className="fa-solid fa-lock text-green-400"></i>
                     </div>
                     <input
@@ -497,13 +577,14 @@ const TeacherRegister = () => {
           {model && (
             <div
               id="Container"
-              className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
+              className="fixed z-50 -bottom-[43px] left-0 right-0 -top-[21rem] bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
+              data-aos="zoom-in"
             >
               <div className="bg-green-100 p-5 rounded flex flex-col items-center justify-center text-black dark:text-white ">
                 <h1 className="text-3xl text-slate-500 select-none">
                   Welcome to{" "}
                   <span className="uppercase font-bold text-slate-800">
-                    gurucool
+                    gumrucool
                   </span>
                 </h1>
                 <div className="bg-white rounded-full w-28 h-28 flex items-center justify-center select-none my-6">

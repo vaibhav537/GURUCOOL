@@ -20,8 +20,9 @@ handler.post(async (req, res) => {
       return res.status(201).json({ status: false, data: "Token Expired !!" });
     } else {
       const studentData = await StudentSchema.findOne({
-        _id: student.student._id,
+        _id: student.studentID,
       });
+
       res.status(201).json({ status: true, student: studentData });
     }
   } catch (error) {
@@ -43,6 +44,5 @@ handler.put((req, res) => {
 handler.delete((req, res) => {
   res.status(404).json({ msg: "Wrong Request !!" });
 });
-
 
 export default handler;

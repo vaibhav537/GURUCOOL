@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StudentDeleteAccount from "./StudentDeleteAccount";
 import StudentAccountUpdate from "./StudentAccountUpdate";
+import Link from "next/link";
+import TeacherRoomList from "./TeacherRoomList";
 
 const HomeStudent = () => {
   const [loading, setLoading] = useState(false);
@@ -13,9 +15,10 @@ const HomeStudent = () => {
   const [studentPhone, setStudentPhone] = useState("");
   const [studentPic, setStudentPic] = useState("");
   const [studentUser, setStudentUser] = useState("");
-  const [dropdown, setDropdown] = useState(false);
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
+  const [showDataDiv, setShowDataDiv] = useState(true);
+  const [showTeacherRoom, setShowTeacherRoom] = useState(false);
 
   const router = useRouter();
 
@@ -32,9 +35,19 @@ const HomeStudent = () => {
     setVisible(false);
     setVisible2(false);
   };
-  const toggleDropDown = () => {
-    setDropdown(!dropdown);
-  };
+
+  const handleLists = (e) =>{
+    e.preventDefault();
+
+    if(showDataDiv === true){
+      setShowDataDiv(false);
+      setShowTeacherRoom(true);
+    }else{
+      setShowDataDiv(true);
+      setShowTeacherRoom(false);
+    }
+
+  }
 
   useEffect(() => {
     const getStudent = async () => {
@@ -64,7 +77,6 @@ const HomeStudent = () => {
         const studentUpperCaseName = ToastStudentName.toUpperCase();
 
         toast.success(`WELCOME ${studentUpperCaseName} !!`, toastConfig);
-        console.log(studentData);
         setLoading(false);
       } else if (studentData.status === false) {
         toast.error(" Token Expired, Please Login Again", toastConfig);
@@ -93,44 +105,88 @@ const HomeStudent = () => {
           <img src="/student.gif" alt="..." className="w-20 h-20" />
         </div>
       ) : (
-        <div className="flex  justify-center w-screen h-[90vh] bg-blue-100">
-          <div className="flex flex-col">
-            <h1 className="text-bold uppercase text-black"> {studentName} </h1>
-            <h1 className="text-bold uppercase text-black">
-              {" "}
-              {studentGender}{" "}
-            </h1>
-            <h1 className="text-bold uppercase text-black"> {studentEmail} </h1>
-            <h1 className="text-bold uppercase text-black"> {studentPhone} </h1>
-            <h1 className="text-bold uppercase text-black"> {studentUser} </h1>
-          </div>
-          <div className="border-4 border-blue-800 w-[15rem] h-[30rem] shadow-2xl bg-white/25 rounded-lg ">
-            <div className="">
-              <img src={studentPic} alt="..." className="w-full  h-full pl-5" />
-            </div>
-          </div>
-          <div
-            className="absolute top-[5rem] right-[16rem]  cursor-pointer"
-            onMouseEnter={toggleDropDown}
-            onMouseLeave={toggleDropDown}
-          >
-            <i className="text-black text-2xl fa-solid fa-user-gear hover:text-gray-700 transition-all duration-500"></i>
-            {dropdown && (
-              <div className="absolute text-black top-[1.5rem] bg-white p-3 rounded-lg shadow-2xl -right-[3rem] w-36">
-                <li
-                  className="list-none py-2 border-b-2 cursor-pointer hover:text-slate-500"
-                  onClick={() => setVisible2(true)}
-                >
-                  Delete Account
-                </li>
-                <li
-                  className="list-none py-2 cursor-pointer hover:text-slate-500"
-                  onClick={() => setVisible(true)}
-                >
-                  Update Account
-                </li>
+        <div className="flex relative justify-center w-screen h-[90vh]  dark:bg-blue-900/5 select-none  bg-slate-100 transition-all duration-500">
+          {showDataDiv && (
+            <div
+              className="p-2 border-2 border-white/40 w-[65rem] left-[11rem] top-[3rem]  h-[37.5rem] my-20 shadow-2xl dark:bg-blue-800  bg-blue-100 overflow-hidden  rounded-lg absolute"
+              data-aos="fade-up"
+            >
+              <h1 className="text-bold uppercase dark:text-white text-black text-center my-10 text-3xl font-semibold">
+                {studentName}
+              </h1>
+              <div className="flex">
+                <p className="text-bold ml-10 dark:text-white text-black my-10">
+                  <span className="mr-2">Email :</span>
+                  <span className="font-semibold uppercase text-xl">
+                    {studentEmail}
+                  </span>
+                </p>
+                <p className="text-bold ml-[23rem] dark:text-white text-black my-10">
+                  <span className="mr-2">Phone :</span>
+                  <span className="font-semibold uppercase text-xl">
+                    {studentPhone}
+                  </span>
+                </p>
               </div>
-            )}
+              <div className="flex">
+                <span className="absolute bg-blue-800 dark:bg-blue-300 transition-all duration-500 h-40 -z-10 rounded-full -top-11 w-40 -left-5"></span>
+                <span className="absolute bg-blue-800 dark:bg-blue-300 transition-all duration-500 h-40 -z-10 rounded-full -bottom-11 w-40 -right-5"></span>
+                <div className="flex">
+                  <p className="text-bold ml-10 dark:text-white text-black my-10">
+                    <span className="mr-2">Gender :</span>
+                    <span className="font-semibold uppercase text-xl">
+                      {studentGender}
+                    </span>
+                  </p>
+                  <p className="text-bold ml-[38rem] dark:text-white mb-[10rem] text-black my-10">
+                    <span className="mr-2">User :</span>
+                    <span className="font-semibold uppercase text-xl">
+                      {studentUser}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <Link href={"/lobby"}>
+                <span className="bg-blue-600 hover:shadow-3xl hover:bg-blue-300 rounded transition-all duration-500 p-2 text-white ml-[30rem] text-xl ">
+                  Join Class
+                </span>
+              </Link>
+            </div>
+          )}
+          {
+            showTeacherRoom && <TeacherRoomList/>
+          }
+          <div
+            className=" p-2 flex flex-col dark:bg-blue-800 transition-all duration-500 items-center border-2 border-white/40 w-[15rem] h-[37.5rem] my-20 shadow-2xl bg-blue-100  rounded-lg absolute right-[15rem] top-12"
+            data-aos="fade-up"
+          >
+            <div className="">
+              <img
+                src={studentPic}
+                alt="..."
+                className="w-full h-40 shadow-3xl"
+                loading="lazy"
+              />
+            </div>
+            <li className="list-none my-20 text-2xl text-black cursor-pointer hover:text-slate-500 dark:text-white"
+              onClick={handleLists}
+            >
+              {showDataDiv ? "Teacher Rooms" : "Home"}
+            </li>
+            <li
+              className="list-none text-2xl text-black cursor-pointer hover:text-slate-500 dark:text-white"
+              onClick={() => setVisible2(true)}
+            >
+              Delete Account
+            </li>
+            <li
+              className="list-none my-20  text-2xl text-black cursor-pointer hover:text-slate-500 dark:text-white"
+              data-aos="fade"
+              onClick={() => setVisible(true)}
+            >
+              Update Account
+            </li>
+
           </div>
           <StudentAccountUpdate
             visible={visible}

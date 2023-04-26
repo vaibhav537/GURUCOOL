@@ -96,7 +96,7 @@ const TeacherLogin = () => {
         theme="dark"
       />
       <div className="flex justify-center items-center transition-all duration-1000 ">
-        <div className="rounded-md p-10 w-[20rem] h-[20rem] flex justify-center items-center shadow-lg dark:bg-green-900 mt-4 bg-green-100">
+        <div className="rounded-md p-10 w-[20rem] h-[20rem] flex justify-center items-center shadow-lg dark:bg-green-900 mt-4 bg-green-100" data-aos="fade">
           <form
             method="post"
             className="flex flex-col"

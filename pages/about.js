@@ -16,12 +16,22 @@ const about = (props) => {
         <link rel="icon" href="/images/logo.png" />
       </Head>
       <div className="bg-slate-100 ">
-        <IntroTeam />
-        <div className="bg-slate-100 dark:bg-slate-600 transition-all duration-700">
-          <p className="text-center text-3xl pt-5 select-text text-black dark:text-white cursor-text">Developer's team</p>
+        <div data-aos="fade-up">
+          <IntroTeam />
+        </div>
+        <div
+          className="bg-slate-100 dark:bg-slate-600 transition-all duration-700"
+          data-aos="fade-up"
+        >
+          <p className="text-center text-3xl pt-5 select-text text-black dark:text-white cursor-text">
+            Developer's team
+          </p>
+
           <Team />
         </div>
-        <Faclities />
+        <div data-aos="fade-up">
+          <Faclities data-aos="fade-up" />
+        </div>
       </div>
     </>
   );

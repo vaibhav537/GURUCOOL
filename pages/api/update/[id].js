@@ -10,10 +10,14 @@ handler.put(async (req, res) => {
     const teacher = await TeacherSchema.findOne({ _id: req.query.id });
     if (teacher) {
       teacher.category = req.body.category;
-      console.log(req.body.category);
+
       const teacherCategory = await teacher.save();
+
       if (teacherCategory) {
-        const token = jwt.sign({ teacher }, process.env.JWT_SECRET, {
+
+        const teacherID = teacher._id;
+
+        const token = jwt.sign({ teacherID }, process.env.JWT_SECRET, {
           expiresIn: "2d",
         });
         res.status(201).json({ success: true, token });

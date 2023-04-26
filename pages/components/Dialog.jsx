@@ -1,17 +1,18 @@
 import React, { useState } from "react"; //importing the state from react
-import { ToastContainer, toast } from "react-toastify";//importing the toast from react-toastify
-import "react-toastify/dist/ReactToastify.css";//importing the css of the ReactToast
+import { ToastContainer, toast } from "react-toastify"; //importing the toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; //importing the css of the ReactToast
 
-const Dialog = ({ visible, onClose }) => {  // reciving the props from the parent component
+const Dialog = ({ visible, onClose }) => {
+  // reciving the props from the parent component
   const [otpCode, setOtpCode] = useState(); // state for the storing otp code
   const [email, setEmail] = useState(""); // state for the storing email
   const [password, setPassword] = useState(""); // state for the storing password
   const [confirmpassword, setConfirmpassword] = useState(""); // state for the storing confirm password
   const [firstDiv, setFirstDiv] = useState(true); // state for the hide and show the first div
-  const [secondDiv, setSecondDiv] = useState(false);  // state for hide and show the second div
+  const [secondDiv, setSecondDiv] = useState(false); // state for hide and show the second div
   const [isLoading, setIsLoading] = useState(false); // state for showing the loader
-  // defing the function for hiding the dialog 
-  const handleClose = (e) => { 
+  // defing the function for hiding the dialog
+  const handleClose = (e) => {
     if (e.target.id === "Container") {
       onClose();
     }
@@ -28,12 +29,12 @@ const Dialog = ({ visible, onClose }) => {  // reciving the props from the paren
     bodyClassName: "font-bold select-none font-Nunito",
     closeButton: false,
   };
- // send int otp caode to backend and showing the first div
+  // send int otp caode to backend and showing the first div
   const handleOTP = async (e) => {
     setIsLoading(true); // shoeing the loader
-    e.preventDefault(); // prevent default behavior 
+    e.preventDefault(); // prevent default behavior
     // if the firstdiv is not showing then  this if will run
-    if (firstDiv === false) { 
+    if (firstDiv === false) {
       setFirstDiv(true);
       setSecondDiv(false);
     }
@@ -41,7 +42,7 @@ const Dialog = ({ visible, onClose }) => {  // reciving the props from the paren
     // if user enter the otp code then this if will run
     if (otpCode) {
       const codeString = otpCode.toString(); // converting the otpcode datatype number to string datatype
-      // check the lenght of the code 
+      // check the lenght of the code
       if (codeString.length === 6) {
         // if code lenghr is 6 then try catch will run
         try {
@@ -64,7 +65,7 @@ const Dialog = ({ visible, onClose }) => {  // reciving the props from the paren
             }
           } else {
             toast.error("Invalid Verification Code", toastConfig);
-            console.log(response)
+            console.log(response);
             setIsLoading(false);
           }
         } catch (error) {
@@ -75,8 +76,7 @@ const Dialog = ({ visible, onClose }) => {  // reciving the props from the paren
         toast.error("Invalid Verification Code", toastConfig);
         setIsLoading(false);
       }
-    }
-    else{
+    } else {
       toast.error("Please Enter the Verification Code", toastConfig);
       setIsLoading(false);
     }
@@ -134,7 +134,7 @@ const Dialog = ({ visible, onClose }) => {  // reciving the props from the paren
       });
 
       if (data) {
-        toast.success("Verfication Code Sent",toastConfig);
+        toast.success("Verfication Code Sent", toastConfig);
       } else {
         toast.error("Could'nt Send Verification Code", toastConfig);
       }
@@ -160,6 +160,7 @@ const Dialog = ({ visible, onClose }) => {  // reciving the props from the paren
         />
         <div
           onClick={handleClose}
+          data-aos="zoom-in"
           id="Container"
           className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
         >

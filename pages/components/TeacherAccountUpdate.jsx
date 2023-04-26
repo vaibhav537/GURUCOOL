@@ -140,6 +140,7 @@ const TeacherAccountUpdate = ({ visible, onClose, teacherEmail }) => {
         />
         <div
           onClick={handleClose}
+          data-aos= "zoom-in"
           id="Container"
           className="fixed inset-0 z-20 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
         >

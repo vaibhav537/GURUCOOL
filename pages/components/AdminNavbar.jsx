@@ -77,22 +77,22 @@ const AdminNavbar = () => {
               Update Category
             </a>
           </Link>
-          <Link legacyBehavior href={"/admin/Ranking"}>
+          <Link legacyBehavior href={"/admin/ContactInfo "}>
             <a
               className={`select-none  flex uppercase items-center  border-2 justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px] 
               ${
-                router.pathname == "/admin/Ranking"
+                router.pathname == "/admin/ContactInfo"
                   ? " border-black bg-teal-200 rounded hover:border-teal-500 text-black hover:text-teal-700 transition-all "
                   : "text-black border-teal-300 dark:border-slate-800  lg:text-gray-500 hover:text-teal-700 transition-all "
               }
             `}
             >
-              Ranking
+                Contact Info.
             </a>
           </Link>
           <div
             className="select-none  flex uppercase items-center justify-center p-2 font-Crimson font-semibold mb-[2rem] text-[23px] 
-                   bg-teal-300 rounded hover:border-teal-500 text-slate-500 hover:text-teal-700 transition-all "
+                   bg-teal-300 rounded hover:border-teal-500 text-slate-500 hover:text-teal-700 transition-all dark:bg-slate-800 duration-700    "
             onClick={handleLogout}
           >
             Logout
