@@ -58,7 +58,7 @@ const AdminStudentList = () => {
     } catch (error) {
       setDeleteModel(false);
       setDeleteModelLoader(false);
-      toast.success("Student Not Deleted", toastConfig);
+      toast.error("Student Not Deleted", toastConfig);
       console.log(error);
     }
   };
@@ -146,7 +146,7 @@ const AdminStudentList = () => {
                     </td>
                     <td
                       className="p-3 w-[10rem] text-center cursor-pointer hover:text-red-500 transition-all duration-300 hover:text-xl"
-                      onClick={(e) => {
+                      onClick={() => {
                         setDeleteId(val._id);
                         setDeleteModel(true);
                       }}
