@@ -22,7 +22,8 @@ function MyApp({ Component, pageProps }) {
     "/admin/DeleteCategory",
     "/admin/UpdateCategory",
     "/admin/ContactInfo",
-    "/lobby",
+    "/lobby/teacher",
+    "/lobby/student",
     "/room/[room]",
   ];
 
@@ -42,6 +43,21 @@ function MyApp({ Component, pageProps }) {
   const [render, setRender] = useState(0);
   const [progress, setProgress] = useState(0);
   const [showMenu, setShowMenu] = useState(true);
+
+  useEffect(() => {
+    const disableRightClick = (event) => {
+      if (event.button === 2) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    };
+  
+    document.addEventListener('contextmenu', disableRightClick);
+  
+    return () => {
+      document.removeEventListener('contextmenu', disableRightClick);
+    };
+  }, []);
 
   useEffect(() => {
     const isNoNav =

@@ -21,8 +21,8 @@ const AdminNavbar = () => {
           alt="LOGO"
           className="select-none pl-10 ml+-[7px] w-[166px] mb-5  transition-all duration-1000 dark:invert-[1]"
         />
-        <p className=" text-xl ml-[24px] font-extrabold  dark:text-slate-200 transition-all duration-1000 select-none  text-teal-900 drop-shadow-2xl font-Garamond dark:shadow-white">
-          MEET IN - ADMIN
+        <p className=" text-xl font-extrabold  dark:text-slate-200 transition-all duration-1000 select-none  text-teal-900 drop-shadow-2xl font-Garamond dark:shadow-white">
+          GURUCOOL - ADMIN
         </p>
         <ul className="flex flex-col mt-[3rem]">
           <Link legacyBehavior href={"/admin/ifqRPHleaQkbEvmwOPEqb"}>

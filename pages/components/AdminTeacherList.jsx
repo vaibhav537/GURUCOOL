@@ -75,7 +75,10 @@ const AdminTeacherList = () => {
         pauseOnFocusLoss
         theme="dark"
       />
-      <div className="w-[60vw] shadow-5xl shadow-inset dark:bg-slate-800 p-10 overflow-y-auto max-h-[39rem] bg-teal-200  rounded dark:border-red-200 transition-all duration-1000">
+      <div
+        className="w-[60vw] shadow-5xl shadow-inset dark:bg-slate-800 p-10 overflow-y-auto max-h-[39rem] bg-teal-200  rounded dark:border-red-200 transition-all duration-1000"
+        data-aos="fade-up"
+      >
         <h4 className="select-none text-3xl uppercase font-semibold text-center dark:text-white transition-all duration-1000 text-black/75">
           Teachers in MEET IN
         </h4>
@@ -108,11 +111,13 @@ const AdminTeacherList = () => {
                 </td>
               </tr>
               {teacher.map((val, index) => {
-                  const formattedDate = new Date(val.createdAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  });
+                const formattedDate = new Date(
+                  val.createdAt
+                ).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                });
                 return (
                   <tr className="h-[54px]" key={index}>
                     <td
@@ -139,9 +144,7 @@ const AdminTeacherList = () => {
                     >
                       {val.phone}
                     </td>
-                    <td
-                      className="p-3 w-[10rem] text-center select-none "
-                    >
+                    <td className="p-3 w-[10rem] text-center select-none ">
                       {formattedDate}
                     </td>
                     <td
@@ -170,7 +173,7 @@ const AdminTeacherList = () => {
       {deleteModel && (
         <div
           id="Container"
-          data-aos = "zoom-in"
+          data-aos="zoom-in"
           className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
         >
           <div className="bg-green-100 p-5 rounded flex flex-col items-center justify-center text-black dark:text-white ">

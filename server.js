@@ -14,9 +14,8 @@ const emailToSocketIdMap = new Map();
 const socketidToEmailMap = new Map(); //Together, these maps will be used to keep track of the mapping between email addresses and socket IDs, which is necessary for enabling communication between different users connected to the server.
 
 
-// YAHA SE OR COMMENTS DALNE H
 io.on("connection", (socket) => {
-  console.log(`Socket Connected`, socket.id);
+  // console.log(`Socket Connected`, socket.id);
   socket.on("room:join", (data) => {
     const { email, room } = data;
     emailToSocketIdMap.set(email, socket.id);

@@ -75,7 +75,10 @@ const AdminStudentList = () => {
         pauseOnFocusLoss
         theme="dark"
       />
-      <div className="w-[60vw] shadow-5xl shadow-inset p-10 bg-teal-200 overflow-y-auto max-h-[39rem] dark:bg-slate-800 rounded dark:border-red-200 transition-all duration-1000">
+      <div
+        className="w-[60vw] shadow-5xl shadow-inset p-10 bg-teal-200 overflow-y-auto max-h-[39rem] dark:bg-slate-800 rounded dark:border-red-200 transition-all duration-1000"
+        data-aos="fade-up"
+      >
         <h4 className="text-3xl select-none uppercase font-semibold text-center dark:text-white text-black/75">
           Students in MEET IN
         </h4>

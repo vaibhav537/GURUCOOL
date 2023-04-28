@@ -36,18 +36,17 @@ const HomeStudent = () => {
     setVisible2(false);
   };
 
-  const handleLists = (e) =>{
+  const handleLists = (e) => {
     e.preventDefault();
 
-    if(showDataDiv === true){
+    if (showDataDiv === true) {
       setShowDataDiv(false);
       setShowTeacherRoom(true);
-    }else{
+    } else {
       setShowDataDiv(true);
       setShowTeacherRoom(false);
     }
-
-  }
+  };
 
   useEffect(() => {
     const getStudent = async () => {
@@ -146,16 +145,14 @@ const HomeStudent = () => {
                   </p>
                 </div>
               </div>
-              <Link href={"/lobby"}>
+              <Link href={"/lobby/student"}>
                 <span className="bg-blue-600 hover:shadow-3xl hover:bg-blue-300 rounded transition-all duration-500 p-2 text-white ml-[30rem] text-xl ">
                   Join Class
                 </span>
               </Link>
             </div>
           )}
-          {
-            showTeacherRoom && <TeacherRoomList/>
-          }
+          {showTeacherRoom && <TeacherRoomList />}
           <div
             className=" p-2 flex flex-col dark:bg-blue-800 transition-all duration-500 items-center border-2 border-white/40 w-[15rem] h-[37.5rem] my-20 shadow-2xl bg-blue-100  rounded-lg absolute right-[15rem] top-12"
             data-aos="fade-up"
@@ -168,7 +165,8 @@ const HomeStudent = () => {
                 loading="lazy"
               />
             </div>
-            <li className="list-none my-20 text-2xl text-black cursor-pointer hover:text-slate-500 dark:text-white"
+            <li
+              className="list-none my-20 text-2xl text-black cursor-pointer hover:text-slate-500 dark:text-white"
               onClick={handleLists}
             >
               {showDataDiv ? "Teacher Rooms" : "Home"}
@@ -186,7 +184,6 @@ const HomeStudent = () => {
             >
               Update Account
             </li>
-
           </div>
           <StudentAccountUpdate
             visible={visible}

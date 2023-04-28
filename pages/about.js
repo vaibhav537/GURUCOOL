@@ -15,7 +15,7 @@ const about = (props) => {
         />
         <link rel="icon" href="/images/logo.png" />
       </Head>
-      <div className="bg-slate-100 ">
+      <div className="bg-slate-100 dark:bg-slate-600">
         <div data-aos="fade-up">
           <IntroTeam />
         </div>

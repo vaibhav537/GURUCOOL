@@ -21,14 +21,14 @@ const Radio = () => {
   }
 
   return (
-    <div className="flex flex-col bg-slate-100 dark:bg-slate-600 h-screen mb-[100px]  transition-all duration-1000">
+    <div className="flex flex-col bg-slate-100 dark:bg-slate-600 select-none h-screen mb-[100px]  transition-all duration-1000">
       <div className="flex mt-20 mb-[8rem]">
         <span className={`transition-all w-[20rem] duration-300 font-bold ml-[35rem] mr-[8px] mt-[20px] ${isActive?"text-slate-700 dark:text-slate-300 text-2xl": "text-green-500  text-3xl"}`}>
           Register As Teacher
         </span>
         <label
           htmlFor="check"
-          className="bg-slate-300 shadow-inner dark:bg-slate-800 cursor-pointer ml-16 mt-4 w-20 relative h-10 rounded-full"
+          className="bg-slate-300 shadow-inner  dark:bg-slate-800 cursor-pointer ml-16 mt-4 w-20 relative h-10 rounded-full"
         >
           <input
             type="checkbox"

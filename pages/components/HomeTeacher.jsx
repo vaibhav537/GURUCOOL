@@ -132,7 +132,7 @@ const HomeTeacher = () => {
               </p>
               <span className="absolute bg-green-800 dark:bg-green-300 transition-all duration-500 h-40 -z-10 rounded-full -top-11 w-40 -left-5"></span>
               <span className="absolute bg-green-800 dark:bg-green-300 transition-all duration-500 h-40 -z-10 rounded-full -bottom-11 w-40 -right-5"></span>
-              <p className="text-bold ml-[31.8rem] dark:text-white text-black my-2">
+              <p className="text-bold ml-[39.5rem] dark:text-white text-black my-2">
                 <span className="mr-2">User :</span>
                 <span className="font-semibold uppercase text-xl">
                   {teacherUser}
@@ -146,14 +146,14 @@ const HomeTeacher = () => {
                   {teacherGender}
                 </span>
               </p>
-              <p className="text-bold ml-[38rem] dark:text-white mb-[10rem] text-black my-10">
+              <p className="text-bold ml-[40rem] dark:text-white mb-[10rem] text-black my-10">
                 <span className="mr-2">Room Number :</span>
                 <span className="font-semibold uppercase text-xl">
                   {teacherRoom}
                 </span>
               </p>
             </div>
-            <Link href={"/lobby"}>
+            <Link href={"/lobby/teacher"}>
               <span className="bg-green-600 hover:shadow-3xl hover:bg-green-300 rounded transition-all duration-500 p-2 text-white ml-[30rem] text-xl ">
                 Start Class
               </span>
