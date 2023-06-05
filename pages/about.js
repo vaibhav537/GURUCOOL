@@ -4,7 +4,7 @@ import Head from "next/head";
 import Faclities from "./components/Faclities";
 import Team from "./components/Team.jsx";
 
-const about = (props) => {
+const about = () => {
   return (
     <>
       <Head>
@@ -23,7 +23,7 @@ const about = (props) => {
           className="bg-slate-100 dark:bg-slate-600 transition-all duration-700"
           data-aos="fade-up"
         >
-          <p className="text-center text-3xl pt-5 select-text text-black dark:text-white cursor-text">
+          <p className="select-none text-center text-3xl pt-5 text-black dark:text-white cursor-text">
             Developer's team
           </p>
 

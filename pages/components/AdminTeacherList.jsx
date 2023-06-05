@@ -48,7 +48,7 @@ const AdminTeacherList = () => {
       });
       const data = await response.json();
       if (data.success === true) {
-        toast.success("Student Deleted", toastConfig);
+        toast.success("Teacher Deleted", toastConfig);
         setTimeout(() => {
           setDeleteModel(false);
         }, 500);
@@ -58,7 +58,7 @@ const AdminTeacherList = () => {
     } catch (error) {
       setDeleteModel(false);
       setDeleteModelLoader(false);
-      toast.success("Student Not Deleted", toastConfig);
+      toast.success("Teacher Not Deleted", toastConfig);
       console.log(error);
     }
   };

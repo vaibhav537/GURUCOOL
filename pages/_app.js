@@ -27,6 +27,20 @@ function MyApp({ Component, pageProps }) {
     "/room/[room]",
   ];
 
+  const noFoot= [
+    "/",
+    "/admin",
+    "/teacher/selectcategory",
+    "/admin/ifqRPHleaQkbEvmwOPEqb",
+    "/admin/Addcategory",
+    "/admin/DeleteCategory",
+    "/admin/UpdateCategory",
+    "/admin/ContactInfo",
+    "/lobby/teacher",
+    "/lobby/student",
+    "/room/[room]",
+  ]
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -43,6 +57,7 @@ function MyApp({ Component, pageProps }) {
   const [render, setRender] = useState(0);
   const [progress, setProgress] = useState(0);
   const [showMenu, setShowMenu] = useState(true);
+  const [showFoot, setShowFoot] = useState(true);
 
   useEffect(() => {
     const disableRightClick = (event) => {
@@ -63,8 +78,17 @@ function MyApp({ Component, pageProps }) {
     const isNoNav =
       noNav.includes(router.pathname) || router.pathname.startsWith("/room/");
 
+
     setShowMenu(!isNoNav);
   }, [router.pathname, noNav]);
+
+  useEffect(() => {
+    const isNoFoot =
+      noFoot.includes(router.pathname) || router.pathname.startsWith("/room/");
+
+
+    setShowFoot(!isNoFoot);
+  }, [router.pathname, noFoot]);
 
   useEffect(() => {
     router.events.on("routeChangeStart", () => {
@@ -133,7 +157,7 @@ function MyApp({ Component, pageProps }) {
               teacherKam={teacher}
               logout={logout}
             />
-            {showMenu && (
+            {showFoot && (
               <Footer student={student} teacher={teacher} render={render} />
             )}
           </ThemeProvider>

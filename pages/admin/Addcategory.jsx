@@ -80,11 +80,11 @@ const Addcategory = () => {
           <div className="bg-teal-300 transition-all duration-1000 h-[100vh] shadow-2xl p-10 dark:shadow-4xl dark:bg-slate-800">
             <AdminNavbar />
           </div>
-          <div className="pl-[20rem]">
-            <p className="text-center text-white select-none text-4xl pt-10 font-bold">
+          <div className="pl-[20rem] pt-[10rem]">
+            <p className="text-center text-white select-none text-4xl pt-10 font-bold" data-aos="zoom-in">
               ADD THE CATEGORY
             </p>
-            <form className="flex flex-col">
+            <form className="flex flex-col" data-aos="fade-up">
               <div className="flex flex-col pt-20">
                 <label htmlFor="title" className="text-xl select-none text-white">
                   Enter the title of the Category

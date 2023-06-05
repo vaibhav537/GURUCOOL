@@ -584,7 +584,7 @@ const TeacherRegister = () => {
                 <h1 className="text-3xl text-slate-500 select-none">
                   Welcome to{" "}
                   <span className="uppercase font-bold text-slate-800">
-                    gumrucool
+                    gurucool
                   </span>
                 </h1>
                 <div className="bg-white rounded-full w-28 h-28 flex items-center justify-center select-none my-6">

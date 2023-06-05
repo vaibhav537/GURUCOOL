@@ -17,8 +17,8 @@ const TeacherDeleteAccount = ({ visible, onClose, teacherEmail }) => {
     hideProgressBar: true,
     closeOnClick: true,
     progress: undefined,
-    theme: "light",
-    bodyClassName: "font-bold select-none",
+    theme: "dark",
+    bodyClassName: "font-bold font-Nunito select-none",
     closeButton: false,
   };
 
@@ -27,6 +27,7 @@ const TeacherDeleteAccount = ({ visible, onClose, teacherEmail }) => {
     if (!teacherToken) {
       router.push("/register");
     }
+    console.log(teacherEmail)
   }, []);
 
   //deleting the teacher
@@ -38,7 +39,8 @@ const TeacherDeleteAccount = ({ visible, onClose, teacherEmail }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: teacherEmail,
+        teacherEmail,
+        hello: "world"
       }),
     });
     const teacherDeleteResponse = await teacherDelete.json();

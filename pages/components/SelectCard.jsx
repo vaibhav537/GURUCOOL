@@ -148,8 +148,8 @@ const SelectCard = () => {
                 })
                 .map((val, index) => {
                   return (
-                    <React.Fragment key={index}>
-                      <li>
+                    <React.Fragment key={index} >
+                      <li data-aos="zoom-in">
                         <input
                           type="radio"
                           id={val.categoryLabel}

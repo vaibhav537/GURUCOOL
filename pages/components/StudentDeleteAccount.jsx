@@ -48,9 +48,10 @@ const StudentDeleteAccount = ({ visible, onClose, studentEmail }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: studentEmail,
+        studentEmail,
       }),
     });
+    console.log(studentEmail);
     const studentDeleteResponse = await studentDelete.json();
 
     if (studentDeleteResponse.success === true) {

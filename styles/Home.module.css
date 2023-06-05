@@ -1,3 +1,117 @@
-.label{
-    color: white;
+.label {
+  color: white;
+}
+
+.fadeAnimation {
+  animation: fade 10s ease-in-out infinite;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animatingBalls {
+  animation: balls 5s ease-in-out 0s 1 normal both;
+}
+
+@keyframes balls {
+  0% {
+    animation-timing-function: ease-in;
+    opacity: 0;
+    transform: translateY(-950px);
+  }
+
+  38% {
+    animation-timing-function: ease-out;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  55% {
+    animation-timing-function: ease-in;
+    transform: translateY(-65px);
+  }
+
+  72% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
+
+  81% {
+    animation-timing-function: ease-in;
+    transform: translateY(-28px);
+  }
+
+  90% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
+
+  95% {
+    animation-timing-function: ease-in;
+    transform: translateY(-8px);
+  }
+
+  100% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
+}
+
+.clicked {
+    animation: returnBalls 5s ease 0s 1 normal forwards;
+}
+
+@keyframes returnBalls {
+	0% {
+		animation-timing-function: ease-out;
+		transform: translateY(0);
+	}
+
+	5% {
+		animation-timing-function: ease-in;
+		transform: translateY(-30px);
+	}
+
+	15% {
+		animation-timing-function: ease-out;
+		transform: translateY(0);
+	}
+
+	25% {
+		animation-timing-function: ease-in;
+		transform: translateY(-38px);
+	}
+
+	38% {
+		animation-timing-function: ease-out;
+		transform: translateY(0);
+	}
+
+	52% {
+		animation-timing-function: ease-in;
+		transform: translateY(-75px);
+	}
+
+	70% {
+		animation-timing-function: ease-out;
+		transform: translateY(0);
+	}
+
+	85% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateY(-950px);
+	}
 }

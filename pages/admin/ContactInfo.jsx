@@ -98,12 +98,12 @@ const ContactInfo = () => {
             <AdminNavbar />
           </div>
           <div className="pl-[20rem] pt-[3rem]">
-            <p className=" text-center text-4xl font-bold select-none text-gray-200">
+            <p className=" text-center text-4xl font-bold select-none text-gray-200" data-aos="zoom-in">
               CONTACT INFORMATION OF THE
               <span className="text-white ml-3 text-5xl">GURUCOOL</span>
             </p>
-            <div className="relative shadow-md sm:rounded-lg mt-12 overflow-hidden max-h-[42rem]">
-              <table className="w-full text-sm text-left text-gray-500 select-none bg-white  dark:text-gray-400 ">
+            <div className="relative shadow-md sm:rounded-lg mt-12 overflow-hidden max-h-[42rem]" data-aos="fade-up">
+              <table className="w-full text-sm text-left text-gray-500 select-none bg-white  dark:text-gray-400 " >
                 <thead className="text-base text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className=" px-6 py-5 ">
@@ -164,7 +164,7 @@ const ContactInfo = () => {
                           <tr className="">
                             <td colSpan="5">
                               <div
-                                className="accordion-body w-[52.1rem]  bg-gray-100 dark:bg-slate-600 p-4 rounded-lg "
+                                className="accordion-body w-[57.1rem]  bg-gray-100 dark:bg-slate-600 p-4 rounded-lg "
                                 style={{
                                   maxHeight: "0",
                                   overflow: "hidden",

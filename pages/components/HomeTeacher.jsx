@@ -109,21 +109,21 @@ const HomeTeacher = () => {
             <h1 className="text-bold uppercase dark:text-white text-black text-center my-10 text-3xl font-semibold">
               {teacherName}
             </h1>
-            <div className="flex">
+            <div className="flex items-center justify-between">
               <p className="text-bold ml-10 dark:text-white text-black my-10">
                 <span className="mr-2">Email :</span>
                 <span className="font-semibold uppercase text-xl">
                   {teacherEmail}
                 </span>
               </p>
-              <p className="text-bold ml-[23rem] dark:text-white text-black my-10">
+              <p className="text-bold mr-10 dark:text-white text-black my-10">
                 <span className="mr-2">Phone :</span>
                 <span className="font-semibold uppercase text-xl">
                   {teacherPhone}
                 </span>
               </p>
             </div>
-            <div className="flex">
+            <div className="flex items-center justify-between">
               <p className="text-bold ml-10 dark:text-white text-black my-2">
                 <span className="mr-2">Category :</span>
                 <span className="font-semibold uppercase text-xl">
@@ -132,21 +132,21 @@ const HomeTeacher = () => {
               </p>
               <span className="absolute bg-green-800 dark:bg-green-300 transition-all duration-500 h-40 -z-10 rounded-full -top-11 w-40 -left-5"></span>
               <span className="absolute bg-green-800 dark:bg-green-300 transition-all duration-500 h-40 -z-10 rounded-full -bottom-11 w-40 -right-5"></span>
-              <p className="text-bold ml-[39.5rem] dark:text-white text-black my-2">
+              <p className="text-bold mr-10 dark:text-white text-black my-2">
                 <span className="mr-2">User :</span>
                 <span className="font-semibold uppercase text-xl">
                   {teacherUser}
                 </span>
               </p>
             </div>
-            <div className="flex">
+            <div className="flex items-center justify-between">
               <p className="text-bold ml-10 dark:text-white text-black my-10">
                 <span className="mr-2">Gender :</span>
                 <span className="font-semibold uppercase text-xl">
                   {teacherGender}
                 </span>
               </p>
-              <p className="text-bold ml-[40rem] dark:text-white mb-[10rem] text-black my-10">
+              <p className="text-bold mr-10  dark:text-white mb-[10rem] text-black my-10">
                 <span className="mr-2">Room Number :</span>
                 <span className="font-semibold uppercase text-xl">
                   {teacherRoom}

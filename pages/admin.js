@@ -101,7 +101,7 @@ const admin = () => {
         if (localStorage.getItem("student-token")) {
           localStorage.removeItem("student-token");
         } else if (localStorage.getItem("teacher-token")) {
-          localStorage.removeItem("teacher-token");
+          localStorage.removeItem("teacher-token");                                                                   
         }
         router.push("/admin/ifqRPHleaQkbEvmwOPEqb");
       } else {

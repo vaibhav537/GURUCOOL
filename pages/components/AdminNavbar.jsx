@@ -7,23 +7,25 @@ const AdminNavbar = () => {
   const router = useRouter();
 
   const handleLogout = () => {
-   localStorage.removeItem('ADMIN_ACCESS');
-   router.push("/admin")
-    
-  }
+    localStorage.removeItem("ADMIN_ACCESS");
+    router.push("/admin");
+  };
   return (
     <div>
       <div>
-        <Image
-          src="/images/AdminLogo.png"
-          width={150}
-          height={150}
-          alt="LOGO"
-          className="select-none pl-10 ml+-[7px] w-[166px] mb-5  transition-all duration-1000 dark:invert-[1]"
-        />
-        <p className=" text-xl font-extrabold  dark:text-slate-200 transition-all duration-1000 select-none  text-teal-900 drop-shadow-2xl font-Garamond dark:shadow-white">
-          GURUCOOL - ADMIN
-        </p>
+        <Link href={"/admin/ifqRPHleaQkbEvmwOPEqb"}>
+          <Image
+            src="/images/AdminLogo.png"
+            width={150}
+            height={150}
+            alt="LOGO"
+            className="select-none pl-10 ml+-[7px] w-[166px] mb-5  transition-all duration-1000 dark:invert-[1]"
+          />
+          <p className=" text-xl font-extrabold  dark:text-slate-200 transition-all duration-1000 select-none  text-teal-900 drop-shadow-2xl font-Garamond dark:shadow-white">
+            GURUCOOL - ADMIN
+          </p>
+        </Link>
+
         <ul className="flex flex-col mt-[3rem]">
           <Link legacyBehavior href={"/admin/ifqRPHleaQkbEvmwOPEqb"}>
             <a
@@ -87,7 +89,7 @@ const AdminNavbar = () => {
               }
             `}
             >
-                Contact Info.
+              Contact Info.
             </a>
           </Link>
           <div

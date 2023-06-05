@@ -93,10 +93,10 @@ const DeleteCategory = () => {
             <AdminNavbar />
           </div>
           <div className="pl-[20rem] pt-[10rem]">
-            <p className=" text-center text-4xl select-none pt-10 font-bold text-white">
+            <p className=" text-center text-4xl select-none pt-10 font-bold text-white" data-aos="zoom-in">
               DELETE THE CATEGORY
             </p>
-            <form className="flex flex-col ">
+            <form className="flex flex-col " data-aos="fade-up">
               <div className="flex flex-col pt-20">
                 <label htmlFor="title" className="text-xl select-none text-white">
                   Enter the title of the Category
