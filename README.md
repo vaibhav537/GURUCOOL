@@ -1,20 +1,61 @@
-GuruCool is a [Next.js](https://nextjs.org/) project 
+# 🎓 GuruCool
 
-## Steps to run the GuruCool:
- 1. You have to copy the code to your machine 
-     You can copy the code by cloning it or you can also download the zip file, and then extract the zip file.
- 2. After completing the First step open the code in the Code editor,my prefrence is to use the VS Code 
- 3. The VS code can be downloaded with this Link : [VSCode Download](https://code.visualstudio.com/)
- 4. You Need Install the latest version of NodeJS
- 5. Now to need to check the NodeJS version.
- 6. To check the version you need to run command ```node --version ```
- 7. And in GuruCool we use yarn package manager to install and remove our packages either you can use yarn or npm (defaut package manager).
- 8. To install yarn you have run  command in VSCode's terminal ```npm install --global yarn ```.
- 9. Now to Generate the `package.json` file you need to run  the command ```yarn init``` or ```npm init```.
- 10. After generating `package.json` file you need to install dependencies.
- 11. To install all the dependencies you need to run the command ```yarn install``` or ```npm  install```.
- 12. This command will generate a `yarn.lock` file or `package-lock.json` file.
- 13. Now need to configure the data base connection in `.env.local` file that shoolud be created manually.
- 14. `.env.local` file should be created in the main folder below the `package.json` file.
- 15. In `.env.local` file you need to configure the database Strings(4 database Strings) and **JWT_SECRET** and **CRYPTO_SECRET** sholud be given in `.env.local` file.
- 16. After following all the steps we are ready  to **run the GURUCOOL**  by running the command ```yarn dev``` or ```npm run dev```.
+> A full-stack e-learning platform with role-based management, OTP-backed onboarding, and real-time classroom communication.
+
+GuruCool is an education platform built with **Next.js** and **MongoDB** for Admin, Teacher, and Student workflows. It combines account management, course/category administration, email-based verification, and live classroom communication in one project.
+
+## ✨ Key Features
+
+- 👥 **Role-based workflows** for Admin, Teacher, and Student users
+- 🔐 **Authentication & verification** flows using JWT, encrypted data handling, and OTP/email workflows
+- 🎥 **Real-time classroom communication** using Socket.IO signaling for room joins, calls, and peer negotiation
+- 🧑‍💼 **Admin management** for users, categories, contact data, and platform operations
+- 📧 **Email integration** with Nodemailer
+- 🗄️ **MongoDB persistence** through Mongoose
+- 🎨 Responsive UI built with Next.js, React, and Tailwind CSS
+
+## 🛠️ Tech Stack
+
+- **Frontend / Full Stack:** Next.js 13, React 18
+- **Database:** MongoDB, Mongoose
+- **Real-time:** Socket.IO
+- **Authentication / Security:** JWT, CryptoJS
+- **Email:** Nodemailer
+- **Styling:** Tailwind CSS
+
+## 🧩 Project Structure
+
+```txt
+pages/
+├── admin/        # Admin workflows
+├── api/          # Next.js API routes
+├── lobby/        # Classroom lobby
+├── room/         # Real-time classroom/call flow
+├── login.js
+├── register.js
+└── ...
+
+server.js         # Socket.IO signaling server
+```
+
+## 🚀 Run Locally
+
+```bash
+git clone https://github.com/vaibhav537/GURUCOOL.git
+cd GURUCOOL
+yarn install
+yarn dev
+```
+
+For the real-time classroom server, run:
+
+```bash
+yarn serve
+```
+
+Create a `.env.local` file and configure the database connection strings and application secrets required by the API routes before starting the application.
+
+## 👨‍💻 Author
+
+**Vaibhav Mali**  
+[GitHub](https://github.com/vaibhav537) • [LinkedIn](https://www.linkedin.com/in/udr-vaibhavmali)
